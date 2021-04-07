@@ -232,6 +232,8 @@ export const AutocompleteDropdown = memo(
             showClear={props.showClear ?? !!searchText}
             loading={props.loading}
             buttonsContainerStyle={props.rightButtonsContainerStyle}
+            ChevronIconComponent={props.ChevronIconComponent}
+            ClearIconComponent={props.ClearIconComponent}
           ></RightButton>
         </View>
 
@@ -281,6 +283,8 @@ AutocompleteDropdown.propTypes = {
   onSubmit: PropTypes.func,
   containerStyle: PropTypes.object,
   rightButtonsContainerStyle: PropTypes.object,
+  ChevronIconComponent: PropTypes.element,
+  ClearIconComponent: PropTypes.element,
 }
 
 const styles = ScaledSheet.create({
