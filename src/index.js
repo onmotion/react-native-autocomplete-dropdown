@@ -24,7 +24,7 @@ export const AutocompleteDropdown = memo(
     const [isOpened, setIsOpened] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [searchTextCache, setSearchTextCache] = useState('')
-    const dataSet = props.dataSet
+    const [dataSet, setDataSet] = useState(props.dataSet) 
     const clearOnFocus = props.clearOnFocus === false ? false : true
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight =
@@ -39,6 +39,10 @@ export const AutocompleteDropdown = memo(
         }
       }
     }, [inputRef])
+
+    useEffect(() => {
+      setDataSet(props.dataSet)
+    }, [props.dataSet])
 
     useEffect(() => {
       if (typeof props.onSelectItem === 'function') {
@@ -58,6 +62,15 @@ export const AutocompleteDropdown = memo(
       }
     }, [isOpened])
 
+    /**
+     * For re-render list while typing and useFilter
+     */
+    useEffect(() => {
+      if (props.useFilter !== false && Array.isArray(props.dataSet)) {
+        setDataSet(props.dataSet.slice())
+      }
+    }, [searchText])
+
     const _onSelectItem = useCallback((item) => {
       setSelectedItem(item)
       if (item) {
@@ -69,9 +82,6 @@ export const AutocompleteDropdown = memo(
       }
       inputRef.current.blur()
       setIsOpened(false)
-      console.log('selectedItem', selectedItem)
-
-
     }, [])
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
@@ -118,6 +128,7 @@ export const AutocompleteDropdown = memo(
       return <EL></EL>
     }, [])
 
+
     const scrollContent = useMemo(() => {
       if (!Array.isArray(dataSet)) {
         return null
@@ -137,7 +148,7 @@ export const AutocompleteDropdown = memo(
         }
       })
       return content
-    }, [dataSet, searchText])
+    }, [dataSet]) // don't use searchText here because it will rerender list twice every time
 
     const onClearPress = useCallback(() => {
       setSearchText('')
@@ -262,6 +273,7 @@ AutocompleteDropdown.propTypes = {
   closeOnBlur: PropTypes.bool,
   clearOnFocus: PropTypes.bool,
   debounce: PropTypes.number,
+  suggestionsListMaxHeight: PropTypes.number,
   onChangeText: PropTypes.func,
   onSelectItem: PropTypes.func,
   onOpenSuggestionsList: PropTypes.func,

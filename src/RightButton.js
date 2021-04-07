@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react'
 import {
+  ActivityIndicator,
   Animated,
   Easing,
   StyleSheet,
@@ -21,6 +22,7 @@ export const RightButton = memo(
     loading,
     buttonsContainerStyle,
   }) => {
+    
     const isOpenedAnimationValue = useRef(new Animated.Value(0)).current
 
     useEffect(() => {
@@ -45,17 +47,15 @@ export const RightButton = memo(
           ...buttonsContainerStyle,
         }}
       >
-        {showClear && (
+        {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
-            <Feather name="x" size={18} />
+            <Feather name="x" size={18}  />
           </TouchableOpacity>
         )}
+        {loading && <ActivityIndicator/>}
         {showChevron && (
           <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
-            <TouchableOpacity
-              onPress={onChevronPress}
-              style={styles.chevronButton}
-            >
+            <TouchableOpacity onPress={onChevronPress} style={styles.chevronButton}>
               <Feather name="chevron-down" size={20} />
             </TouchableOpacity>
           </Animated.View>
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flex: 1,
     flexDirection: 'row',
-    right: 7,
+    right: 0,
+    paddingRight: 7,
     top: 0,
     zIndex: 10,
     justifyContent: 'center',
@@ -78,12 +79,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#e5ecf2',
   },
   clearButton: {
-    opacity: 0.3,
-    width: 25,
-    alignItems: 'center',
+    opacity: 0.25, 
+    width: 26, 
+    alignItems: 'center'
   },
   chevronButton: {
-    width: 25,
+    width: 26, 
     alignItems: 'center',
-  },
+    height: '100%',
+    justifyContent: 'center'
+  }
 })
