@@ -38,7 +38,7 @@
     "prop-types": "*"
   },
   "dependencies": {
-    "react-native-elements": "^2.0.0",
+    "react-native-vector-icons": ">=7.0.0",
     "lodash.debounce": "*",
     "react-native-size-matters": "^0.3.0"
   }

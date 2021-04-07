@@ -202,7 +202,7 @@ export const AutocompleteDropdown = memo(
             style={{
               ...styles.Input,
               height: inputHeight,
-              ...props.textInputProps.style,
+              ...(props.textInputProps ?? {}).style,
             }}
           />
           <RightButton

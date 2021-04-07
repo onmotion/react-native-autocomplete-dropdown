@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { Button } from 'react-native-elements'
 
 export const RightButton = memo(
   ({
@@ -43,35 +42,7 @@ export const RightButton = memo(
           ...buttonsContainerStyle,
         }}
       >
-        {showClear && (
-          <Button
-            onPress={onClearPress}
-            TouchableComponent={TouchableOpacity}
-            type="clear"
-            loading={loading}
-            icon={{
-              type: 'ant-design',
-              name: 'closecircle',
-              size: 17,
-              color: '#c5d2dd',
-            }}
-            buttonStyle={{ paddingRight: 3 }}
-          ></Button>
-        )}
-        {showChevron && (
-          <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
-            <Button
-              TouchableComponent={TouchableOpacity}
-              icon={{
-                type: 'feather',
-                name: 'chevron-down',
-              }}
-              type="clear"
-              buttonStyle={{ paddingHorizontal: 0 }}
-              onPress={onChevronPress}
-            ></Button>
-          </Animated.View>
-        )}
+        
       </View>
     )
   }
