@@ -43,8 +43,20 @@ export const AutocompleteDropdown = memo(
     }, [inputRef])
 
     useEffect(() => {
+      if (typeof props.onSelectItem === 'function') {
+        props.onSelectItem(selectedItem)
+      }
+    }, [selectedItem])
+
+    useEffect(() => {
       if (typeof props.onOpenSuggestionsList === 'function') {
         props.onOpenSuggestionsList(isOpened)
+      }
+      // renew state on close
+      if (!isOpened) {
+        if (selectedItem) {
+          setSearchText(selectedItem.title)
+        }
       }
     }, [isOpened])
 
@@ -60,10 +72,6 @@ export const AutocompleteDropdown = memo(
       inputRef.current.blur()
       setIsOpened(false)
       console.log('selectedItem', selectedItem)
-
-      if (typeof props.onSelectItem === 'function') {
-        props.onSelectItem(item)
-      }
     }, [])
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
@@ -131,7 +139,7 @@ export const AutocompleteDropdown = memo(
         }
       })
       return content
-    }, [dataSet])
+    }, [dataSet, searchText])
 
     const onClearPress = useCallback(() => {
       setSearchText('')
@@ -155,6 +163,7 @@ export const AutocompleteDropdown = memo(
 
     const onChangeText = useCallback((text) => {
       setSearchText(text)
+      //  setSearchTextCache(text)
       debouncedEvent(text)
     }, [])
 
@@ -169,11 +178,14 @@ export const AutocompleteDropdown = memo(
         setSearchText('')
       }
       setIsOpened(true)
-    }, [dataSet])
+    }, [dataSet, clearOnFocus])
 
     const onBlur = useCallback(() => {
-      if (searchTextCache) {
-        setSearchText(searchTextCache)
+      // if (searchTextCache) {
+      // //  setSearchText(searchTextCache)
+      // }
+      if (props.closeOnBlur) {
+        setIsOpened(false)
       }
     }, [searchTextCache])
 
@@ -252,9 +264,12 @@ AutocompleteDropdown.propTypes = {
   useFilter: PropTypes.bool,
   showClear: PropTypes.bool,
   showChevron: PropTypes.bool,
+  closeOnBlur: PropTypes.bool,
+  clearOnFocus: PropTypes.bool,
   debounce: PropTypes.number,
   onChangeText: PropTypes.func,
   onSelectItem: PropTypes.func,
+  onOpenSuggestionsList: PropTypes.func,
   onClear: PropTypes.func,
   onSubmit: PropTypes.func,
   containerStyle: PropTypes.object,
@@ -265,9 +280,8 @@ const styles = ScaledSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    marginHorizontal: 10,
     marginVertical: 2,
-    zIndex: 9,
+    zIndex: 1,
   },
   Input: {
     width: '100%',

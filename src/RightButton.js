@@ -46,14 +46,17 @@ export const RightButton = memo(
         }}
       >
         {showClear && (
-          <TouchableOpacity onPress={onClearPress}>
-            <Feather name="check" size={15} />
+          <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
+            <Feather name="x" size={18} />
           </TouchableOpacity>
         )}
         {showChevron && (
           <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
-            <TouchableOpacity onPress={onChevronPress}>
-              <Feather name="check" size={15} />
+            <TouchableOpacity
+              onPress={onChevronPress}
+              style={styles.chevronButton}
+            >
+              <Feather name="chevron-down" size={20} />
             </TouchableOpacity>
           </Animated.View>
         )}
@@ -73,5 +76,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#e5ecf2',
+  },
+  clearButton: {
+    opacity: 0.3,
+    width: 25,
+    alignItems: 'center',
+  },
+  chevronButton: {
+    width: 25,
+    alignItems: 'center',
   },
 })
