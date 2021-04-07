@@ -8,7 +8,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from 'react'
 import { Keyboard, ScrollView, TextInput, View } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
@@ -22,12 +22,10 @@ export const AutocompleteDropdown = memo(
     const inputRef = useRef(null)
     const [selectedItem, setSelectedItem] = useState(null)
     const [isOpened, setIsOpened] = useState(false)
-
     const [searchText, setSearchText] = useState('')
     const [searchTextCache, setSearchTextCache] = useState('')
     const dataSet = props.dataSet
     const clearOnFocus = props.clearOnFocus === false ? false : true
-
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight =
       props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
@@ -72,6 +70,8 @@ export const AutocompleteDropdown = memo(
       inputRef.current.blur()
       setIsOpened(false)
       console.log('selectedItem', selectedItem)
+
+
     }, [])
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
@@ -119,7 +119,6 @@ export const AutocompleteDropdown = memo(
     }, [])
 
     const scrollContent = useMemo(() => {
-      console.log('dataSet', dataSet)
       if (!Array.isArray(dataSet)) {
         return null
       }
@@ -127,7 +126,6 @@ export const AutocompleteDropdown = memo(
       const content = []
       const itemsCount = dataSet.length - 1
       dataSet.forEach((item, i) => {
-        console.log(i, itemsCount)
         const listItem = renderItem(item, searchText)
         if (listItem) {
           content.push(
@@ -163,7 +161,7 @@ export const AutocompleteDropdown = memo(
 
     const onChangeText = useCallback((text) => {
       setSearchText(text)
-      //  setSearchTextCache(text)
+    //  setSearchTextCache(text)
       debouncedEvent(text)
     }, [])
 
@@ -181,9 +179,6 @@ export const AutocompleteDropdown = memo(
     }, [dataSet, clearOnFocus])
 
     const onBlur = useCallback(() => {
-      // if (searchTextCache) {
-      // //  setSearchText(searchTextCache)
-      // }
       if (props.closeOnBlur) {
         setIsOpened(false)
       }
@@ -282,6 +277,7 @@ const styles = ScaledSheet.create({
     position: 'relative',
     marginVertical: 2,
     zIndex: 1,
+    
   },
   Input: {
     width: '100%',
@@ -289,7 +285,7 @@ const styles = ScaledSheet.create({
     borderRadius: 5,
     overflow: 'hidden',
     paddingHorizontal: 13,
-    fontSize: 16,
+    fontSize: 16
   },
 
   listContainer: {
