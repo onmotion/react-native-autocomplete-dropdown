@@ -1,0 +1,45 @@
+{
+  "name": "react-native-autocomplete-dropdown",
+  "version": "0.0.1",
+  "description":
+    "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:onmotion/react-native-autocomplete-dropdown.git"
+  },
+  "homepage": "https://github.com/onmotion/react-native-autocomplete-dropdown",
+  "keywords": [
+    "react-native",
+    "dropdown",
+    "autocomplete",
+    "picker",
+    "typeahead",
+    "select",
+    "react native typeahead",
+    "react native autocomplete",
+    "react native dropdown",
+    "react native picker"
+  ],
+  "author": "Alexandr Kozhevnikov <onmotion1@gmail.com>",
+  "license": "MIT",
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": ">=0.40.0",
+    "prop-types": "*"
+  },
+  "dependencies": {
+    "react-native-elements": "^2.0.0",
+    "lodash.debounce": "*",
+    "react-native-size-matters": "^0.3.0"
+  }
+}
