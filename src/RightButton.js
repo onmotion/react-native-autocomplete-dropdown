@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+// Icons
+import Feather from 'react-native-vector-icons/Feather'
+Feather.loadFont()
 
 export const RightButton = memo(
   ({
@@ -42,7 +45,18 @@ export const RightButton = memo(
           ...buttonsContainerStyle,
         }}
       >
-        
+        {showClear && (
+          <TouchableOpacity onPress={onClearPress}>
+            <Feather name="check" size={15} />
+          </TouchableOpacity>
+        )}
+        {showChevron && (
+          <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
+            <TouchableOpacity onPress={onChevronPress}>
+              <Feather name="check" size={15} />
+            </TouchableOpacity>
+          </Animated.View>
+        )}
       </View>
     )
   }

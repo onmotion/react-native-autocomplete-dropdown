@@ -218,7 +218,12 @@ export const AutocompleteDropdown = memo(
         </View>
 
         {isOpened && Array.isArray(dataSet) && (
-          <View style={{ ...styles.listContainer, top: inputHeight + 5 }}>
+          <View
+            style={{
+              ...styles.listContainer,
+              top: inputHeight + 5,
+            }}
+          >
             <ScrollView
               keyboardDismissMode="on-drag"
               keyboardShouldPersistTaps="handled"
