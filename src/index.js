@@ -10,7 +10,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { Keyboard, ScrollView, TextInput, View } from 'react-native'
+import { Keyboard, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
 import { NothingFound } from './NothingFound'
@@ -91,6 +91,12 @@ export const AutocompleteDropdown = memo(
     )
 
     const renderItem = useCallback((item, searchText) => {
+      if (typeof props.renderItem === 'function') {
+        const LI = props.renderItem(item, searchText)
+        return <TouchableOpacity onPress={() => _onSelectItem(item)}>
+          {LI}
+        </TouchableOpacity>
+      }
       let titleHighlighted = ''
       let titleStart = item.title
       let titleEnd = ''
@@ -126,7 +132,7 @@ export const AutocompleteDropdown = memo(
         {}
       )
       return <EL></EL>
-    }, [])
+    }, [props.renderItem])
 
 
     const scrollContent = useMemo(() => {
@@ -242,6 +248,7 @@ export const AutocompleteDropdown = memo(
             style={{
               ...styles.listContainer,
               top: inputHeight + 5,
+              ...props.suggestionsListContainerStyle
             }}
           >
             <ScrollView
@@ -283,6 +290,7 @@ AutocompleteDropdown.propTypes = {
   onSubmit: PropTypes.func,
   containerStyle: PropTypes.object,
   rightButtonsContainerStyle: PropTypes.object,
+  suggestionsListContainerStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
 }
