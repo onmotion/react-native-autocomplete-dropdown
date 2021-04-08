@@ -44,6 +44,9 @@ export const AutocompleteDropdown = memo(
         } else {
           ref.current = inputRef.current
         }
+        if (typeof props.dropdownController === 'function') {
+          props.controller({ close, open, toggle })
+        }
       }
     }, [inputRef])
 
@@ -90,6 +93,17 @@ export const AutocompleteDropdown = memo(
       inputRef.current.blur()
       setIsOpened(false)
     }, [])
+
+    /** methods */
+    const close = () => {
+      setIsOpened(false)
+    }
+    const open = () => {
+      setIsOpened(true)
+    }
+    const toggle = () => {
+      setIsOpened(!isOpened)
+    }
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
       <View
@@ -189,7 +203,6 @@ export const AutocompleteDropdown = memo(
 
     const onChangeText = useCallback((text) => {
       setSearchText(text)
-      //  setSearchTextCache(text)
       debouncedEvent(text)
     }, [])
 
@@ -208,7 +221,7 @@ export const AutocompleteDropdown = memo(
 
     const onBlur = useCallback(() => {
       if (props.closeOnBlur) {
-        setIsOpened(false)
+        close()
       }
     }, [searchTextCache])
 
@@ -305,6 +318,7 @@ AutocompleteDropdown.propTypes = {
   onOpenSuggestionsList: PropTypes.func,
   onClear: PropTypes.func,
   onSubmit: PropTypes.func,
+  controller: PropTypes.func,
   containerStyle: PropTypes.object,
   rightButtonsContainerStyle: PropTypes.object,
   suggestionsListContainerStyle: PropTypes.object,
