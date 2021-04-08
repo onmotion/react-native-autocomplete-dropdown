@@ -44,11 +44,15 @@ export const AutocompleteDropdown = memo(
         } else {
           ref.current = inputRef.current
         }
-        if (typeof props.dropdownController === 'function') {
-          props.controller({ close, open, toggle })
-        }
       }
     }, [inputRef])
+
+    /** expose controller methods */
+    useEffect(() => {
+      if (typeof props.controller === 'function') {
+        props.controller({ close, open, toggle, clear })
+      }
+    }, [isOpened, props.controller])
 
     useEffect(() => {
       setDataSet(props.dataSet)
@@ -98,11 +102,17 @@ export const AutocompleteDropdown = memo(
     const close = () => {
       setIsOpened(false)
     }
+
     const open = () => {
       setIsOpened(true)
     }
+
     const toggle = () => {
       setIsOpened(!isOpened)
+    }
+
+    const clear = () => {
+      onClearPress()
     }
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
@@ -203,11 +213,12 @@ export const AutocompleteDropdown = memo(
 
     const onChangeText = useCallback((text) => {
       setSearchText(text)
+      //  setSearchTextCache(text)
       debouncedEvent(text)
     }, [])
 
     const onChevronPress = useCallback(() => {
-      setIsOpened(!isOpened)
+      toggle()
       Keyboard.dismiss()
     }, [isOpened])
 
@@ -216,7 +227,7 @@ export const AutocompleteDropdown = memo(
         setSearchTextCache(searchText)
         setSearchText('')
       }
-      setIsOpened(true)
+      open()
     }, [dataSet, clearOnFocus])
 
     const onBlur = useCallback(() => {
@@ -227,7 +238,7 @@ export const AutocompleteDropdown = memo(
 
     const onSubmit = useCallback((e) => {
       inputRef.current.blur()
-      setIsOpened(false)
+      close()
       setSearchTextCache(e.nativeEvent.text)
       if (typeof props.onSubmit === 'function') {
         props.onSubmit(e)
