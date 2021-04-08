@@ -11,6 +11,7 @@ import React, {
   useState,
 } from 'react'
 import {
+  Dimensions,
   Keyboard,
   Platform,
   ScrollView,
@@ -27,7 +28,9 @@ import { ScrollViewListItem } from './ScrollViewListItem'
 export const AutocompleteDropdown = memo(
   forwardRef((props, ref) => {
     const inputRef = useRef(null)
+    const containerRef = useRef(null)
     const [selectedItem, setSelectedItem] = useState(null)
+    const [direction, setDirection] = useState(props.direction ?? 'down')
     const [isOpened, setIsOpened] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [searchTextCache, setSearchTextCache] = useState('')
@@ -36,6 +39,7 @@ export const AutocompleteDropdown = memo(
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight =
       props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
+    const bottomOffset = props.bottomOffset ?? 0
 
     useLayoutEffect(() => {
       if (ref) {
@@ -98,17 +102,35 @@ export const AutocompleteDropdown = memo(
       setIsOpened(false)
     }, [])
 
+    const calculateDirection = async () => {
+      const [, positionY] = await new Promise((resolve) =>
+        containerRef.current.measureInWindow((...rect) => resolve(rect))
+      )
+      const screenHeight = Dimensions.get('window').height
+
+      const lowestPointOfDropdown =
+        positionY + inputHeight + suggestionsListMaxHeight + bottomOffset
+
+      const direction = lowestPointOfDropdown < screenHeight ? 'down' : 'up'
+      console.log('direction', direction)
+      setDirection(direction)
+    }
+
     /** methods */
     const close = () => {
       setIsOpened(false)
     }
 
-    const open = () => {
+    const open = async () => {
+      if (!props.direction) {
+        await calculateDirection()
+      }
+
       setIsOpened(true)
     }
 
     const toggle = () => {
-      setIsOpened(!isOpened)
+      isOpened ? close() : open()
     }
 
     const clear = () => {
@@ -247,6 +269,7 @@ export const AutocompleteDropdown = memo(
 
     return (
       <View
+        ref={containerRef}
         style={[
           styles.container,
           props.containerStyle,
@@ -288,7 +311,7 @@ export const AutocompleteDropdown = memo(
           <View
             style={{
               ...styles.listContainer,
-              top: inputHeight + 5,
+              [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5,
               ...props.suggestionsListContainerStyle,
             }}
           >
@@ -324,6 +347,7 @@ AutocompleteDropdown.propTypes = {
   clearOnFocus: PropTypes.bool,
   debounce: PropTypes.number,
   suggestionsListMaxHeight: PropTypes.number,
+  bottomOffset: PropTypes.number,
   onChangeText: PropTypes.func,
   onSelectItem: PropTypes.func,
   onOpenSuggestionsList: PropTypes.func,
