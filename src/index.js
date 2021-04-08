@@ -8,9 +8,16 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react'
-import { Keyboard, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import {
+  Keyboard,
+  Platform,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
 import { NothingFound } from './NothingFound'
@@ -24,7 +31,7 @@ export const AutocompleteDropdown = memo(
     const [isOpened, setIsOpened] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [searchTextCache, setSearchTextCache] = useState('')
-    const [dataSet, setDataSet] = useState(props.dataSet) 
+    const [dataSet, setDataSet] = useState(props.dataSet)
     const clearOnFocus = props.clearOnFocus === false ? false : true
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight =
@@ -90,50 +97,54 @@ export const AutocompleteDropdown = memo(
       ></View>
     )
 
-    const renderItem = useCallback((item, searchText) => {
-      if (typeof props.renderItem === 'function') {
-        const LI = props.renderItem(item, searchText)
-        return <TouchableOpacity onPress={() => _onSelectItem(item)}>
-          {LI}
-        </TouchableOpacity>
-      }
-      let titleHighlighted = ''
-      let titleStart = item.title
-      let titleEnd = ''
-      if (
-        typeof item.title === 'string' &&
-        item.title.length > 0 &&
-        searchText.length > 0
-      ) {
-        const substrIndex = item.title
-          .toLowerCase()
-          .indexOf(searchText.toLowerCase())
-        if (substrIndex !== -1) {
-          titleStart = item.title.slice(0, substrIndex)
-          titleHighlighted = item.title.slice(
-            substrIndex,
-            substrIndex + searchText.length
+    const renderItem = useCallback(
+      (item, searchText) => {
+        if (typeof props.renderItem === 'function') {
+          const LI = props.renderItem(item, searchText)
+          return (
+            <TouchableOpacity onPress={() => _onSelectItem(item)}>
+              {LI}
+            </TouchableOpacity>
           )
-          titleEnd = item.title.slice(substrIndex + searchText.length)
-        } else {
-          if (props.useFilter !== false) {
-            return null
+        }
+        let titleHighlighted = ''
+        let titleStart = item.title
+        let titleEnd = ''
+        if (
+          typeof item.title === 'string' &&
+          item.title.length > 0 &&
+          searchText.length > 0
+        ) {
+          const substrIndex = item.title
+            .toLowerCase()
+            .indexOf(searchText.toLowerCase())
+          if (substrIndex !== -1) {
+            titleStart = item.title.slice(0, substrIndex)
+            titleHighlighted = item.title.slice(
+              substrIndex,
+              substrIndex + searchText.length
+            )
+            titleEnd = item.title.slice(substrIndex + searchText.length)
+          } else {
+            if (props.useFilter !== false) {
+              return null
+            }
           }
         }
-      }
 
-      const EL = withFadeAnimation(
-        () => (
-          <ScrollViewListItem
-            {...{ titleHighlighted, titleStart, titleEnd }}
-            onPress={() => _onSelectItem(item)}
-          ></ScrollViewListItem>
-        ),
-        {}
-      )
-      return <EL></EL>
-    }, [props.renderItem])
-
+        const EL = withFadeAnimation(
+          () => (
+            <ScrollViewListItem
+              {...{ titleHighlighted, titleStart, titleEnd }}
+              onPress={() => _onSelectItem(item)}
+            ></ScrollViewListItem>
+          ),
+          {}
+        )
+        return <EL></EL>
+      },
+      [props.renderItem]
+    )
 
     const scrollContent = useMemo(() => {
       if (!Array.isArray(dataSet)) {
@@ -178,7 +189,7 @@ export const AutocompleteDropdown = memo(
 
     const onChangeText = useCallback((text) => {
       setSearchText(text)
-    //  setSearchTextCache(text)
+      //  setSearchTextCache(text)
       debouncedEvent(text)
     }, [])
 
@@ -211,7 +222,13 @@ export const AutocompleteDropdown = memo(
     }, [])
 
     return (
-      <View style={[styles.container, props.containerStyle]}>
+      <View
+        style={[
+          styles.container,
+          props.containerStyle,
+          Platform.select({ ios: { zIndex: 1 } }),
+        ]}
+      >
         <View style={[props.inputContainerStyle]}>
           <TextInput
             ref={inputRef}
@@ -248,7 +265,7 @@ export const AutocompleteDropdown = memo(
             style={{
               ...styles.listContainer,
               top: inputHeight + 5,
-              ...props.suggestionsListContainerStyle
+              ...props.suggestionsListContainerStyle,
             }}
           >
             <ScrollView
@@ -297,11 +314,7 @@ AutocompleteDropdown.propTypes = {
 
 const styles = ScaledSheet.create({
   container: {
-    flex: 1,
-    position: 'relative',
     marginVertical: 2,
-    zIndex: 1,
-    
   },
   Input: {
     width: '100%',
@@ -309,7 +322,7 @@ const styles = ScaledSheet.create({
     borderRadius: 5,
     overflow: 'hidden',
     paddingHorizontal: 13,
-    fontSize: 16
+    fontSize: 16,
   },
 
   listContainer: {
