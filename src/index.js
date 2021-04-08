@@ -104,12 +104,29 @@ export const AutocompleteDropdown = memo(
 
     const calculateDirection = async () => {
       const [, positionY] = await new Promise((resolve) =>
-        containerRef.current.measureInWindow((...rect) => resolve(rect))
+        containerRef.current.measureInWindow((...rect) => {
+          console.log('rect', rect)
+          resolve(rect)
+        })
       )
+
+      containerRef.current.measure((...rect) => {
+        console.log('rect2', rect)
+      })
+
       const screenHeight = Dimensions.get('window').height
 
       const lowestPointOfDropdown =
         positionY + inputHeight + suggestionsListMaxHeight + bottomOffset
+
+      console.log({
+        positionY,
+        inputHeight,
+        suggestionsListMaxHeight,
+        bottomOffset,
+        screenHeight,
+        lowestPointOfDropdown,
+      })
 
       const direction = lowestPointOfDropdown < screenHeight ? 'down' : 'up'
       console.log('direction', direction)
@@ -269,14 +286,18 @@ export const AutocompleteDropdown = memo(
 
     return (
       <View
-        ref={containerRef}
         style={[
           styles.container,
           props.containerStyle,
           Platform.select({ ios: { zIndex: 1 } }),
         ]}
       >
-        <View style={[props.inputContainerStyle]}>
+        {/* it's necessary use onLayout here for Androd (bug?) */}
+        <View
+          ref={containerRef}
+          onLayout={(_) => {}}
+          style={[props.inputContainerStyle]}
+        >
           <TextInput
             ref={inputRef}
             value={searchText}
