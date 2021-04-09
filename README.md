@@ -163,7 +163,27 @@ More examples see at https://github.com/onmotion/react-native-autocomplete-dropd
 
 ## Options
 
-| Option  | Description       | Default |
-| ------- | ----------------- | ------- |
-| `dataSet` | set of list items | null    |
-| `initialValue` | string (**id**) or object that contain **id** | null    |
+| Option                          | Description                                                                       | Type             | Default              |
+| ------------------------------- | --------------------------------------------------------------------------------- | ---------------- | -------------------- |
+| `dataSet`                       | set of list items                                                                 | array            | null                 |
+| `initialValue`                  | string (**id**) or object that contain **id**                                     | string \| object | null                 |
+| `loading`                       | loading state                                                                     | bool             | false                |
+| `useFilter`                     | whether use local filter by dataSet (useful set to false for remote filtering)    | bool             | true                 |
+| `showClear`                     | show clear button                                                                 | bool             | true                 |
+| `showChevron`                   | show chevron (open/close) button                                                  | bool             | true                 |
+| `closeOnBlur`                   | whether to close dropdown on blur                                                 | bool             | false                |
+| `clearOnFocus`                  | whether to clear typed text on focus                                              | bool             | true                 |
+| `debounce`                      | wait **ms** before call `onChangeText`                                            | number           | 0                    |
+| `suggestionsListMaxHeight`      | max height of dropdown                                                            | number           | 200                  |
+| `bottomOffset`                  | for calculate dropdown direction (e.g. tabbar)                                    | number           | 0                    |
+| `onChangeText`                  | event textInput onChangeText                                                      | function         |                      |
+| `onSelectItem`                  | event onSelectItem                                                                | function         |                      |
+| `onOpenSuggestionsList`         | event onOpenSuggestionsList                                                       | function         |                      |
+| `onClear`                       | event on clear button press                                                       | function         |                      |
+| `onSubmit`                      | event on submit KB button press                                                   | function         |                      |
+| `controller`                    | return reference to module controller with methods **close, open, toggle, clear** | function         |                      |
+| `containerStyle`                |                                                                                   | object           |                      |
+| `rightButtonsContainerStyle`    |                                                                                   | object           |                      |
+| `suggestionsListContainerStyle` |                                                                                   | object           |                      |
+| `ChevronIconComponent`          |                                                                                   | React.Component  | Feather chevron icon |
+| `ClearIconComponent`            |                                                                                   | React.Component  | Feather x icon       |
