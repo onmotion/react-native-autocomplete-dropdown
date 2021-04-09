@@ -2,14 +2,14 @@
 Dropdown Item picker with search and autocomplete (typeahead) functionality for react native
 
 <p style="text-align: center;" align="center">
-<img src="./screens/Example.png" width="500px" >
+    <img src="./screens/Example.png" width="500px" >
 </p>
 
 Demo
 --
-<p style="text-align: center;" align="">
-<img src="./screens/android.gif" width="200px" >
-<img src="./screens/ios.gif" width="200px" >
+<p style="text-align: center;" align="center">
+    <img src="./screens/android.gif" width="200px" >
+    <img src="./screens/ios.gif" width="200px" >
 </p>
 
 - [Installation](#installation)
