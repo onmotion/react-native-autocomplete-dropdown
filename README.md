@@ -1,12 +1,13 @@
 # react-native-autocomplete-dropdown
+
 Dropdown Item picker with search and autocomplete (typeahead) functionality for react native
 
 <p style="text-align: center;" align="center">
     <img src="./screens/Example.png" width="500px" >
 </p>
 
-Demo
---
+## Demo
+
 <p style="text-align: center;" align="center">
     <img src="./screens/android.gif" width="280px" >
     <img src="./screens/ios.gif" width="280px" >
@@ -18,12 +19,15 @@ Demo
   - [Android](#android)
 - [Usage](#usage)
   - [Example with local Dataset](#example-with-local-dataset)
+  - [Example with remote requested Dataset](#example-with-remote-requested-dataset)
+- [Options](#options)
 
 ## Installation
 
 Run: `npm install --save react-native-autocomplete-dropdown` or `yarn add react-native-autocomplete-dropdown`
 
 ## Post-install Steps
+
 Make sure **react-native-vector-icons** is installed. Follow the guides
 https://github.com/oblador/react-native-vector-icons
 
@@ -40,25 +44,36 @@ Follow the guides from https://github.com/oblador/react-native-vector-icons#andr
 import the package
 
 ```js
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+```
+
+### Dataset item format
+
+`dataSet` property must be an **array of objects** or **null**. Object required keys are:
+
+```js
+{
+    id: 'some uniq string id',
+    title: 'list item title'
+}
 ```
 
 ### Example with local Dataset
 
 ```js
-    const [selectedItem, setSelectedItem] = useState(null);
+const [selectedItem, setSelectedItem] = useState(null)
 
-    <AutocompleteDropdown
-        clearOnFocus={false}
-        closeOnBlur={true}
-        initialValue={{id: '2'}} // or just '2'
-        onSelectItem={setSelectedItem}
-        dataSet={[
-          {id: '1', title: 'Alpha'},
-          {id: '2', title: 'Beta'},
-          {id: '3', title: 'Gamma'},
-        ]} 
-    />
+;<AutocompleteDropdown
+  clearOnFocus={false}
+  closeOnBlur={true}
+  initialValue={{ id: '2' }} // or just '2'
+  onSelectItem={setSelectedItem}
+  dataSet={[
+    { id: '1', title: 'Alpha' },
+    { id: '2', title: 'Beta' },
+    { id: '3', title: 'Gamma' },
+  ]}
+/>
 ```
 
 ### Example with remote requested Dataset
@@ -143,3 +158,12 @@ import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
           //  showClear={false}
         />
 ```
+
+More examples see at https://github.com/onmotion/react-native-autocomplete-dropdown/tree/main/example
+
+## Options
+
+| Option  | Description       | Default |
+| ------- | ----------------- | ------- |
+| `dataSet` | set of list items | null    |
+| `initialValue` | string (**id**) or object that contain **id** | null    |
