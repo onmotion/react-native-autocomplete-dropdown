@@ -161,6 +161,17 @@ const [selectedItem, setSelectedItem] = useState(null)
 
 More examples see at https://github.com/onmotion/react-native-autocomplete-dropdown/tree/main/example
 
+Run
+
+```bash
+cd example
+yarn install
+yarn add react-native-vector-icons
+npx pod-install
+npm run ios
+
+```
+
 ## Options
 
 | Option                          | Description                                                                       | Type             | Default              |
