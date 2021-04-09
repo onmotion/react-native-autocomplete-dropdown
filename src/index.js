@@ -8,7 +8,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react'
 import {
   Dimensions,
@@ -17,7 +17,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
@@ -33,7 +33,6 @@ export const AutocompleteDropdown = memo(
     const [direction, setDirection] = useState(props.direction ?? 'down')
     const [isOpened, setIsOpened] = useState(false)
     const [searchText, setSearchText] = useState('')
-    const [searchTextCache, setSearchTextCache] = useState('')
     const [dataSet, setDataSet] = useState(props.dataSet)
     const clearOnFocus = props.clearOnFocus === false ? false : true
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
@@ -76,7 +75,7 @@ export const AutocompleteDropdown = memo(
     /** expose controller methods */
     useEffect(() => {
       if (typeof props.controller === 'function') {
-        props.controller({ close, open, toggle, clear })
+        props.controller({ close, open, toggle, clear, setInputText })
       }
     }, [isOpened, props.controller])
 
@@ -87,11 +86,10 @@ export const AutocompleteDropdown = memo(
     useEffect(() => {
       if (selectedItem) {
         setSearchText(selectedItem.title ?? '')
-        setSearchTextCache(selectedItem.title ?? '')
       } else {
         setSearchText('')
-        setSearchTextCache('')
       }
+
       if (typeof props.onSelectItem === 'function') {
         props.onSelectItem(selectedItem)
       }
@@ -103,7 +101,7 @@ export const AutocompleteDropdown = memo(
       }
       // renew state on close
       if (!isOpened) {
-        if (selectedItem) {
+        if (selectedItem && props.resetOnClose !== false) {
           setSearchText(selectedItem.title)
         }
       }
@@ -160,6 +158,10 @@ export const AutocompleteDropdown = memo(
 
     const clear = () => {
       onClearPress()
+    }
+
+    const setInputText = (text) => {
+      setSearchText(text)
     }
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
@@ -240,7 +242,6 @@ export const AutocompleteDropdown = memo(
 
     const onClearPress = useCallback(() => {
       setSearchText('')
-      setSearchTextCache('')
       setSelectedItem(null)
       setIsOpened(false)
       inputRef.current.blur()
@@ -260,7 +261,6 @@ export const AutocompleteDropdown = memo(
 
     const onChangeText = useCallback((text) => {
       setSearchText(text)
-      //  setSearchTextCache(text)
       debouncedEvent(text)
     }, [])
 
@@ -271,7 +271,6 @@ export const AutocompleteDropdown = memo(
 
     const onFocus = useCallback(() => {
       if (clearOnFocus) {
-        setSearchTextCache(searchText)
         setSearchText('')
       }
       open()
@@ -281,12 +280,12 @@ export const AutocompleteDropdown = memo(
       if (props.closeOnBlur) {
         close()
       }
-    }, [searchTextCache])
+    }, [props.closeOnBlur])
 
     const onSubmit = useCallback((e) => {
       inputRef.current.blur()
       close()
-      setSearchTextCache(e.nativeEvent.text)
+
       if (typeof props.onSubmit === 'function') {
         props.onSubmit(e)
       }
@@ -375,6 +374,7 @@ AutocompleteDropdown.propTypes = {
   showChevron: PropTypes.bool,
   closeOnBlur: PropTypes.bool,
   clearOnFocus: PropTypes.bool,
+  resetOnClose: PropTypes.bool,
   debounce: PropTypes.number,
   suggestionsListMaxHeight: PropTypes.number,
   bottomOffset: PropTypes.number,
