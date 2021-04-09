@@ -8,7 +8,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from 'react'
 import {
   Dimensions,
@@ -17,7 +17,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
@@ -51,6 +51,28 @@ export const AutocompleteDropdown = memo(
       }
     }, [inputRef])
 
+    /** Set initial value */
+    useEffect(() => {
+      if (!Array.isArray(dataSet) || selectedItem) {
+        // nothing to set or already setted
+        return
+      }
+
+      let dataSetItem
+      if (typeof props.initialValue === 'string') {
+        dataSetItem = dataSet.find((el) => el.id === props.initialValue)
+      } else if (
+        typeof props.initialValue === 'object' &&
+        props.initialValue.id
+      ) {
+        dataSetItem = dataSet.find((el) => el.id === props.initialValue.id)
+      }
+
+      if (dataSetItem) {
+        setSelectedItem(dataSetItem)
+      }
+    }, [])
+
     /** expose controller methods */
     useEffect(() => {
       if (typeof props.controller === 'function') {
@@ -63,6 +85,13 @@ export const AutocompleteDropdown = memo(
     }, [props.dataSet])
 
     useEffect(() => {
+      if (selectedItem) {
+        setSearchText(selectedItem.title ?? '')
+        setSearchTextCache(selectedItem.title ?? '')
+      } else {
+        setSearchText('')
+        setSearchTextCache('')
+      }
       if (typeof props.onSelectItem === 'function') {
         props.onSelectItem(selectedItem)
       }
@@ -91,13 +120,7 @@ export const AutocompleteDropdown = memo(
 
     const _onSelectItem = useCallback((item) => {
       setSelectedItem(item)
-      if (item) {
-        setSearchText(item.title ?? '')
-        setSearchTextCache(item.title ?? '')
-      } else {
-        setSearchText('')
-        setSearchTextCache('')
-      }
+
       inputRef.current.blur()
       setIsOpened(false)
     }, [])
@@ -105,31 +128,16 @@ export const AutocompleteDropdown = memo(
     const calculateDirection = async () => {
       const [, positionY] = await new Promise((resolve) =>
         containerRef.current.measureInWindow((...rect) => {
-          console.log('rect', rect)
           resolve(rect)
         })
       )
-
-      containerRef.current.measure((...rect) => {
-        console.log('rect2', rect)
-      })
 
       const screenHeight = Dimensions.get('window').height
 
       const lowestPointOfDropdown =
         positionY + inputHeight + suggestionsListMaxHeight + bottomOffset
 
-      console.log({
-        positionY,
-        inputHeight,
-        suggestionsListMaxHeight,
-        bottomOffset,
-        screenHeight,
-        lowestPointOfDropdown,
-      })
-
       const direction = lowestPointOfDropdown < screenHeight ? 'down' : 'up'
-      console.log('direction', direction)
       setDirection(direction)
     }
 
@@ -360,6 +368,7 @@ export const AutocompleteDropdown = memo(
 
 AutocompleteDropdown.propTypes = {
   dataSet: PropTypes.array,
+  initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   loading: PropTypes.bool,
   useFilter: PropTypes.bool,
   showClear: PropTypes.bool,
