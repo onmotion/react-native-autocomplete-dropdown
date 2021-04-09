@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:onmotion/react-native-autocomplete-dropdown.git"
+    "url": "git+ssh://git@github.com/onmotion/react-native-autocomplete-dropdown.git"
   },
   "homepage": "https://github.com/onmotion/react-native-autocomplete-dropdown",
   "keywords": [
@@ -38,5 +38,14 @@
     "react-native-vector-icons": ">=7.0.0",
     "lodash.debounce": "*",
     "react-native-size-matters": "^0.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/onmotion/react-native-autocomplete-dropdown/issues"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }
