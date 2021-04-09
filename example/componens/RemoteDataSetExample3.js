@@ -64,7 +64,7 @@ export const RemoteDataSetExample3 = memo(() => {
           debounce={600}
           suggestionsListMaxHeight={Dimensions.get("window").height * 0.4}
           onClear={onClearPress}
-          onSubmit={(e) => onSubmitSearch(e.nativeEvent.text)}
+          onSubmit={(e) => console.log(e.nativeEvent.text)}
           onOpenSuggestionsList={onOpenSuggestionsList}
           loading={loading}
           useFilter={false} // prevent rerender twice
