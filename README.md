@@ -2,6 +2,10 @@
 
 Dropdown Item picker with search and autocomplete (typeahead) functionality for react native
 
+[![license](https://img.shields.io/github/license/onmotion/react-native-autocomplete-dropdown)](https://img.shields.io/github/license/onmotion/react-native-autocomplete-dropdown) 
+[![npm](https://img.shields.io/npm/v/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown) 
+[![npm](https://img.shields.io/npm/dm/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
+
 <p style="text-align: center;" align="center">
     <img src="./screens/Example.png" width="500px" >
 </p>
@@ -38,6 +42,8 @@ Run: `npm install --save react-native-autocomplete-dropdown` or `yarn add react-
 
 Make sure **react-native-vector-icons** is installed. Follow the guides
 https://github.com/oblador/react-native-vector-icons
+
+`yarn add react-native-vector-icons`
 
 ### iOS
 
