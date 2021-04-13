@@ -1,6 +1,6 @@
 {
   "name": "react-native-autocomplete-dropdown",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
   "main": "src/index.js",
   "repository": {
