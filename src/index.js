@@ -39,6 +39,7 @@ export const AutocompleteDropdown = memo(
     const suggestionsListMaxHeight =
       props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
     const bottomOffset = props.bottomOffset ?? 0
+    const ScrollViewComponent = props.ScrollViewComponent ?? ScrollView
 
     useLayoutEffect(() => {
       if (ref) {
@@ -343,7 +344,7 @@ export const AutocompleteDropdown = memo(
               ...props.suggestionsListContainerStyle,
             }}
           >
-            <ScrollView
+            <ScrollViewComponent
               keyboardDismissMode="on-drag"
               keyboardShouldPersistTaps="handled"
               style={{ maxHeight: suggestionsListMaxHeight }}
@@ -357,7 +358,7 @@ export const AutocompleteDropdown = memo(
                     : !!searchText && <NothingFound />}
                 </View>
               }
-            </ScrollView>
+            </ScrollViewComponent>
           </View>
         )}
       </View>
@@ -389,6 +390,7 @@ AutocompleteDropdown.propTypes = {
   suggestionsListContainerStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
+  ScrollViewComponent: PropTypes.element,
 }
 
 const styles = ScaledSheet.create({
