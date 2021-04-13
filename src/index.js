@@ -390,7 +390,7 @@ AutocompleteDropdown.propTypes = {
   suggestionsListContainerStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
-  ScrollViewComponent: PropTypes.element,
+  ScrollViewComponent: PropTypes.elementType,
 }
 
 const styles = ScaledSheet.create({
