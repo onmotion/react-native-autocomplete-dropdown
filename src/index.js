@@ -270,9 +270,12 @@ export const AutocompleteDropdown = memo(
       Keyboard.dismiss()
     }, [isOpened])
 
-    const onFocus = useCallback(() => {
+    const onFocus = useCallback((e) => {
       if (clearOnFocus) {
         setSearchText('')
+      }
+      if (typeof props.onFocus === 'function') {
+        props.onFocus(e)
       }
       open()
     }, [dataSet, clearOnFocus])
