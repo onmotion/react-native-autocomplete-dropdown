@@ -3,6 +3,7 @@
   "version": "1.0.6",
   "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
   "main": "src/index.js",
+  "typings": "src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/onmotion/react-native-autocomplete-dropdown.git"
@@ -48,6 +49,5 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "typings": "index.d.ts"
+  }
 }
