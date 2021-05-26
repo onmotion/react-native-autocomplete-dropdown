@@ -50,7 +50,7 @@ export const RightButton = memo(
       >
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
-            {ChevronIconComponent ?? (
+            {ClearIconComponent ?? (
               <Feather name="x" size={18} color="#aeb4c6" />
             )}
           </TouchableOpacity>
@@ -62,7 +62,7 @@ export const RightButton = memo(
               onPress={onChevronPress}
               style={styles.chevronButton}
             >
-              {ClearIconComponent ?? (
+              {ChevronIconComponent ?? (
                 <Feather name="chevron-down" size={20} color="#727992" />
               )}
             </TouchableOpacity>
