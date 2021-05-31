@@ -270,30 +270,39 @@ export const AutocompleteDropdown = memo(
       Keyboard.dismiss()
     }, [isOpened])
 
-    const onFocus = useCallback((e) => {
-      if (clearOnFocus) {
-        setSearchText('')
-      }
-      if (typeof props.onFocus === 'function') {
-        props.onFocus(e)
-      }
-      open()
-    }, [dataSet, clearOnFocus])
+    const onFocus = useCallback(
+      (e) => {
+        if (clearOnFocus) {
+          setSearchText('')
+        }
+        if (typeof props.onFocus === 'function') {
+          props.onFocus(e)
+        }
+        open()
+      },
+      [dataSet, clearOnFocus]
+    )
 
     const onBlur = useCallback(() => {
+      console.log('props.closeOnBlur', props.closeOnBlur)
       if (props.closeOnBlur) {
         close()
       }
     }, [props.closeOnBlur])
 
-    const onSubmit = useCallback((e) => {
-      inputRef.current.blur()
-      close()
+    const onSubmit = useCallback(
+      (e) => {
+        inputRef.current.blur()
+        if (props.closeOnSubmit) {
+          close()
+        }
 
-      if (typeof props.onSubmit === 'function') {
-        props.onSubmit(e)
-      }
-    }, [])
+        if (typeof props.onSubmit === 'function') {
+          props.onSubmit(e)
+        }
+      },
+      [props.closeOnSubmit]
+    )
 
     return (
       <View
@@ -377,6 +386,7 @@ AutocompleteDropdown.propTypes = {
   showClear: PropTypes.bool,
   showChevron: PropTypes.bool,
   closeOnBlur: PropTypes.bool,
+  closeOnSubmit: PropTypes.bool,
   clearOnFocus: PropTypes.bool,
   resetOnClose: PropTypes.bool,
   debounce: PropTypes.number,

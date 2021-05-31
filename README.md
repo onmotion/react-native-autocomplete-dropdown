@@ -78,6 +78,7 @@ const [selectedItem, setSelectedItem] = useState(null)
 ;<AutocompleteDropdown
   clearOnFocus={false}
   closeOnBlur={true}
+  closeOnSubmit={false}
   initialValue={{ id: '2' }} // or just '2'
   onSelectItem={setSelectedItem}
   dataSet={[
@@ -195,6 +196,7 @@ npm run ios
 | `showClear`                     | show clear button                                                                 | bool                 | true                                        |
 | `showChevron`                   | show chevron (open/close) button                                                  | bool                 | true                                        |
 | `closeOnBlur`                   | whether to close dropdown on blur                                                 | bool                 | false                                       |
+| `closeOnSubmit`                 | whether to close dropdown on submit                                               | bool                 | false                                       |
 | `clearOnFocus`                  | whether to clear typed text on focus                                              | bool                 | true                                        |
 | `debounce`                      | wait **ms** before call `onChangeText`                                            | number               | 0                                           |
 | `suggestionsListMaxHeight`      | max height of dropdown                                                            | number               | 200                                         |
