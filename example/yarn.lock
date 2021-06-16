@@ -5163,7 +5163,7 @@ react-is@^16.8.1:
 
 "react-native-autocomplete-dropdown@https://github.com/onmotion/react-native-autocomplete-dropdown":
   version "1.1.1"
-  resolved "https://github.com/onmotion/react-native-autocomplete-dropdown#ac1a21d68861ea1b953554b6c9cc64a2aaa7ac83"
+  resolved "https://github.com/onmotion/react-native-autocomplete-dropdown#84109bc1b1e89322e7137069502e9a3f55c09b6c"
   dependencies:
     "@types/react" "*"
     lodash.debounce "*"
