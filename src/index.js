@@ -283,10 +283,12 @@ export const AutocompleteDropdown = memo(
       [dataSet, clearOnFocus]
     )
 
-    const onBlur = useCallback(() => {
-      console.log('props.closeOnBlur', props.closeOnBlur)
+    const onBlur = useCallback((e) => {
       if (props.closeOnBlur) {
         close()
+      }
+      if (typeof props.onBlur === 'function') {
+        props.onBlur(e)
       }
     }, [props.closeOnBlur])
 
@@ -397,6 +399,7 @@ AutocompleteDropdown.propTypes = {
   onOpenSuggestionsList: PropTypes.func,
   onClear: PropTypes.func,
   onSubmit: PropTypes.func,
+  onBlur: PropTypes.func,
   controller: PropTypes.func,
   containerStyle: PropTypes.object,
   rightButtonsContainerStyle: PropTypes.object,

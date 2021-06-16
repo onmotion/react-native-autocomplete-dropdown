@@ -206,6 +206,7 @@ npm run ios
 | `onOpenSuggestionsList`         | event onOpenSuggestionsList                                                       | function             |                                             |
 | `onClear`                       | event on clear button press                                                       | function             |                                             |
 | `onSubmit`                      | event on submit KB button press                                                   | function             |                                             |
+| `onBlur`                        | event fired on text input blur                                                    | function             |                                             |
 | `onFocus`                       | event on focus text input                                                         | function             |                                             |
 | `controller`                    | return reference to module controller with methods **close, open, toggle, clear** | function             |                                             |
 | `containerStyle`                |                                                                                   | object               |                                             |

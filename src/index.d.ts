@@ -31,6 +31,7 @@ interface AutocompleteDropdownProps {
   onOpenSuggestionsList?(isOpened: boolean): any
   onClear?(): any
   onSubmit?(e: any): any
+  onBlur?(e: any): any
   onFocus?(e: any): any
   controller?(controller: any): any
   containerStyle?: StyleProp<ViewStyle>
