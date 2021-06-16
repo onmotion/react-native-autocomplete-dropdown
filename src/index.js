@@ -249,7 +249,7 @@ export const AutocompleteDropdown = memo(
       if (typeof props.onClear === 'function') {
         props.onClear()
       }
-    }, [])
+    }, [props.onClear])
 
     const debouncedEvent = useCallback(
       debounce((text) => {
@@ -257,7 +257,7 @@ export const AutocompleteDropdown = memo(
           props.onChangeText(text)
         }
       }, props.debounce ?? 0),
-      []
+      [props.onChangeText]
     )
 
     const onChangeText = useCallback((text) => {
@@ -280,7 +280,7 @@ export const AutocompleteDropdown = memo(
         }
         open()
       },
-      [dataSet, clearOnFocus]
+      [dataSet, clearOnFocus, props.onFocus]
     )
 
     const onBlur = useCallback((e) => {
@@ -290,7 +290,7 @@ export const AutocompleteDropdown = memo(
       if (typeof props.onBlur === 'function') {
         props.onBlur(e)
       }
-    }, [props.closeOnBlur])
+    }, [props.closeOnBlur, props.onBlur])
 
     const onSubmit = useCallback(
       (e) => {
@@ -303,7 +303,7 @@ export const AutocompleteDropdown = memo(
           props.onSubmit(e)
         }
       },
-      [props.closeOnSubmit]
+      [props.closeOnSubmit, props.onSubmit]
     )
 
     return (
