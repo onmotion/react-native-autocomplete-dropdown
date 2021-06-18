@@ -26,6 +26,7 @@ interface AutocompleteDropdownProps {
   clearOnFocus?: boolean
   debounce?: number
   bottomOffset?: number
+  textInputProps?: object
   onChangeText?(text: string): any
   onSelectItem?(item: TAutocompleteDropdownItem): any
   onOpenSuggestionsList?(isOpened: boolean): any
