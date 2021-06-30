@@ -40,6 +40,7 @@ export const AutocompleteDropdown = memo(
       props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
     const bottomOffset = props.bottomOffset ?? 0
     const ScrollViewComponent = props.ScrollViewComponent ?? ScrollView
+    const InputComponent = props.InputComponent ?? TextInput
 
     useLayoutEffect(() => {
       if (ref) {
@@ -320,7 +321,7 @@ export const AutocompleteDropdown = memo(
           onLayout={(_) => {}}
           style={[props.inputContainerStyle]}
         >
-          <TextInput
+          <InputComponent
             ref={inputRef}
             value={searchText}
             onChangeText={onChangeText}
