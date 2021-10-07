@@ -6,7 +6,7 @@ export const NothingFound = memo(({...props}) => {
   const EL = withFadeAnimation(
     () => (
       <View style={{ ...styles.container }}>
-        <Text style={styles.text}>{props.emptyText || 'Nothing found'}</Text>
+        <Text style={styles.text}>{props.emptyResultText || 'Nothing found'}</Text>
       </View>
     ),
     {}
