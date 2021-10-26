@@ -42,6 +42,7 @@ interface AutocompleteDropdownProps {
   ClearIconComponent?: JSX.Element
   ScrollViewComponent?: JSX.Element
   InputComponent?: JSX.Element
+  emptyResultText?: string
 }
 
 export const AutocompleteDropdown: FC<AutocompleteDropdownProps>
