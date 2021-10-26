@@ -215,3 +215,4 @@ npm run ios
 | `ChevronIconComponent`          |                                                                                   | React.Component      | Feather chevron icon                        |
 | `ClearIconComponent`            |                                                                                   | React.Component      | Feather x icon                              |
 | `ScrollViewComponent`           |                                                                                   | React.Component name | ScrollView that provide suggestions content |
+| `emptyResultText`               | replace the default "Nothing found" text on empty result                          | string               | "Nothing found"                             |
