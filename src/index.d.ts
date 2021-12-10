@@ -15,6 +15,7 @@ interface AutocompleteDropdownProps {
    * ]
    */
   dataSet?: TAutocompleteDropdownItem[]
+  inputHeight?: number
   suggestionsListMaxHeight?: number
   initialValue?: string | object
   loading?: boolean
@@ -29,6 +30,7 @@ interface AutocompleteDropdownProps {
   textInputProps?: object
   onChangeText?(text: string): any
   onSelectItem?(item: TAutocompleteDropdownItem): any
+  renderItem?: (item: TAutocompleteDropdownItem, searchText: string) => JSX.Element
   onOpenSuggestionsList?(isOpened: boolean): any
   onClear?(): any
   onSubmit?(e: any): any
@@ -36,6 +38,7 @@ interface AutocompleteDropdownProps {
   onFocus?(e: any): any
   controller?(controller: any): any
   containerStyle?: StyleProp<ViewStyle>
+  inputContainerStyle?: StyleProp<ViewStyle>
   rightButtonsContainerStyle?: StyleProp<ViewStyle>
   suggestionsListContainerStyle?: StyleProp<ViewStyle>
   ChevronIconComponent?: JSX.Element
