@@ -208,7 +208,7 @@ npm run ios
 | `onSubmit`                      | event on submit KB button press                                                   | function             |                                             |
 | `onBlur`                        | event fired on text input blur                                                    | function             |                                             |
 | `onFocus`                       | event on focus text input                                                         | function             |                                             |
-| `controller`                    | return reference to module controller with methods **close, open, toggle, clear** | function             |                                             |
+| `controller`                    | return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** | function             |                                             |
 | `containerStyle`                |                                                                                   | object               |                                             |
 | `rightButtonsContainerStyle`    |                                                                                   | object               |                                             |
 | `suggestionsListContainerStyle` |                                                                                   | object               |                                             |
