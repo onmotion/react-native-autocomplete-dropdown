@@ -77,7 +77,7 @@ export const AutocompleteDropdown = memo(
     /** expose controller methods */
     useEffect(() => {
       if (typeof props.controller === 'function') {
-        props.controller({ close, open, toggle, clear, setInputText })
+        props.controller({ close, open, toggle, clear, setInputText, setItem })
       }
     }, [isOpened, props.controller])
 
@@ -164,6 +164,10 @@ export const AutocompleteDropdown = memo(
 
     const setInputText = (text) => {
       setSearchText(text)
+    }
+    
+    const setItem = (item) => {
+      setSelectedItem(item)
     }
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
