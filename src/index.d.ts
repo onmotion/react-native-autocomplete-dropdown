@@ -45,6 +45,7 @@ interface AutocompleteDropdownProps {
   ClearIconComponent?: JSX.Element
   ScrollViewComponent?: JSX.Element
   InputComponent?: JSX.Element
+  ItemSeparatorComponent?: JSX.Element
   emptyResultText?: string
 }
 
