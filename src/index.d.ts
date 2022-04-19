@@ -57,6 +57,7 @@ interface AutocompleteDropdownProps {
   ScrollViewComponent?: JSX.Element
   InputComponent?: JSX.Element
   ItemSeparatorComponent?: JSX.Element
+  EmptyResultComponent?: JSX.Element
   emptyResultText?: string
 }
 

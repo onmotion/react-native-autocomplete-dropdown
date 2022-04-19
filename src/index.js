@@ -377,7 +377,7 @@ export const AutocompleteDropdown = memo(
                 <View>
                   {scrollContent.length > 0
                     ? scrollContent
-                    : !!searchText && <NothingFound emptyResultText={props.emptyResultText} />}
+                    : !!searchText && (props.EmptyResultComponent ?? <NothingFound emptyResultText={props.emptyResultText} />)}
                 </View>
               }
             </ScrollViewComponent>
@@ -418,6 +418,7 @@ AutocompleteDropdown.propTypes = {
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
   ScrollViewComponent: PropTypes.elementType,
+  EmptyResultComponent: PropTypes.elementType,
   emptyResultText: PropTypes.string
 }
 
