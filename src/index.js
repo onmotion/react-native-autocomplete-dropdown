@@ -38,6 +38,7 @@ export const AutocompleteDropdown = memo(
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight =
       props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
+    const position = props.position ?? 'absolute'
     const bottomOffset = props.bottomOffset ?? 0
     const ScrollViewComponent = props.ScrollViewComponent ?? ScrollView
     const InputComponent = props.InputComponent ?? TextInput
@@ -165,7 +166,7 @@ export const AutocompleteDropdown = memo(
     const setInputText = (text) => {
       setSearchText(text)
     }
-    
+
     const setItem = (item) => {
       setSelectedItem(item)
     }
@@ -215,6 +216,7 @@ export const AutocompleteDropdown = memo(
           () => (
             <ScrollViewListItem
               {...{ titleHighlighted, titleStart, titleEnd }}
+              style={props.suggestionsListTextStyle}
               onPress={() => _onSelectItem(item)}
             ></ScrollViewListItem>
           ),
@@ -231,14 +233,14 @@ export const AutocompleteDropdown = memo(
       }
 
       const content = []
-      const itemsCount = dataSet.length - 1
+      const itemsCount = dataSet.length
       dataSet.forEach((item, i) => {
         const listItem = renderItem(item, searchText)
         if (listItem) {
           content.push(
             <View key={item.id}>
+              {content.length > 0 && i < itemsCount && ItemSeparatorComponent}
               {listItem}
-              {i < itemsCount && ItemSeparatorComponent}
             </View>
           )
         }
@@ -359,7 +361,8 @@ export const AutocompleteDropdown = memo(
           <View
             style={{
               ...styles.listContainer,
-              [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5,
+              position,
+              ...(position === 'relative' ? { marginTop: 5 } : { [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5 }),
               ...props.suggestionsListContainerStyle,
             }}
           >
@@ -397,6 +400,8 @@ AutocompleteDropdown.propTypes = {
   clearOnFocus: PropTypes.bool,
   resetOnClose: PropTypes.bool,
   debounce: PropTypes.number,
+  direction: PropTypes.oneOf(['down', 'up']),
+  position: PropTypes.oneOf(['absolute', 'relative']),
   suggestionsListMaxHeight: PropTypes.number,
   bottomOffset: PropTypes.number,
   onChangeText: PropTypes.func,
@@ -409,6 +414,7 @@ AutocompleteDropdown.propTypes = {
   containerStyle: PropTypes.object,
   rightButtonsContainerStyle: PropTypes.object,
   suggestionsListContainerStyle: PropTypes.object,
+  suggestionsListTextStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
   ScrollViewComponent: PropTypes.elementType,
@@ -430,7 +436,6 @@ const styles = ScaledSheet.create({
 
   listContainer: {
     backgroundColor: '#fff',
-    position: 'absolute',
     width: '100%',
     zIndex: 9,
     borderRadius: 5,

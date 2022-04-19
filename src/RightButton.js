@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#e5ecf2',
+    backgroundColor: 'transparent',
   },
   clearButton: {
     width: 26,

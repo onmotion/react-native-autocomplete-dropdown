@@ -1,9 +1,17 @@
 import React, { FC } from 'react'
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native'
 
 export type TAutocompleteDropdownItem = {
   id: string
   title: string | null
+}
+
+export interface AutocompleteDropdownRef {
+  clear: () => void;
+  close: () => void;
+  open: () => Promise<void>;
+  setInputText: (text: string) => void;
+  toggle: () => void;
 }
 
 interface AutocompleteDropdownProps {
@@ -26,21 +34,24 @@ interface AutocompleteDropdownProps {
   closeOnSubmit?: boolean
   clearOnFocus?: boolean
   debounce?: number
+  direction?: 'down' | 'up'
+  position?: 'absolute' | 'relative'
   bottomOffset?: number
-  textInputProps?: object
-  onChangeText?(text: string): any
-  onSelectItem?(item: TAutocompleteDropdownItem): any
+  textInputProps?: TextInputProps
+  onChangeText?: (text: string) => void
+  onSelectItem?: (item: TAutocompleteDropdownItem) => void
   renderItem?: (item: TAutocompleteDropdownItem, searchText: string) => JSX.Element
-  onOpenSuggestionsList?(isOpened: boolean): any
-  onClear?(): any
-  onSubmit?(e: any): any
-  onBlur?(e: any): any
-  onFocus?(e: any): any
-  controller?(controller: any): any
+  onOpenSuggestionsList?: (isOpened: boolean) => void
+  onClear?: () => void
+  onSubmit?: TextInputProps['onSubmitEditing']
+  onBlur?: TextInputProps['onBlur']
+  onFocus?: TextInputProps['onFocus']
+  controller?: (controller: AutocompleteDropdownRef) => void
   containerStyle?: StyleProp<ViewStyle>
   inputContainerStyle?: StyleProp<ViewStyle>
   rightButtonsContainerStyle?: StyleProp<ViewStyle>
   suggestionsListContainerStyle?: StyleProp<ViewStyle>
+  suggestionsListTextStyle?: StyleProp<TextStyle>
   ChevronIconComponent?: JSX.Element
   ClearIconComponent?: JSX.Element
   ScrollViewComponent?: JSX.Element
