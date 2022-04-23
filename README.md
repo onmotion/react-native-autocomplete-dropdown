@@ -187,32 +187,35 @@ npm run ios
 
 ## Options
 
-| Option                          | Description                                                                       | Type                 | Default                                     |
-| ------------------------------- | --------------------------------------------------------------------------------- | -------------------- | ------------------------------------------- |
-| `dataSet`                       | set of list items                                                                 | array                | null                                        |
-| `initialValue`                  | string (**id**) or object that contain **id**                                     | string \| object     | null                                        |
-| `loading`                       | loading state                                                                     | bool                 | false                                       |
-| `useFilter`                     | whether use local filter by dataSet (useful set to false for remote filtering)    | bool                 | true                                        |
-| `showClear`                     | show clear button                                                                 | bool                 | true                                        |
-| `showChevron`                   | show chevron (open/close) button                                                  | bool                 | true                                        |
-| `closeOnBlur`                   | whether to close dropdown on blur                                                 | bool                 | false                                       |
-| `closeOnSubmit`                 | whether to close dropdown on submit                                               | bool                 | false                                       |
-| `clearOnFocus`                  | whether to clear typed text on focus                                              | bool                 | true                                        |
-| `debounce`                      | wait **ms** before call `onChangeText`                                            | number               | 0                                           |
-| `suggestionsListMaxHeight`      | max height of dropdown                                                            | number               | 200                                         |
-| `bottomOffset`                  | for calculate dropdown direction (e.g. tabbar)                                    | number               | 0                                           |
-| `onChangeText`                  | event textInput onChangeText                                                      | function             |                                             |
-| `onSelectItem`                  | event onSelectItem                                                                | function             |                                             |
-| `onOpenSuggestionsList`         | event onOpenSuggestionsList                                                       | function             |                                             |
-| `onClear`                       | event on clear button press                                                       | function             |                                             |
-| `onSubmit`                      | event on submit KB button press                                                   | function             |                                             |
-| `onBlur`                        | event fired on text input blur                                                    | function             |                                             |
-| `onFocus`                       | event on focus text input                                                         | function             |                                             |
+| Option                          | Description                                                                                              | Type                 | Default                                     |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------- |
+| `dataSet`                       | set of list items                                                                                        | array                | null                                        |
+| `initialValue`                  | string (**id**) or object that contain **id**                                                            | string \| object     | null                                        |
+| `loading`                       | loading state                                                                                            | bool                 | false                                       |
+| `useFilter`                     | whether use local filter by dataSet (useful set to false for remote filtering)                           | bool                 | true                                        |
+| `showClear`                     | show clear button                                                                                        | bool                 | true                                        |
+| `showChevron`                   | show chevron (open/close) button                                                                         | bool                 | true                                        |
+| `closeOnBlur`                   | whether to close dropdown on blur                                                                        | bool                 | false                                       |
+| `closeOnSubmit`                 | whether to close dropdown on submit                                                                      | bool                 | false                                       |
+| `clearOnFocus`                  | whether to clear typed text on focus                                                                     | bool                 | true                                        |
+| `debounce`                      | wait **ms** before call `onChangeText`                                                                   | number               | 0                                           |
+| `suggestionsListMaxHeight`      | max height of dropdown                                                                                   | number               | 200                                         |
+| `bottomOffset`                  | for calculate dropdown direction (e.g. tabbar)                                                           | number               | 0                                           |
+| `onChangeText`                  | event textInput onChangeText                                                                             | function             |                                             |
+| `onSelectItem`                  | event onSelectItem                                                                                       | function             |                                             |
+| `onOpenSuggestionsList`         | event onOpenSuggestionsList                                                                              | function             |                                             |
+| `onClear`                       | event on clear button press                                                                              | function             |                                             |
+| `onSubmit`                      | event on submit KB button press                                                                          | function             |                                             |
+| `onBlur`                        | event fired on text input blur                                                                           | function             |                                             |
+| `onFocus`                       | event on focus text input                                                                                | function             |                                             |
 | `controller`                    | return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** | function             |                                             |
-| `containerStyle`                |                                                                                   | object               |                                             |
-| `rightButtonsContainerStyle`    |                                                                                   | object               |                                             |
-| `suggestionsListContainerStyle` |                                                                                   | object               |                                             |
-| `ChevronIconComponent`          |                                                                                   | React.Component      | Feather chevron icon                        |
-| `ClearIconComponent`            |                                                                                   | React.Component      | Feather x icon                              |
-| `ScrollViewComponent`           |                                                                                   | React.Component name | ScrollView that provide suggestions content |
-| `emptyResultText`               | replace the default "Nothing found" text on empty result                          | string               | "Nothing found"                             |
+| `containerStyle`                |                                                                                                          | ViewStyle            |                                             |
+| `rightButtonsContainerStyle`    |                                                                                                          | ViewStyle            |                                             |
+| `suggestionsListContainerStyle` |                                                                                                          | ViewStyle            |                                             |
+| `suggestionsListTextStyle`      |                                                                                                          | TextStyle            | styles of suggestions list text items       |
+| `ChevronIconComponent`          |                                                                                                          | React.Component      | Feather chevron icon                        |
+| `ClearIconComponent`            |                                                                                                          | React.Component      | Feather x icon                              |
+| `ScrollViewComponent`           |                                                                                                          | React.Component name | ScrollView that provide suggestions content |
+| `EmptyResultComponent`          | replace the default `<NothingFound>` Component on empty result                                           | React.Component      |                                             |
+| `emptyResultText`               | replace the default "Nothing found" text on empty result                                                 | string               | "Nothing found"                             |
+| `textInputProps`                | text input props                                                                                         | TextInputProps       |                                             |

@@ -1,8 +1,15 @@
-import React, { memo } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { memo } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export const ScrollViewListItem = memo(
-  ({ titleHighlighted, titleStart, titleEnd, style, onPress, numberOfLines = 2 }) => {
+  ({
+    titleHighlighted,
+    titleStart,
+    titleEnd,
+    style,
+    onPress,
+    numberOfLines = 2,
+  }) => {
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
@@ -12,8 +19,7 @@ export const ScrollViewListItem = memo(
             </Text>
             <Text
               numberOfLines={1}
-              style={{ ...styles.text, ...style, fontWeight: 'bold' }}
-            >
+              style={{ ...styles.text, ...style, fontWeight: 'bold' }}>
               {titleHighlighted}
             </Text>
             <Text numberOfLines={1} style={{ ...styles.text, ...style }}>
@@ -22,9 +28,9 @@ export const ScrollViewListItem = memo(
           </Text>
         </View>
       </TouchableOpacity>
-    )
-  }
-)
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -43,4 +49,4 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexShrink: 0,
   },
-})
+});

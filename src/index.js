@@ -1,5 +1,5 @@
-import debounce from 'lodash.debounce'
-import PropTypes from 'prop-types'
+import debounce from 'lodash.debounce';
+import PropTypes from 'prop-types';
 import React, {
   forwardRef,
   memo,
@@ -9,7 +9,7 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from 'react'
+} from 'react';
 import {
   Dimensions,
   Keyboard,
@@ -18,178 +18,177 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { moderateScale, ScaledSheet } from 'react-native-size-matters'
-import { withFadeAnimation } from './HOC/withFadeAnimation'
-import { NothingFound } from './NothingFound'
-import { RightButton } from './RightButton'
-import { ScrollViewListItem } from './ScrollViewListItem'
+} from 'react-native';
+import { moderateScale, ScaledSheet } from 'react-native-size-matters';
+import { withFadeAnimation } from './HOC/withFadeAnimation';
+import { NothingFound } from './NothingFound';
+import { RightButton } from './RightButton';
+import { ScrollViewListItem } from './ScrollViewListItem';
 
 export const AutocompleteDropdown = memo(
   forwardRef((props, ref) => {
-    const inputRef = useRef(null)
-    const containerRef = useRef(null)
-    const [selectedItem, setSelectedItem] = useState(null)
-    const [direction, setDirection] = useState(props.direction ?? 'down')
-    const [isOpened, setIsOpened] = useState(false)
-    const [searchText, setSearchText] = useState('')
-    const [dataSet, setDataSet] = useState(props.dataSet)
-    const clearOnFocus = props.clearOnFocus === false ? false : true
-    const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
+    const inputRef = useRef(null);
+    const containerRef = useRef(null);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [direction, setDirection] = useState(props.direction ?? 'down');
+    const [isOpened, setIsOpened] = useState(false);
+    const [searchText, setSearchText] = useState('');
+    const [dataSet, setDataSet] = useState(props.dataSet);
+    const clearOnFocus = props.clearOnFocus === false ? false : true;
+    const inputHeight = props.inputHeight ?? moderateScale(40, 0.2);
     const suggestionsListMaxHeight =
-      props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
-    const position = props.position ?? 'absolute'
-    const bottomOffset = props.bottomOffset ?? 0
-    const ScrollViewComponent = props.ScrollViewComponent ?? ScrollView
-    const InputComponent = props.InputComponent ?? TextInput
+      props.suggestionsListMaxHeight ?? moderateScale(200, 0.2);
+    const position = props.position ?? 'absolute';
+    const bottomOffset = props.bottomOffset ?? 0;
+    const ScrollViewComponent = props.ScrollViewComponent ?? ScrollView;
+    const InputComponent = props.InputComponent ?? TextInput;
 
     useLayoutEffect(() => {
       if (ref) {
         if (typeof ref === 'function') {
-          ref(inputRef.current)
+          ref(inputRef.current);
         } else {
-          ref.current = inputRef.current
+          ref.current = inputRef.current;
         }
       }
-    }, [inputRef])
+    }, [inputRef]);
 
     /** Set initial value */
     useEffect(() => {
       if (!Array.isArray(dataSet) || selectedItem) {
         // nothing to set or already setted
-        return
+        return;
       }
 
-      let dataSetItem
+      let dataSetItem;
       if (typeof props.initialValue === 'string') {
-        dataSetItem = dataSet.find((el) => el.id === props.initialValue)
+        dataSetItem = dataSet.find(el => el.id === props.initialValue);
       } else if (
         typeof props.initialValue === 'object' &&
         props.initialValue.id
       ) {
-        dataSetItem = dataSet.find((el) => el.id === props.initialValue.id)
+        dataSetItem = dataSet.find(el => el.id === props.initialValue.id);
       }
 
       if (dataSetItem) {
-        setSelectedItem(dataSetItem)
+        setSelectedItem(dataSetItem);
       }
-    }, [])
+    }, []);
 
     /** expose controller methods */
     useEffect(() => {
       if (typeof props.controller === 'function') {
-        props.controller({ close, open, toggle, clear, setInputText, setItem })
+        props.controller({ close, open, toggle, clear, setInputText, setItem });
       }
-    }, [isOpened, props.controller])
+    }, [isOpened, props.controller]);
 
     useEffect(() => {
-      setDataSet(props.dataSet)
-    }, [props.dataSet])
+      setDataSet(props.dataSet);
+    }, [props.dataSet]);
 
     useEffect(() => {
       if (selectedItem) {
-        setSearchText(selectedItem.title ?? '')
+        setSearchText(selectedItem.title ?? '');
       } else {
-        setSearchText('')
+        setSearchText('');
       }
 
       if (typeof props.onSelectItem === 'function') {
-        props.onSelectItem(selectedItem)
+        props.onSelectItem(selectedItem);
       }
-    }, [selectedItem])
+    }, [selectedItem]);
 
     useEffect(() => {
       if (typeof props.onOpenSuggestionsList === 'function') {
-        props.onOpenSuggestionsList(isOpened)
+        props.onOpenSuggestionsList(isOpened);
       }
       // renew state on close
       if (!isOpened) {
         if (selectedItem && props.resetOnClose !== false) {
-          setSearchText(selectedItem.title)
+          setSearchText(selectedItem.title);
         }
       }
-    }, [isOpened])
+    }, [isOpened]);
 
     /**
      * For re-render list while typing and useFilter
      */
     useEffect(() => {
       if (props.useFilter !== false && Array.isArray(props.dataSet)) {
-        setDataSet(props.dataSet.slice())
+        setDataSet(props.dataSet.slice());
       }
-    }, [searchText])
+    }, [searchText]);
 
-    const _onSelectItem = useCallback((item) => {
-      setSelectedItem(item)
+    const _onSelectItem = useCallback(item => {
+      setSelectedItem(item);
 
-      inputRef.current.blur()
-      setIsOpened(false)
-    }, [])
+      inputRef.current.blur();
+      setIsOpened(false);
+    }, []);
 
     const calculateDirection = async () => {
-      const [, positionY] = await new Promise((resolve) =>
+      const [, positionY] = await new Promise(resolve =>
         containerRef.current.measureInWindow((...rect) => {
-          resolve(rect)
-        })
-      )
+          resolve(rect);
+        }),
+      );
 
-      const screenHeight = Dimensions.get('window').height
+      const screenHeight = Dimensions.get('window').height;
 
       const lowestPointOfDropdown =
-        positionY + inputHeight + suggestionsListMaxHeight + bottomOffset
+        positionY + inputHeight + suggestionsListMaxHeight + bottomOffset;
 
-      const direction = lowestPointOfDropdown < screenHeight ? 'down' : 'up'
-      setDirection(direction)
-    }
+      const direction = lowestPointOfDropdown < screenHeight ? 'down' : 'up';
+      setDirection(direction);
+    };
 
     /** methods */
     const close = () => {
-      setIsOpened(false)
-    }
+      setIsOpened(false);
+    };
 
     const open = async () => {
       if (!props.direction) {
-        await calculateDirection()
+        await calculateDirection();
       }
 
-      setIsOpened(true)
-    }
+      setIsOpened(true);
+    };
 
     const toggle = () => {
-      isOpened ? close() : open()
-    }
+      isOpened ? close() : open();
+    };
 
     const clear = () => {
-      onClearPress()
-    }
+      onClearPress();
+    };
 
-    const setInputText = (text) => {
-      setSearchText(text)
-    }
+    const setInputText = text => {
+      setSearchText(text);
+    };
 
-    const setItem = (item) => {
-      setSelectedItem(item)
-    }
+    const setItem = item => {
+      setSelectedItem(item);
+    };
 
     const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
       <View
-        style={{ height: 1, width: '100%', backgroundColor: '#ddd' }}
-      ></View>
-    )
+        style={{ height: 1, width: '100%', backgroundColor: '#ddd' }}></View>
+    );
 
     const renderItem = useCallback(
       (item, searchText) => {
         if (typeof props.renderItem === 'function') {
-          const LI = props.renderItem(item, searchText)
+          const LI = props.renderItem(item, searchText);
           return (
             <TouchableOpacity onPress={() => _onSelectItem(item)}>
               {LI}
             </TouchableOpacity>
-          )
+          );
         }
-        let titleHighlighted = ''
-        let titleStart = item.title
-        let titleEnd = ''
+        let titleHighlighted = '';
+        let titleStart = item.title;
+        let titleEnd = '';
         if (
           typeof item.title === 'string' &&
           item.title.length > 0 &&
@@ -197,17 +196,17 @@ export const AutocompleteDropdown = memo(
         ) {
           const substrIndex = item.title
             .toLowerCase()
-            .indexOf(searchText.toLowerCase())
+            .indexOf(searchText.toLowerCase());
           if (substrIndex !== -1) {
-            titleStart = item.title.slice(0, substrIndex)
+            titleStart = item.title.slice(0, substrIndex);
             titleHighlighted = item.title.slice(
               substrIndex,
-              substrIndex + searchText.length
-            )
-            titleEnd = item.title.slice(substrIndex + searchText.length)
+              substrIndex + searchText.length,
+            );
+            titleEnd = item.title.slice(substrIndex + searchText.length);
           } else {
             if (props.useFilter !== false) {
-              return null
+              return null;
             }
           }
         }
@@ -217,101 +216,103 @@ export const AutocompleteDropdown = memo(
             <ScrollViewListItem
               {...{ titleHighlighted, titleStart, titleEnd }}
               style={props.suggestionsListTextStyle}
-              onPress={() => _onSelectItem(item)}
-            ></ScrollViewListItem>
+              onPress={() => _onSelectItem(item)}></ScrollViewListItem>
           ),
-          {}
-        )
-        return <EL></EL>
+          {},
+        );
+        return <EL></EL>;
       },
-      [props.renderItem]
-    )
+      [props.renderItem],
+    );
 
     const scrollContent = useMemo(() => {
       if (!Array.isArray(dataSet)) {
-        return null
+        return null;
       }
 
-      const content = []
-      const itemsCount = dataSet.length
+      const content = [];
+      const itemsCount = dataSet.length;
       dataSet.forEach((item, i) => {
-        const listItem = renderItem(item, searchText)
+        const listItem = renderItem(item, searchText);
         if (listItem) {
           content.push(
             <View key={item.id}>
               {content.length > 0 && i < itemsCount && ItemSeparatorComponent}
               {listItem}
-            </View>
-          )
+            </View>,
+          );
         }
-      })
-      return content
-    }, [dataSet]) // don't use searchText here because it will rerender list twice every time
+      });
+      return content;
+    }, [dataSet]); // don't use searchText here because it will rerender list twice every time
 
     const onClearPress = useCallback(() => {
-      setSearchText('')
-      setSelectedItem(null)
-      setIsOpened(false)
-      inputRef.current.blur()
+      setSearchText('');
+      setSelectedItem(null);
+      setIsOpened(false);
+      inputRef.current.blur();
       if (typeof props.onClear === 'function') {
-        props.onClear()
+        props.onClear();
       }
-    }, [props.onClear])
+    }, [props.onClear]);
 
     const debouncedEvent = useCallback(
-      debounce((text) => {
+      debounce(text => {
         if (typeof props.onChangeText === 'function') {
-          props.onChangeText(text)
+          props.onChangeText(text);
         }
       }, props.debounce ?? 0),
-      [props.onChangeText]
-    )
+      [props.onChangeText],
+    );
 
-    const onChangeText = useCallback((text) => {
-      setSearchText(text)
-      debouncedEvent(text)
-    }, [])
+    const onChangeText = useCallback(text => {
+      setSearchText(text);
+      debouncedEvent(text);
+    }, []);
 
     const onChevronPress = useCallback(() => {
-      toggle()
-      Keyboard.dismiss()
-    }, [isOpened])
+      toggle();
+      Keyboard.dismiss();
+    }, [isOpened]);
 
     const onFocus = useCallback(
-      (e) => {
+      e => {
         if (clearOnFocus) {
-          setSearchText('')
+          setSearchText('');
         }
         if (typeof props.onFocus === 'function') {
-          props.onFocus(e)
+          props.onFocus(e);
         }
-        open()
+        open();
       },
-      [dataSet, clearOnFocus, props.onFocus]
-    )
+      [dataSet, clearOnFocus, props.onFocus],
+    );
 
-    const onBlur = useCallback((e) => {
-      if (props.closeOnBlur) {
-        close()
-      }
-      if (typeof props.onBlur === 'function') {
-        props.onBlur(e)
-      }
-    }, [props.closeOnBlur, props.onBlur])
+    const onBlur = useCallback(
+      e => {
+        if (props.closeOnBlur) {
+          close();
+        }
+        if (typeof props.onBlur === 'function') {
+          props.onBlur(e);
+        }
+      },
+      [props.closeOnBlur, props.onBlur],
+    );
 
     const onSubmit = useCallback(
-      (e) => {
-        inputRef.current.blur()
+      e => {
+        inputRef.current.blur();
         if (props.closeOnSubmit) {
-          close()
+          close();
         }
 
         if (typeof props.onSubmit === 'function') {
-          props.onSubmit(e)
+          props.onSubmit(e);
         }
       },
-      [props.closeOnSubmit, props.onSubmit]
-    )
+      [props.closeOnSubmit, props.onSubmit],
+    );
 
     return (
       <View
@@ -319,14 +320,12 @@ export const AutocompleteDropdown = memo(
           styles.container,
           props.containerStyle,
           Platform.select({ ios: { zIndex: 1 } }),
-        ]}
-      >
+        ]}>
         {/* it's necessary use onLayout here for Androd (bug?) */}
         <View
           ref={containerRef}
-          onLayout={(_) => {}}
-          style={[props.inputContainerStyle]}
-        >
+          onLayout={_ => {}}
+          style={[styles.inputContainerStyle, props.inputContainerStyle]}>
           <InputComponent
             ref={inputRef}
             value={searchText}
@@ -353,8 +352,7 @@ export const AutocompleteDropdown = memo(
             loading={props.loading}
             buttonsContainerStyle={props.rightButtonsContainerStyle}
             ChevronIconComponent={props.ChevronIconComponent}
-            ClearIconComponent={props.ClearIconComponent}
-          ></RightButton>
+            ClearIconComponent={props.ClearIconComponent}></RightButton>
         </View>
 
         {isOpened && Array.isArray(dataSet) && (
@@ -362,31 +360,36 @@ export const AutocompleteDropdown = memo(
             style={{
               ...styles.listContainer,
               position,
-              ...(position === 'relative' ? { marginTop: 5 } : { [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5 }),
+              ...(position === 'relative'
+                ? { marginTop: 5 }
+                : {
+                    [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5,
+                  }),
               ...props.suggestionsListContainerStyle,
-            }}
-          >
+            }}>
             <ScrollViewComponent
               keyboardDismissMode="on-drag"
               keyboardShouldPersistTaps="handled"
               style={{ maxHeight: suggestionsListMaxHeight }}
               nestedScrollEnabled={true}
-              onScrollBeginDrag={Keyboard.dismiss}
-            >
+              onScrollBeginDrag={Keyboard.dismiss}>
               {
                 <View>
                   {scrollContent.length > 0
                     ? scrollContent
-                    : !!searchText && (props.EmptyResultComponent ?? <NothingFound emptyResultText={props.emptyResultText} />)}
+                    : !!searchText &&
+                      (props.EmptyResultComponent ?? (
+                        <NothingFound emptyResultText={props.emptyResultText} />
+                      ))}
                 </View>
               }
             </ScrollViewComponent>
           </View>
         )}
       </View>
-    )
-  })
-)
+    );
+  }),
+);
 
 AutocompleteDropdown.propTypes = {
   dataSet: PropTypes.array,
@@ -419,22 +422,27 @@ AutocompleteDropdown.propTypes = {
   ClearIconComponent: PropTypes.element,
   ScrollViewComponent: PropTypes.elementType,
   EmptyResultComponent: PropTypes.elementType,
-  emptyResultText: PropTypes.string
-}
+  emptyResultText: PropTypes.string,
+};
 
 const styles = ScaledSheet.create({
   container: {
     marginVertical: 2,
   },
-  Input: {
-    width: '100%',
+  inputContainerStyle: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'row',
     backgroundColor: '#e5ecf2',
     borderRadius: 5,
+  },
+  Input: {
+    flexGrow: 1,
+    flexShrink: 1,
     overflow: 'hidden',
     paddingHorizontal: 13,
     fontSize: 16,
   },
-
   listContainer: {
     backgroundColor: '#fff',
     width: '100%',
@@ -450,4 +458,4 @@ const styles = ScaledSheet.create({
 
     elevation: 20,
   },
-})
+});

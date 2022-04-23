@@ -1,22 +1,24 @@
-import React, { memo } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { withFadeAnimation } from './HOC/withFadeAnimation'
+import React, { memo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { withFadeAnimation } from './HOC/withFadeAnimation';
 
-export const NothingFound = memo(({...props}) => {
+export const NothingFound = memo(({ ...props }) => {
   const EL = withFadeAnimation(
     () => (
       <View style={{ ...styles.container }}>
-        <Text style={styles.text}>{props.emptyResultText || 'Nothing found'}</Text>
+        <Text style={styles.text}>
+          {props.emptyResultText || 'Nothing found'}
+        </Text>
       </View>
     ),
-    {}
-  )
-  return <EL></EL>
-})
+    {},
+  );
+  return <EL></EL>;
+});
 
 const styles = StyleSheet.create({
   container: {
     padding: 10,
   },
   text: { textAlign: 'center' },
-})
+});

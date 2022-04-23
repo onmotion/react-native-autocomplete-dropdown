@@ -1,6 +1,6 @@
 {
   "name": "react-native-autocomplete-dropdown",
-  "version": "1.1.7",
+  "version": "1.2.0",
   "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -24,23 +24,24 @@
   ],
   "author": "Alexandr Kozhevnikov <onmotion1@gmail.com>",
   "license": "MIT",
-  "prettier": {
-    "tabWidth": 2,
-    "useTabs": false,
-    "semi": false,
-    "singleQuote": true
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/eslint-parser": "^7.17.0",
+    "eslint": "7.32.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.6.2"
   },
-  "devDependencies": {},
   "peerDependencies": {
+    "prop-types": "*",
     "react": "*",
-    "react-native": ">=0.40.0",
-    "prop-types": "*"
+    "react-native": ">=0.40.0"
   },
   "dependencies": {
-    "react-native-vector-icons": ">=7.0.0",
+    "@types/react": "*",
     "lodash.debounce": "*",
     "react-native-size-matters": "^0.3.0",
-    "@types/react": "*"
+    "react-native-vector-icons": ">=7.0.0"
   },
   "bugs": {
     "url": "https://github.com/onmotion/react-native-autocomplete-dropdown/issues"

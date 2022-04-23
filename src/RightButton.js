@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react'
+import React, { memo, useEffect, useRef } from 'react';
 import {
   ActivityIndicator,
   Animated,
@@ -6,10 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-} from 'react-native'
+} from 'react-native';
 // Icons
-import Feather from 'react-native-vector-icons/Feather'
-Feather.loadFont()
+import Feather from 'react-native-vector-icons/Feather';
+Feather.loadFont();
 
 export const RightButton = memo(
   ({
@@ -24,7 +24,7 @@ export const RightButton = memo(
     ChevronIconComponent,
     ClearIconComponent,
   }) => {
-    const isOpenedAnimationValue = useRef(new Animated.Value(0)).current
+    const isOpenedAnimationValue = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
       Animated.timing(isOpenedAnimationValue, {
@@ -32,13 +32,13 @@ export const RightButton = memo(
         toValue: isOpened ? 1 : 0,
         useNativeDriver: true,
         easing: Easing.bezier(0.3, 0.58, 0.25, 0.99),
-      }).start()
-    }, [isOpened])
+      }).start();
+    }, [isOpened]);
 
     const chevronSpin = isOpenedAnimationValue.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '180deg'],
-    })
+    });
 
     return (
       <View
@@ -46,8 +46,7 @@ export const RightButton = memo(
           ...styles.container,
           height: inputHeight,
           ...buttonsContainerStyle,
-        }}
-      >
+        }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
             {ClearIconComponent ?? (
@@ -60,8 +59,7 @@ export const RightButton = memo(
           <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
             <TouchableOpacity
               onPress={onChevronPress}
-              style={styles.chevronButton}
-            >
+              style={styles.chevronButton}>
               {ChevronIconComponent ?? (
                 <Feather name="chevron-down" size={20} color="#727992" />
               )}
@@ -69,18 +67,16 @@ export const RightButton = memo(
           </Animated.View>
         )}
       </View>
-    )
-  }
-)
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    flex: 1,
+    position: 'relative',
+    flex: 0,
     flexDirection: 'row',
-    right: 0,
-    paddingRight: 7,
-    top: 0,
+    right: 8,
     zIndex: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -96,4 +92,4 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
-})
+});
