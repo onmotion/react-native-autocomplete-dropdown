@@ -1,13 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-
 import {
   SafeAreaView,
   ScrollView,
@@ -20,10 +11,10 @@ import {
 } from 'react-native';
 
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { LocalDataSetExample } from './componens/LocalDataSetExample';
-import { RemoteDataSetExample3 } from './componens/RemoteDataSetExample3';
-import { RemoteDataSetExample } from './componens/RemoteDataSetExample';
-import { RemoteDataSetExample2 } from './componens/RemoteDataSetExample2';
+import { LocalDataSetExample } from './components/LocalDataSetExample';
+import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3';
+import { RemoteDataSetExample } from './components/RemoteDataSetExample';
+import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
