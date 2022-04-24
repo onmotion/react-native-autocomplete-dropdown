@@ -201,7 +201,7 @@ npm run ios
 | `clearOnFocus`                  | whether to clear typed text on focus                                                                     | bool                 | true                                        |
 | `debounce`                      | wait **ms** before call `onChangeText`                                                                   | number               | 0                                           |
 | `suggestionsListMaxHeight`      | max height of dropdown                                                                                   | number               | 200                                         |
-| `direction`                     | "up" or "down"                                                                                           | string               | auto                                        |
+| `direction`                     | "up" or "down"                                                                                           | string               | down + auto calculate                       |
 | `position`                      | "relative" or "absolute"                                                                                 | string               | relative                                    |
 | `bottomOffset`                  | for calculate dropdown direction (e.g. tabbar)                                                           | number               | 0                                           |
 | `onChangeText`                  | event textInput onChangeText                                                                             | function             |                                             |
@@ -287,6 +287,6 @@ But if it change with calculated zIndex:
 it will be rendered as expected
 <img width="381" alt="Screenshot 2022-04-24 at 21 03 16" src="https://user-images.githubusercontent.com/12899080/164990163-7d2aa98d-3988-4636-97a3-8be229489472.png">
 
-And the same, if you want render dropdown list to _top_ direction, you should switch zIndexes respectively
+And the same, if you want render dropdown list to **up** direction, you should switch zIndexes respectively
 
 More info about this behaviour: https://docs.expo.dev/ui-programming/z-index/
