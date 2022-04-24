@@ -31,6 +31,7 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
   - [Example with local Dataset](#example-with-local-dataset)
   - [Example with remote requested Dataset](#example-with-remote-requested-dataset)
 - [Options](#options)
+- [Troubleshooting](#troubleshooting)
 
 ## Installation
 
@@ -56,7 +57,7 @@ Follow the guides from https://github.com/oblador/react-native-vector-icons#andr
 import the package
 
 ```js
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 ```
 
 ### Dataset item format
@@ -73,9 +74,9 @@ import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 ### Example with local Dataset
 
 ```js
-const [selectedItem, setSelectedItem] = useState(null)
+const [selectedItem, setSelectedItem] = useState(null);
 
-;<AutocompleteDropdown
+<AutocompleteDropdown
   clearOnFocus={false}
   closeOnBlur={true}
   closeOnSubmit={false}
@@ -86,7 +87,7 @@ const [selectedItem, setSelectedItem] = useState(null)
     { id: '2', title: 'Beta' },
     { id: '3', title: 'Gamma' },
   ]}
-/>
+/>;
 ```
 
 ### Example with remote requested Dataset
@@ -219,3 +220,71 @@ npm run ios
 | `EmptyResultComponent`          | replace the default `<NothingFound>` Component on empty result                                           | React.Component      |                                             |
 | `emptyResultText`               | replace the default "Nothing found" text on empty result                                                 | string               | "Nothing found"                             |
 | `textInputProps`                | text input props                                                                                         | TextInputProps       |                                             |
+
+## Troubleshooting
+
+### zIndex hell on iOS
+
+As decribed here https://docs.expo.dev/ui-programming/z-index/ on iOS for absolute positioned items we must respect the zIndex of the element parent.
+
+So for example if you do smth like
+
+```js
+          <View style={[styles.section]}>
+            <Text style={styles.sectionTitle}>First</Text>
+            <AutocompleteDropdown
+              dataSet={[
+                { id: '1', title: 'Alpha' },
+                { id: '2', title: 'Beta' },
+                { id: '3', title: 'Gamma' },
+              ]}
+            />
+          </View>
+          <View style={[styles.section]}>
+            <Text style={styles.sectionTitle}>Second</Text>
+            <AutocompleteDropdown
+              dataSet={[
+                { id: '1', title: 'Alpha' },
+                { id: '2', title: 'Beta' },
+                { id: '3', title: 'Gamma' },
+              ]}
+            />
+          </View>
+```
+
+you would see
+<img width="384" alt="Screenshot 2022-04-24 at 20 59 38" src="https://user-images.githubusercontent.com/12899080/164989990-2b4269e1-406a-48a5-9ec7-25e4f53d2fb0.png">
+
+But if it change with calculated zIndex:
+
+```js
+          <View
+            style={[styles.section, Platform.select({ ios: { zIndex: 10 } })]}>
+            <Text style={styles.sectionTitle}>First</Text>
+            <AutocompleteDropdown
+              dataSet={[
+                { id: '1', title: 'Alpha' },
+                { id: '2', title: 'Beta' },
+                { id: '3', title: 'Gamma' },
+              ]}
+            />
+          </View>
+          <View
+            style={[styles.section, Platform.select({ ios: { zIndex: 9 } })]}>
+            <Text style={styles.sectionTitle}>Second</Text>
+            <AutocompleteDropdown
+              dataSet={[
+                { id: '1', title: 'Alpha' },
+                { id: '2', title: 'Beta' },
+                { id: '3', title: 'Gamma' },
+              ]}
+            />
+          </View>
+```
+
+it will be rendered as expected
+<img width="381" alt="Screenshot 2022-04-24 at 21 03 16" src="https://user-images.githubusercontent.com/12899080/164990163-7d2aa98d-3988-4636-97a3-8be229489472.png">
+
+And the same, if you want render dropdown list to _top_ direction, you should switch zIndexes respectively
+
+More info about this behaviour: https://docs.expo.dev/ui-programming/z-index/
