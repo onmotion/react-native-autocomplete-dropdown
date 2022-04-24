@@ -201,6 +201,8 @@ npm run ios
 | `clearOnFocus`                  | whether to clear typed text on focus                                                                     | bool                 | true                                        |
 | `debounce`                      | wait **ms** before call `onChangeText`                                                                   | number               | 0                                           |
 | `suggestionsListMaxHeight`      | max height of dropdown                                                                                   | number               | 200                                         |
+| `direction`                     | "up" or "down"                                                                                           | string               | auto                                        |
+| `position`                      | "relative" or "absolute"                                                                                 | string               | relative                                    |
 | `bottomOffset`                  | for calculate dropdown direction (e.g. tabbar)                                                           | number               | 0                                           |
 | `onChangeText`                  | event textInput onChangeText                                                                             | function             |                                             |
 | `onSelectItem`                  | event onSelectItem                                                                                       | function             |                                             |
