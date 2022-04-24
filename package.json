@@ -30,16 +30,16 @@
     "eslint": "7.32.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "@types/react": "*"
   },
   "peerDependencies": {
-    "prop-types": "*",
     "react": "*",
     "react-native": ">=0.40.0"
   },
   "dependencies": {
-    "@types/react": "*",
     "lodash.debounce": "*",
+    "prop-types": "*",
     "react-native-size-matters": "^0.3.0",
     "react-native-vector-icons": ">=7.0.0"
   },
