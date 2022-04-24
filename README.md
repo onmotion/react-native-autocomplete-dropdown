@@ -19,7 +19,7 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
 
 > Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.io/@onmotion/react-native-autocomplete-dropdown)
 
-<img src="./screens/expo-qr.png" width="100">
+<img src="./screens/expo-qr.png" width="150">
 
 ## Nav
 
