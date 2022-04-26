@@ -14,6 +14,7 @@ export const RemoteDataSetExample2 = memo(() => {
   const searchRef = useRef(null)
 
   const getSuggestions = useCallback(async q => {
+    const filterToken = q.toLowerCase()
     console.log('getSuggestions', q)
     if (typeof q !== 'string' || q.length < 3) {
       setSuggestionsList(null)
@@ -22,10 +23,12 @@ export const RemoteDataSetExample2 = memo(() => {
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
     const items = await response.json()
-    const suggestions = items.map(item => ({
-      id: item.id,
-      title: item.title,
-    }))
+    const suggestions = items
+      .filter(item => item.title.toLowerCase().includes(filterToken))
+      .map(item => ({
+        id: item.id,
+        title: item.title,
+      }))
     setSuggestionsList(suggestions)
     setLoading(false)
   }, [])
@@ -61,7 +64,7 @@ export const RemoteDataSetExample2 = memo(() => {
           //  onSubmit={(e) => onSubmitSearch(e.nativeEvent.text)}
           onOpenSuggestionsList={onOpenSuggestionsList}
           loading={loading}
-          useFilter={true} // prevent rerender twice
+          useFilter={false} // set false to prevent rerender twice
           textInputProps={{
             placeholder: 'Type 3+ letters',
             autoCorrect: false,
@@ -92,6 +95,7 @@ export const RemoteDataSetExample2 = memo(() => {
           ClearIconComponent={<Feather name="x-circle" size={18} color="#fff" />}
           inputHeight={50}
           showChevron={false}
+          closeOnBlur={false}
           //  showClear={false}
         />
         <View style={{ width: 10 }} />

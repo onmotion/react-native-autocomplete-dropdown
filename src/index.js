@@ -208,7 +208,6 @@ export const AutocompleteDropdown = memo(
       if (!Array.isArray(dataSet)) {
         return null
       }
-
       const content = []
       const itemsCount = dataSet.length
       dataSet.forEach((item, i) => {
@@ -396,7 +395,7 @@ AutocompleteDropdown.propTypes = {
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
   ScrollViewComponent: PropTypes.elementType,
-  EmptyResultComponent: PropTypes.elementType,
+  EmptyResultComponent: PropTypes.element,
   emptyResultText: PropTypes.string,
 }
 

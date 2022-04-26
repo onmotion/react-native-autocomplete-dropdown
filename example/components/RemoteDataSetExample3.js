@@ -47,6 +47,7 @@ export const RemoteDataSetExample3 = memo(() => {
         <View style={{ width: 10 }} />
         <AutocompleteDropdown
           ref={searchRef}
+          closeOnBlur={false}
           direction={Platform.select({ ios: 'down' })}
           controller={controller => {
             dropdownController.current = controller

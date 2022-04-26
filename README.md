@@ -211,6 +211,7 @@ npm run ios
 | `onSubmit`                      | event on submit KB button press                                                                          | function             |                                             |
 | `onBlur`                        | event fired on text input blur                                                                           | function             |                                             |
 | `onFocus`                       | event on focus text input                                                                                | function             |                                             |
+| `renderItem`                    | JSX for render item `(item, searchText) => JSX \| null` if return null then the element will not be displayed     | function             | item.title                   |
 | `controller`                    | return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** | function             |                                             |
 | `containerStyle`                |                                                                                                          | ViewStyle            |                                             |
 | `rightButtonsContainerStyle`    |                                                                                                          | ViewStyle            |                                             |
@@ -224,6 +225,8 @@ npm run ios
 | `textInputProps`                | text input props                                                                                         | TextInputProps       |                                             |
 
 ## Troubleshooting
+
+
 
 ### zIndex hell on iOS
 
