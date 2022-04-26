@@ -178,23 +178,17 @@ export const AutocompleteDropdown = memo(
 
     const renderItem = useCallback(
       (item, searchText) => {
-        if (typeof props.renderItem === 'function') {
-          const LI = props.renderItem(item, searchText);
-          return (
-            <TouchableOpacity onPress={() => _onSelectItem(item)}>
-              {LI}
-            </TouchableOpacity>
-          );
-        }
         let titleHighlighted = '';
         let titleStart = item.title;
         let titleEnd = '';
+        let substrIndex = 0;
         if (
+          props.useFilter !== false &&
           typeof item.title === 'string' &&
           item.title.length > 0 &&
           searchText.length > 0
         ) {
-          const substrIndex = item.title
+          substrIndex = item.title
             .toLowerCase()
             .indexOf(searchText.toLowerCase());
           if (substrIndex !== -1) {
@@ -204,11 +198,20 @@ export const AutocompleteDropdown = memo(
               substrIndex + searchText.length,
             );
             titleEnd = item.title.slice(substrIndex + searchText.length);
-          } else {
-            if (props.useFilter !== false) {
-              return null;
-            }
           }
+        }
+
+        if (substrIndex === -1) {
+          return null;
+        }
+
+        if (typeof props.renderItem === 'function') {
+          const EL = props.renderItem(item, searchText);
+          return (
+            <TouchableOpacity onPress={() => _onSelectItem(item)}>
+              {EL}
+            </TouchableOpacity>
+          );
         }
 
         const EL = withFadeAnimation(
