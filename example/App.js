@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   SafeAreaView,
   ScrollView,
@@ -8,20 +8,20 @@ import {
   useColorScheme,
   View,
   Platform,
-} from 'react-native';
+} from 'react-native'
 
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { LocalDataSetExample } from './components/LocalDataSetExample';
-import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3';
-import { RemoteDataSetExample } from './components/RemoteDataSetExample';
-import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2';
+import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { LocalDataSetExample } from './components/LocalDataSetExample'
+import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3'
+import { RemoteDataSetExample } from './components/RemoteDataSetExample'
+import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2'
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  }
 
   return (
     <SafeAreaView style={(backgroundStyle, { flex: 1 })}>
@@ -34,31 +34,27 @@ const App = () => {
         style={styles.scrollContainer}>
         <View style={[styles.container]}>
           <Text style={styles.title}>Autocomplete dropdown</Text>
-          <View
-            style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
+          <View style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
             <Text style={styles.sectionTitle}>Local list</Text>
             <LocalDataSetExample />
           </View>
-          <View
-            style={[styles.section, Platform.select({ ios: { zIndex: 99 } })]}>
+          <View style={[styles.section, Platform.select({ ios: { zIndex: 99 } })]}>
             <Text style={styles.sectionTitle}>Remote list</Text>
             <RemoteDataSetExample />
           </View>
-          <View
-            style={[styles.section, Platform.select({ ios: { zIndex: 98 } })]}>
+          <View style={[styles.section, Platform.select({ ios: { zIndex: 98 } })]}>
             <Text style={styles.sectionTitle}>Remote list customization</Text>
             <RemoteDataSetExample2 />
           </View>
-          <View
-            style={[styles.section, Platform.select({ ios: { zIndex: 97 } })]}>
+          <View style={[styles.section, Platform.select({ ios: { zIndex: 97 } })]}>
             <Text style={styles.sectionTitle}>Remote list customization 2</Text>
             <RemoteDataSetExample3 />
           </View>
         </View>
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   scrollContainer: {
@@ -79,6 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 3,
   },
-});
+})
 
-export default App;
+export default App

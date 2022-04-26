@@ -1,28 +1,28 @@
-import React, { memo, useCallback, useState } from 'react';
-import { Text } from 'react-native';
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import React, { memo, useCallback, useState } from 'react'
+import { Text } from 'react-native'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample = memo(() => {
-  const [loading, setLoading] = useState(false);
-  const [remoteDataSet, setRemoteDataSet] = useState(null);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [loading, setLoading] = useState(false)
+  const [remoteDataSet, setRemoteDataSet] = useState(null)
+  const [selectedItem, setSelectedItem] = useState(null)
 
   const getSuggestions = useCallback(async q => {
-    console.log('getSuggestions', q);
+    console.log('getSuggestions', q)
     if (typeof q !== 'string' || q.length < 3) {
-      setRemoteDataSet(null);
-      return;
+      setRemoteDataSet(null)
+      return
     }
-    setLoading(true);
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-    const items = await response.json();
+    setLoading(true)
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const items = await response.json()
     const suggestions = items.map(item => ({
       id: item.id,
       title: item.title,
-    }));
-    setRemoteDataSet(suggestions);
-    setLoading(false);
-  }, []);
+    }))
+    setRemoteDataSet(suggestions)
+    setLoading(false)
+  }, [])
 
   return (
     <>
@@ -43,9 +43,7 @@ export const RemoteDataSetExample = memo(() => {
         //   <Text style={{padding: 10, fontSize: 15}}>Oops ¯\_(ツ)_/¯</Text>
         // }
       />
-      <Text style={{ color: '#668', fontSize: 13 }}>
-        Selected item: {JSON.stringify(selectedItem)}
-      </Text>
+      <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
     </>
-  );
-});
+  )
+})

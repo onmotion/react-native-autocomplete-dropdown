@@ -1,9 +1,9 @@
-import React, { memo, useState } from 'react';
-import { Text, View } from 'react-native';
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import React, { memo, useState } from 'react'
+import { Text, View } from 'react-native'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const LocalDataSetExample = memo(() => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null)
 
   return (
     <View>
@@ -18,9 +18,7 @@ export const LocalDataSetExample = memo(() => {
           { id: '3', title: 'Gamma' },
         ]}
       />
-      <Text style={{ color: '#668', fontSize: 13 }}>
-        Selected item: {JSON.stringify(selectedItem)}
-      </Text>
+      <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
     </View>
-  );
-});
+  )
+})
