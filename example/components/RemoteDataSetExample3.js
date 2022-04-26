@@ -58,7 +58,7 @@ export const RemoteDataSetExample3 = memo(() => {
             item && setSelectedItem(item.id)
           }}
           debounce={600}
-          suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
+          suggestionsListMaxHeight={Dimensions.get('window').height * 0.3}
           onClear={onClearPress}
           onSubmit={e => console.log(e.nativeEvent.text)}
           onOpenSuggestionsList={onOpenSuggestionsList}

@@ -31,15 +31,13 @@ const App = () => {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        enabled
-        //  keyboardVerticalOffset={100}
-      >
+        enabled>
         <ScrollView
           nestedScrollEnabled
           keyboardDismissMode="on-drag"
           keyboardShouldPersistTaps="handled"
           contentInsetAdjustmentBehavior="automatic"
-          contentContainerStyle={{ paddingBottom: 300 }}
+          contentContainerStyle={{ paddingBottom: 200 }}
           style={styles.scrollContainer}>
           <View style={[styles.container]}>
             <Text style={styles.title}>Autocomplete dropdown</Text>
