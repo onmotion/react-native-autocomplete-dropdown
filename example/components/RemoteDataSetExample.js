@@ -15,7 +15,9 @@ export const RemoteDataSetExample = memo(() => {
       return
     }
     setLoading(true)
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts').then((data) => new Promise(res => {
+      setTimeout(() => res(data), 2000) // imitate of a long response
+    }))
     const items = await response.json()
 
     const suggestions = items
