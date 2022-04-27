@@ -193,7 +193,7 @@ npm run ios
 | `dataSet`                       | set of list items                                                                                        | array                | null                                        |
 | `initialValue`                  | string (**id**) or object that contain **id**                                                            | string \| object     | null                                        |
 | `loading`                       | loading state                                                                                            | bool                 | false                                       |
-| `useFilter`                     | whether use local filter by dataSet (useful set to false for remote filtering)                           | bool                 | true                                        |
+| `useFilter`                     | whether use local filter by dataSet (useful set to false for remote filtering to prevent rerender twice)                           | bool                 | true                                        |
 | `showClear`                     | show clear button                                                                                        | bool                 | true                                        |
 | `showChevron`                   | show chevron (open/close) button                                                                         | bool                 | true                                        |
 | `closeOnBlur`                   | whether to close dropdown on blur                                                                        | bool                 | false                                       |
@@ -211,6 +211,7 @@ npm run ios
 | `onSubmit`                      | event on submit KB button press                                                                          | function             |                                             |
 | `onBlur`                        | event fired on text input blur                                                                           | function             |                                             |
 | `onFocus`                       | event on focus text input                                                                                | function             |                                             |
+| `renderItem`                    | JSX for render item `(item, searchText) => JSX \| null` if return null then the element will not be displayed     | function             | item.title                   |
 | `controller`                    | return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** | function             |                                             |
 | `containerStyle`                |                                                                                                          | ViewStyle            |                                             |
 | `rightButtonsContainerStyle`    |                                                                                                          | ViewStyle            |                                             |
@@ -224,6 +225,8 @@ npm run ios
 | `textInputProps`                | text input props                                                                                         | TextInputProps       |                                             |
 
 ## Troubleshooting
+
+
 
 ### zIndex hell on iOS
 

@@ -1,19 +1,23 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community'],
-  plugins: ['unused-imports'],
+  extends: '@react-native-community',
   rules: {
-    'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
-    'unused-imports/no-unused-imports': 'error',
-    'react-native/no-inline-styles': 'off',
-    'unused-imports/no-unused-vars': [
-      'warn',
+    'prettier/prettier': [
+      'error',
       {
-        vars: 'all',
-        varsIgnorePattern: '^_',
-        args: 'after-used',
-        argsIgnorePattern: '^_',
+        printWidth: 110,
+        arrowParens: 'avoid',
+        bracketSameLine: true,
+        bracketSpacing: true,
+        singleQuote: true,
+        trailingComma: 'all',
+        tabWidth: 2,
+        useTabs: false,
+        semi: false,
       },
     ],
+    semi: 'off',
+    'react-native/no-inline-styles': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
 }
