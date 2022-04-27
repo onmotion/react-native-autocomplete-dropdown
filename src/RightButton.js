@@ -15,7 +15,7 @@ export const RightButton = memo(
     loading,
     buttonsContainerStyle,
     ChevronIconComponent,
-    ClearIconComponent,
+    ClearIconComponent
   }) => {
     const isOpenedAnimationValue = useRef(new Animated.Value(0)).current
 
@@ -24,13 +24,13 @@ export const RightButton = memo(
         duration: 350,
         toValue: isOpened ? 1 : 0,
         useNativeDriver: true,
-        easing: Easing.bezier(0.3, 0.58, 0.25, 0.99),
+        easing: Easing.bezier(0.3, 0.58, 0.25, 0.99)
       }).start()
     }, [isOpened])
 
     const chevronSpin = isOpenedAnimationValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '180deg'],
+      outputRange: ['0deg', '180deg']
     })
 
     return (
@@ -38,7 +38,7 @@ export const RightButton = memo(
         style={{
           ...styles.container,
           height: inputHeight,
-          ...buttonsContainerStyle,
+          ...buttonsContainerStyle
         }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
@@ -55,7 +55,7 @@ export const RightButton = memo(
         )}
       </View>
     )
-  },
+  }
 )
 
 const styles = StyleSheet.create({
@@ -67,16 +67,16 @@ const styles = StyleSheet.create({
     zIndex: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   clearButton: {
     width: 26,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   chevronButton: {
     width: 26,
     alignItems: 'center',
     height: '100%',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 })

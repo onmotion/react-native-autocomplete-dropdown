@@ -8,7 +8,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState,
+  useState
 } from 'react'
 import { Dimensions, Keyboard, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
@@ -118,7 +118,7 @@ export const AutocompleteDropdown = memo(
       const [, positionY] = await new Promise(resolve =>
         containerRef.current.measureInWindow((...rect) => {
           resolve(rect)
-        }),
+        })
       )
 
       const screenHeight = Dimensions.get('window').height
@@ -197,11 +197,11 @@ export const AutocompleteDropdown = memo(
               onPress={() => _onSelectItem(item)}
             />
           ),
-          {},
+          {}
         )
         return <EL />
       },
-      [props.renderItem],
+      [props.renderItem]
     )
 
     const scrollContent = useMemo(() => {
@@ -217,7 +217,7 @@ export const AutocompleteDropdown = memo(
             <View key={item.id}>
               {content.length > 0 && i < itemsCount && ItemSeparatorComponent}
               {listItem}
-            </View>,
+            </View>
           )
         }
       })
@@ -240,7 +240,7 @@ export const AutocompleteDropdown = memo(
           props.onChangeText(text)
         }
       }, props.debounce ?? 0),
-      [props.onChangeText],
+      [props.onChangeText]
     )
 
     const onChangeText = useCallback(text => {
@@ -263,7 +263,7 @@ export const AutocompleteDropdown = memo(
         }
         open()
       },
-      [dataSet, clearOnFocus, props.onFocus],
+      [dataSet, clearOnFocus, props.onFocus]
     )
 
     const onBlur = useCallback(
@@ -275,7 +275,7 @@ export const AutocompleteDropdown = memo(
           props.onBlur(e)
         }
       },
-      [props.closeOnBlur, props.onBlur],
+      [props.closeOnBlur, props.onBlur]
     )
 
     const onSubmit = useCallback(
@@ -289,7 +289,7 @@ export const AutocompleteDropdown = memo(
           props.onSubmit(e)
         }
       },
-      [props.closeOnSubmit, props.onSubmit],
+      [props.closeOnSubmit, props.onSubmit]
     )
 
     return (
@@ -312,7 +312,7 @@ export const AutocompleteDropdown = memo(
             style={{
               ...styles.Input,
               height: inputHeight,
-              ...(props.textInputProps ?? {}).style,
+              ...(props.textInputProps ?? {}).style
             }}
           />
           <RightButton
@@ -337,9 +337,9 @@ export const AutocompleteDropdown = memo(
               ...(position === 'relative'
                 ? { marginTop: 5 }
                 : {
-                    [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5,
+                    [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5
                   }),
-              ...props.suggestionsListContainerStyle,
+              ...props.suggestionsListContainerStyle
             }}>
             <ScrollViewComponent
               keyboardDismissMode="on-drag"
@@ -362,7 +362,7 @@ export const AutocompleteDropdown = memo(
         )}
       </View>
     )
-  }),
+  })
 )
 
 AutocompleteDropdown.propTypes = {
@@ -396,26 +396,26 @@ AutocompleteDropdown.propTypes = {
   ClearIconComponent: PropTypes.element,
   ScrollViewComponent: PropTypes.elementType,
   EmptyResultComponent: PropTypes.element,
-  emptyResultText: PropTypes.string,
+  emptyResultText: PropTypes.string
 }
 
 const styles = ScaledSheet.create({
   container: {
-    marginVertical: 2,
+    marginVertical: 2
   },
   inputContainerStyle: {
     position: 'relative',
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#e5ecf2',
-    borderRadius: 5,
+    borderRadius: 5
   },
   Input: {
     flexGrow: 1,
     flexShrink: 1,
     overflow: 'hidden',
     paddingHorizontal: 13,
-    fontSize: 16,
+    fontSize: 16
   },
   listContainer: {
     backgroundColor: '#fff',
@@ -425,11 +425,11 @@ const styles = ScaledSheet.create({
     shadowColor: '#00000099',
     shadowOffset: {
       width: 0,
-      height: 12,
+      height: 12
     },
     shadowOpacity: 0.3,
     shadowRadius: 15.46,
 
-    elevation: 20,
-  },
+    elevation: 20
+  }
 })

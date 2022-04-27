@@ -9,14 +9,14 @@ export const NothingFound = memo(({ ...props }) => {
         <Text style={styles.text}>{props.emptyResultText || 'Nothing found'}</Text>
       </View>
     ),
-    {},
+    {}
   )
   return <EL />
 })
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 10
   },
-  text: { textAlign: 'center' },
+  text: { textAlign: 'center' }
 })

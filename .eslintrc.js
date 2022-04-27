@@ -1,7 +1,14 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: ['@react-native-community', 'plugin:prettier/recommended', 'prettier'],
+  plugins: ['react', 'unused-imports', 'prettier'],
   rules: {
+    'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' }
+    ],
     'prettier/prettier': [
       'error',
       {
@@ -10,14 +17,15 @@ module.exports = {
         bracketSameLine: true,
         bracketSpacing: true,
         singleQuote: true,
-        trailingComma: 'all',
+        trailingComma: 'none',
         tabWidth: 2,
         useTabs: false,
-        semi: false,
-      },
+        semi: false
+      }
     ],
     semi: 'off',
+    'comma-dangle': ['warn', 'never'],
     'react-native/no-inline-styles': 'off',
-    'react-hooks/exhaustive-deps': 'off',
-  },
+    'react-hooks/exhaustive-deps': 'off'
+  }
 }

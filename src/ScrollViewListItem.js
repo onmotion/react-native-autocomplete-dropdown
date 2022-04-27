@@ -20,7 +20,7 @@ export const ScrollViewListItem = memo(
         </View>
       </TouchableOpacity>
     )
-  },
+  }
 )
 
 const styles = StyleSheet.create({
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexWrap: 'nowrap',
 
-    width: '100%',
+    width: '100%'
   },
   text: {
     color: '#333',
     fontSize: 16,
     flexGrow: 1,
-    flexShrink: 0,
-  },
+    flexShrink: 0
+  }
 })

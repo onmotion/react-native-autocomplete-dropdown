@@ -8,7 +8,7 @@ import {
   useColorScheme,
   View,
   Platform,
-  KeyboardAvoidingView,
+  KeyboardAvoidingView
 } from 'react-native'
 
 import { Colors } from 'react-native/Libraries/NewAppScreen'
@@ -22,7 +22,7 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
 
   return (
@@ -70,23 +70,23 @@ const App = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flex: 1,
+    flex: 1
   },
   container: {
-    padding: 20,
+    padding: 20
   },
   title: {
     textAlign: 'center',
     fontSize: 25,
-    marginBottom: 50,
+    marginBottom: 50
   },
   section: {
-    marginBottom: 40,
+    marginBottom: 40
   },
   sectionTitle: {
     fontWeight: 'bold',
-    marginBottom: 3,
-  },
+    marginBottom: 3
+  }
 })
 
 export default App

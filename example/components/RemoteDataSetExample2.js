@@ -27,7 +27,7 @@ export const RemoteDataSetExample2 = memo(() => {
       .filter(item => item.title.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
-        title: item.title,
+        title: item.title
       }))
     setSuggestionsList(suggestions)
     setLoading(false)
@@ -44,7 +44,7 @@ export const RemoteDataSetExample2 = memo(() => {
       <View
         style={[
           { flex: 1, flexDirection: 'row', alignItems: 'center' },
-          Platform.select({ ios: { zIndex: 1 } }),
+          Platform.select({ ios: { zIndex: 1 } })
         ]}>
         <AutocompleteDropdown
           ref={searchRef}
@@ -73,21 +73,21 @@ export const RemoteDataSetExample2 = memo(() => {
               borderRadius: 25,
               backgroundColor: '#383b42',
               color: '#fff',
-              paddingLeft: 18,
-            },
+              paddingLeft: 18
+            }
           }}
           rightButtonsContainerStyle={{
             right: 8,
             height: 30,
 
-            alignSelf: 'center',
+            alignSelf: 'center'
           }}
           inputContainerStyle={{
             backgroundColor: '#383b42',
-            borderRadius: 25,
+            borderRadius: 25
           }}
           suggestionsListContainerStyle={{
-            backgroundColor: '#383b42',
+            backgroundColor: '#383b42'
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => <Text style={{ color: '#fff', padding: 15 }}>{item.title}</Text>}

@@ -15,7 +15,7 @@ export const LocalDataSetExample = memo(() => {
         dataSet={[
           { id: '1', title: 'Alpha' },
           { id: '2', title: 'Beta' },
-          { id: '3', title: 'Gamma' },
+          { id: '3', title: 'Gamma' }
         ]}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
