@@ -15,6 +15,7 @@ export const RemoteDataSetExample3 = memo(() => {
 
   const getSuggestions = useCallback(async q => {
     console.log('getSuggestions', q)
+    const filterToken = q.toLowerCase()
     if (typeof q !== 'string' || q.length < 3) {
       setSuggestionsList(null)
       return
@@ -22,10 +23,12 @@ export const RemoteDataSetExample3 = memo(() => {
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
     const items = await response.json()
-    const suggestions = items.map(item => ({
-      id: item.id,
-      title: item.title,
-    }))
+    const suggestions = items
+      .filter(item => item.title.toLowerCase().includes(filterToken))
+      .map(item => ({
+        id: item.id,
+        title: item.title,
+      }))
     setSuggestionsList(suggestions)
     setLoading(false)
   }, [])
@@ -65,7 +68,7 @@ export const RemoteDataSetExample3 = memo(() => {
           loading={loading}
           useFilter={false} // prevent rerender twice
           textInputProps={{
-            placeholder: 'Type 3+ letters',
+            placeholder: 'Type 3+ letters (dolo...)',
             autoCorrect: false,
             autoCapitalize: 'none',
             style: {
