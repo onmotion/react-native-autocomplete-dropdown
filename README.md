@@ -242,6 +242,7 @@ npm run ios
 | `onChangeText`                  | event textInput onChangeText                                                                                  | function             |                                             |
 | `onSelectItem`                  | event onSelectItem                                                                                            | function             |                                             |
 | `onOpenSuggestionsList`         | event onOpenSuggestionsList                                                                                   | function             |                                             |
+| `onChevronPress`                | event onChevronPress                                                                                          | function             |                                             |
 | `onClear`                       | event on clear button press                                                                                   | function             |                                             |
 | `onSubmit`                      | event on submit KB button press                                                                               | function             |                                             |
 | `onBlur`                        | event fired on text input blur                                                                                | function             |                                             |
