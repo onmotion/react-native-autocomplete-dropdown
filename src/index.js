@@ -273,7 +273,7 @@ export const AutocompleteDropdown = memo(
           onLayout={_ => {}}
           style={[styles.inputContainerStyle, props.inputContainerStyle]}>
           <InputComponent
-            ref={inputRef}
+            ref={inputRef}  
             value={searchText}
             onChangeText={onChangeText}
             autoCorrect={false}
