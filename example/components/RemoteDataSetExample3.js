@@ -102,7 +102,11 @@ export const RemoteDataSetExample3 = memo(() => {
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => {
             console.log(text)
-            return <Text style={{ color: '#383b42', padding: 15 }}>{item.title}</Text>
+            return (
+              <Text style={{ color: '#383b42', padding: 15 }}>
+                ({text}) - {item.title}
+              </Text>
+            )
           }}
           ChevronIconComponent={<Feather name="chevron-down" size={20} color="#383b42" />}
           ClearIconComponent={<Feather name="x-circle" size={18} color="#383b42" />}

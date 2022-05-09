@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { StyleProp, TextInputProps, TextStyle, ViewStyle } from 'react-native';
+import { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps } from 'react-native';
 
 export type TAutocompleteDropdownItem = {
   id: string;
@@ -57,11 +57,11 @@ interface AutocompleteDropdownProps {
   suggestionsListTextStyle?: StyleProp<TextStyle>;
   ChevronIconComponent?: JSX.Element;
   ClearIconComponent?: JSX.Element;
-  ScrollViewComponent?: JSX.Element;
   InputComponent?: JSX.Element;
   ItemSeparatorComponent?: JSX.Element;
   EmptyResultComponent?: JSX.Element;
   emptyResultText?: string;
+  flatListProps?: FlatListProps<any>
 }
 
 export const AutocompleteDropdown: FC<AutocompleteDropdownProps>;

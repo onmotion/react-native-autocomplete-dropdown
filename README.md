@@ -254,10 +254,11 @@ npm run ios
 | `suggestionsListTextStyle`      |                                                                                                               | TextStyle            | styles of suggestions list text items       |
 | `ChevronIconComponent`          |                                                                                                               | React.Component      | Feather chevron icon                        |
 | `ClearIconComponent`            |                                                                                                               | React.Component      | Feather x icon                              |
-| `ScrollViewComponent`           |                                                                                                               | React.Component name | ScrollView that provide suggestions content |
+| ~~ScrollViewComponent~~           |  removed in 2.0.0 based on FlatList            | React.Component name | ScrollView that provide suggestions content |
 | `EmptyResultComponent`          | replace the default `<NothingFound>` Component on empty result                                                | React.Component      |                                             |
 | `emptyResultText`               | replace the default "Nothing found" text on empty result                                                      | string               | "Nothing found"                             |
 | `textInputProps`                | text input props                                                                                              | TextInputProps       |                                             |
+| `flatListProps` | props for \<FlatList/\> component  | FlatListProps\<any\> | |
 
 ## Troubleshooting
 

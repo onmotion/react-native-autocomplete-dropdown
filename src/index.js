@@ -10,9 +10,9 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { Dimensions, Keyboard, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Keyboard, LogBox, Platform, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dropdown } from './Dropdown'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
-import { withFadeAnimation } from './HOC/withFadeAnimation'
 import { NothingFound } from './NothingFound'
 import { RightButton } from './RightButton'
 import { ScrollViewListItem } from './ScrollViewListItem'
@@ -31,7 +31,6 @@ export const AutocompleteDropdown = memo(
     const suggestionsListMaxHeight = props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
     const position = props.position ?? 'absolute'
     const bottomOffset = props.bottomOffset ?? 0
-    const ScrollViewComponent = props.ScrollViewComponent ?? ScrollView
     const InputComponent = props.InputComponent ?? TextInput
 
     useLayoutEffect(() => {
@@ -43,6 +42,10 @@ export const AutocompleteDropdown = memo(
         }
       }
     }, [inputRef])
+
+    useEffect(() => {
+      LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+    }, [])
 
     /** Set initial value */
     useEffect(() => {
@@ -98,15 +101,6 @@ export const AutocompleteDropdown = memo(
       }
     }, [isOpened])
 
-    /**
-     * For re-render list while typing and useFilter
-     */
-    useEffect(() => {
-      if (props.useFilter !== false && Array.isArray(props.dataSet)) {
-        setDataSet(props.dataSet.slice())
-      }
-    }, [searchText])
-
     const _onSelectItem = useCallback(item => {
       setSelectedItem(item)
 
@@ -156,73 +150,43 @@ export const AutocompleteDropdown = memo(
       setSelectedItem(item)
     }
 
-    const ItemSeparatorComponent = props.ItemSeparatorComponent ?? (
-      <View style={{ height: 1, width: '100%', backgroundColor: '#ddd' }} />
-    )
+    useEffect(() => {
+      if (!Array.isArray(props.dataSet) || props.useFilter === false || !searchText.length) {
+        return
+      }
+
+      const lowerSearchText = searchText.toLowerCase()
+
+      const newSet = props.dataSet.filter(
+        item => typeof item.title === 'string' && item.title.toLowerCase().indexOf(lowerSearchText) !== -1
+      )
+
+      setDataSet(newSet)
+    }, [searchText, props.dataSet, props.useFilter])
 
     const renderItem = useCallback(
-      (item, searchText) => {
-        let titleHighlighted = ''
-        let titleStart = item.title
-        let titleEnd = ''
-        let substrIndex = 0
-        if (
-          props.useFilter !== false &&
-          typeof item.title === 'string' &&
-          item.title.length > 0 &&
-          searchText.length > 0
-        ) {
-          substrIndex = item.title.toLowerCase().indexOf(searchText.toLowerCase())
-          if (substrIndex !== -1) {
-            titleStart = item.title.slice(0, substrIndex)
-            titleHighlighted = item.title.slice(substrIndex, substrIndex + searchText.length)
-            titleEnd = item.title.slice(substrIndex + searchText.length)
-          }
-        }
-
-        if (substrIndex === -1) {
-          return null
-        }
-
+      ({ item }) => {
         if (typeof props.renderItem === 'function') {
           const EL = props.renderItem(item, searchText)
           return <TouchableOpacity onPress={() => _onSelectItem(item)}>{EL}</TouchableOpacity>
         }
 
-        const EL = withFadeAnimation(
-          () => (
-            <ScrollViewListItem
-              {...{ titleHighlighted, titleStart, titleEnd }}
-              style={props.suggestionsListTextStyle}
-              onPress={() => _onSelectItem(item)}
-            />
-          ),
-          {}
+        return (
+          <ScrollViewListItem
+            key={item.id}
+            title={item.title}
+            highlight={searchText}
+            style={props.suggestionsListTextStyle}
+            onPress={() => _onSelectItem(item)}
+          />
         )
-        return <EL />
       },
-      [props.renderItem]
+      [props.renderItem, searchText, props.suggestionsListTextStyle]
     )
 
-    const scrollContent = useMemo(() => {
-      if (!Array.isArray(dataSet)) {
-        return null
-      }
-      const content = []
-      const itemsCount = dataSet.length
-      dataSet.forEach((item, i) => {
-        const listItem = renderItem(item, searchText)
-        if (listItem) {
-          content.push(
-            <View key={item.id}>
-              {content.length > 0 && i < itemsCount && ItemSeparatorComponent}
-              {listItem}
-            </View>
-          )
-        }
-      })
-      return content
-    }, [dataSet]) // don't use searchText here because it will rerender list twice every time
+    const ListEmptyComponent = useMemo(() => {
+      return props.EmptyResultComponent ?? <NothingFound emptyResultText={props.emptyResultText} />
+    }, [props.EmptyResultComponent])
 
     const onClearPress = useCallback(() => {
       setSearchText('')
@@ -328,37 +292,19 @@ export const AutocompleteDropdown = memo(
             ClearIconComponent={props.ClearIconComponent}
           />
         </View>
-
         {isOpened && Array.isArray(dataSet) && (
-          <View
-            style={{
-              ...styles.listContainer,
+          <Dropdown
+            {...{
+              ...props,
               position,
-              ...(position === 'relative'
-                ? { marginTop: 5 }
-                : {
-                    [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5
-                  }),
-              ...props.suggestionsListContainerStyle
-            }}>
-            <ScrollViewComponent
-              keyboardDismissMode="on-drag"
-              keyboardShouldPersistTaps="handled"
-              style={{ maxHeight: suggestionsListMaxHeight }}
-              nestedScrollEnabled={true}
-              onScrollBeginDrag={Keyboard.dismiss}>
-              {
-                <View>
-                  {scrollContent.length > 0
-                    ? scrollContent
-                    : !!searchText &&
-                      (props.EmptyResultComponent ?? (
-                        <NothingFound emptyResultText={props.emptyResultText} />
-                      ))}
-                </View>
-              }
-            </ScrollViewComponent>
-          </View>
+              direction,
+              inputHeight,
+              dataSet,
+              suggestionsListMaxHeight,
+              renderItem,
+              ListEmptyComponent
+            }}
+          />
         )}
       </View>
     )
@@ -394,7 +340,6 @@ AutocompleteDropdown.propTypes = {
   suggestionsListTextStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
-  ScrollViewComponent: PropTypes.elementType,
   EmptyResultComponent: PropTypes.element,
   emptyResultText: PropTypes.string
 }
@@ -416,20 +361,5 @@ const styles = ScaledSheet.create({
     overflow: 'hidden',
     paddingHorizontal: 13,
     fontSize: 16
-  },
-  listContainer: {
-    backgroundColor: '#fff',
-    width: '100%',
-    zIndex: 9,
-    borderRadius: 5,
-    shadowColor: '#00000099',
-    shadowOffset: {
-      width: 0,
-      height: 12
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 15.46,
-
-    elevation: 20
   }
 })
