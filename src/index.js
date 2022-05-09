@@ -44,6 +44,7 @@ export const AutocompleteDropdown = memo(
     }, [inputRef])
 
     useEffect(() => {
+      // VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.
       LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
     }, [])
 
@@ -74,10 +75,6 @@ export const AutocompleteDropdown = memo(
     }, [isOpened, props.controller])
 
     useEffect(() => {
-      setDataSet(props.dataSet)
-    }, [props.dataSet])
-
-    useEffect(() => {
       if (selectedItem) {
         setSearchText(selectedItem.title ?? '')
       } else {
@@ -103,7 +100,6 @@ export const AutocompleteDropdown = memo(
 
     const _onSelectItem = useCallback(item => {
       setSelectedItem(item)
-
       inputRef.current.blur()
       setIsOpened(false)
     }, [])
@@ -151,7 +147,16 @@ export const AutocompleteDropdown = memo(
     }
 
     useEffect(() => {
-      if (!Array.isArray(props.dataSet) || props.useFilter === false || !searchText.length) {
+      setDataSet(props.dataSet)
+    }, [props.dataSet])
+
+    useEffect(() => {
+      if (!searchText.length) {
+        setDataSet(props.dataSet)
+        return
+      }
+
+      if (!Array.isArray(props.dataSet) || props.useFilter === false) {
         return
       }
 
@@ -340,8 +345,10 @@ AutocompleteDropdown.propTypes = {
   suggestionsListTextStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
+  ScrollViewComponent: PropTypes.elementType,
   EmptyResultComponent: PropTypes.element,
-  emptyResultText: PropTypes.string
+  emptyResultText: PropTypes.string,
+  flatListProps: PropTypes.object
 }
 
 const styles = ScaledSheet.create({
