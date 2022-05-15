@@ -222,8 +222,8 @@ export const AutocompleteDropdown = memo(
       Keyboard.dismiss()
 
       if (typeof props.onChevronPress === 'function') {
-        props.onChevronPress();
-    }
+        props.onChevronPress()
+      }
     }, [isOpened, props.onChevronPress])
 
     const onFocus = useCallback(
@@ -273,7 +273,7 @@ export const AutocompleteDropdown = memo(
           onLayout={_ => {}}
           style={[styles.inputContainerStyle, props.inputContainerStyle]}>
           <InputComponent
-            ref={inputRef}  
+            ref={inputRef}
             value={searchText}
             onChangeText={onChangeText}
             autoCorrect={false}
