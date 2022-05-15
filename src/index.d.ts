@@ -46,6 +46,7 @@ interface AutocompleteDropdownProps {
   ) => JSX.Element;
   onOpenSuggestionsList?: (isOpened: boolean) => void;
   onClear?: () => void;
+  onChevronPress?: () => void;
   onSubmit?: TextInputProps['onSubmitEditing'];
   onBlur?: TextInputProps['onBlur'];
   onFocus?: TextInputProps['onFocus'];
