@@ -12,7 +12,7 @@ export interface AutocompleteDropdownRef {
   open: () => Promise<void>;
   setInputText: (text: string) => void;
   toggle: () => void;
-  setInput: () => void;
+  setItem: (item: TAutocompleteDropdownItem) => void;
 }
 
 interface AutocompleteDropdownProps {
