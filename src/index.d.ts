@@ -41,22 +41,22 @@ interface AutocompleteDropdownProps {
   closeOnSubmit?: boolean;
   clearOnFocus?: boolean;
   debounce?: number;
-  direction?: "down" | "up";
-  position?: "absolute" | "relative";
+  direction?: 'down' | 'up';
+  position?: 'absolute' | 'relative';
   bottomOffset?: number;
   textInputProps?: TextInputProps;
   onChangeText?: (text: string) => void;
   onSelectItem?: (item: TAutocompleteDropdownItem) => void;
   renderItem?: (
     item: TAutocompleteDropdownItem,
-    searchText: string
+    searchText: string,
   ) => JSX.Element;
   onOpenSuggestionsList?: (isOpened: boolean) => void;
   onClear?: () => void;
   onChevronPress?: () => void;
-  onSubmit?: TextInputProps["onSubmitEditing"];
-  onBlur?: TextInputProps["onBlur"];
-  onFocus?: TextInputProps["onFocus"];
+  onSubmit?: TextInputProps['onSubmitEditing'];
+  onBlur?: TextInputProps['onBlur'];
+  onFocus?: TextInputProps['onFocus'];
   controller?: (controller: AutocompleteDropdownRef) => void;
   containerStyle?: StyleProp<ViewStyle>;
   inputContainerStyle?: StyleProp<ViewStyle>;
@@ -70,7 +70,7 @@ interface AutocompleteDropdownProps {
   ItemSeparatorComponent?: JSX.Element;
   EmptyResultComponent?: JSX.Element;
   emptyResultText?: string;
-  flatListProps?: FlatListProps<any>;
+  flatListProps?: FlatListProps<any>
 }
 
 export const AutocompleteDropdown: FC<AutocompleteDropdownProps>;
