@@ -1,5 +1,11 @@
-import React, { FC } from 'react';
-import { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps } from 'react-native';
+import React, { FC } from "react";
+import {
+  StyleProp,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+  FlatListProps,
+} from "react-native";
 
 export type TAutocompleteDropdownItem = {
   id: string;
@@ -58,6 +64,7 @@ interface AutocompleteDropdownProps {
   suggestionsListContainerStyle?: StyleProp<ViewStyle>;
   suggestionsListTextStyle?: StyleProp<TextStyle>;
   ChevronIconComponent?: JSX.Element;
+  RightIconComponent?: JSX.Element;
   ClearIconComponent?: JSX.Element;
   InputComponent?: React.ComponentType;
   ItemSeparatorComponent?: JSX.Element;
