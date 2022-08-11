@@ -299,6 +299,8 @@ export const AutocompleteDropdown = memo(
             buttonsContainerStyle={props.rightButtonsContainerStyle}
             ChevronIconComponent={props.ChevronIconComponent}
             ClearIconComponent={props.ClearIconComponent}
+            RightIconComponent={props.RightIconComponent}
+            onSubmit={onSubmit}
           />
         </View>
         {isOpened && Array.isArray(dataSet) && (
@@ -349,6 +351,7 @@ AutocompleteDropdown.propTypes = {
   suggestionsListContainerStyle: PropTypes.object,
   suggestionsListTextStyle: PropTypes.object,
   ChevronIconComponent: PropTypes.element,
+  RightIconComponent: PropTypes.element,
   ClearIconComponent: PropTypes.element,
   ScrollViewComponent: PropTypes.elementType,
   EmptyResultComponent: PropTypes.element,
