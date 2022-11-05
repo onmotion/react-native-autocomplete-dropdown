@@ -1,13 +1,12 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useMemo, useState } from 'react'
 import { Text, View } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import { generateDataSet } from '../helpers'
 
 export const LocalDataSetExample = memo(() => {
   const [selectedItem, setSelectedItem] = useState(null)
 
-  const dataSet = new Array(450)
-    .fill({ id: '1', title: 'test' })
-    .map((item, i) => ({ ...item, id: i.toString(), title: item.title + i }))
+  const dataSet = useMemo(generateDataSet, [])
 
   return (
     <View>

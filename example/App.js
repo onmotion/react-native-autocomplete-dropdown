@@ -17,6 +17,7 @@ import { LocalDataSetExample2 } from './components/LocalDataSetExample2'
 import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3'
 import { RemoteDataSetExample } from './components/RemoteDataSetExample'
 import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2'
+import { CustomRightIconExample } from './components/CustomRightIconExample'
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -60,6 +61,10 @@ const App = () => {
             <View style={[styles.section, Platform.select({ ios: { zIndex: 96 } })]}>
               <Text style={styles.sectionTitle}>Remote list customization 2</Text>
               <RemoteDataSetExample3 />
+            </View>
+            <View style={[styles.section, Platform.select({ ios: { zIndex: 95 } })]}>
+              <Text style={styles.sectionTitle}>Custom Right Icon Example</Text>
+              <CustomRightIconExample />
             </View>
           </View>
         </ScrollView>
