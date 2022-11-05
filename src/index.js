@@ -106,7 +106,7 @@ export const AutocompleteDropdown = memo(
 
     const calculateDirection = async () => {
       const [, positionY] = await new Promise(resolve =>
-        containerRef.current.measureInWindow((...rect) => {
+        containerRef.current?.measureInWindow((...rect) => {
           resolve(rect)
         })
       )
