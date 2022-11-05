@@ -212,10 +212,13 @@ export const AutocompleteDropdown = memo(
       [props.onChangeText]
     )
 
-    const onChangeText = useCallback(text => {
-      setSearchText(text)
-      debouncedEvent(text)
-    }, [debouncedEvent])
+    const onChangeText = useCallback(
+      text => {
+        setSearchText(text)
+        debouncedEvent(text)
+      },
+      [debouncedEvent]
+    )
 
     const onChevronPress = useCallback(() => {
       toggle()
@@ -270,7 +273,7 @@ export const AutocompleteDropdown = memo(
         {/* it's necessary use onLayout here for Androd (bug?) */}
         <View
           ref={containerRef}
-          onLayout={_ => { }}
+          onLayout={_ => {}}
           style={[styles.inputContainerStyle, props.inputContainerStyle]}>
           <InputComponent
             ref={inputRef}
@@ -300,7 +303,7 @@ export const AutocompleteDropdown = memo(
             ChevronIconComponent={props.ChevronIconComponent}
             ClearIconComponent={props.ClearIconComponent}
             RightIconComponent={props.RightIconComponent}
-            onSubmit={onSubmit}
+            onRightIconComponentPress={props.onRightIconComponentPress}
           />
         </View>
         {isOpened && Array.isArray(dataSet) && (

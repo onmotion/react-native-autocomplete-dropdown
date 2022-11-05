@@ -6214,14 +6214,12 @@ react-is@^16.13.1:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-native-autocomplete-dropdown@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-autocomplete-dropdown/-/react-native-autocomplete-dropdown-1.2.1.tgz#404701c9797632be43af6a58a2a87168616228e2"
-  integrity sha512-g0AtN6MIaFEFtwCm/QwU4sLZ0cmaVgT1kGbjtihGg9uzj0gwnfRSZEBe1Qh1cjXgqjmXPVGJ51BhhGezvSm6fg==
+"react-native-autocomplete-dropdown@file:./..":
+  version "2.0.7"
   dependencies:
     lodash.debounce "*"
     prop-types "*"
-    react-native-size-matters "^0.3.0"
+    react-native-size-matters "^0.3.0 || ^0.4.0"
     react-native-vector-icons ">=7.0.0"
 
 react-native-codegen@^0.0.13:
@@ -6239,10 +6237,10 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
-react-native-size-matters@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz#24d0cfc335a2c730f6d58bd7b43ea5a41be4b49f"
-  integrity sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw==
+"react-native-size-matters@^0.3.0 || ^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.4.0.tgz#01bfd0d59454318f4e0b13fe9c1eb0523d70f2e0"
+  integrity sha512-8/C0htHrFWeUm9N8JegmadovUfgTWkGBkDPZ1N3YkXtDWb+98Ya2gThiKcu445r8c7YhcrBfnHz/mYsXIusaOQ==
 
 react-native-vector-icons@>=7.0.0, react-native-vector-icons@^9.1.0:
   version "9.1.0"
