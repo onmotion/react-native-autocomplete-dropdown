@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react'
+import { useRef } from 'react'
 import { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
@@ -8,12 +9,16 @@ Feather.loadFont()
 
 export const CustomRightIconExample = memo(() => {
   const [selectedItem, setSelectedItem] = useState(null)
+  const dropdownController = useRef(null)
 
   const dataSet = useMemo(generateDataSet, [])
 
   return (
     <View>
       <AutocompleteDropdown
+        controller={controller => {
+          dropdownController.current = controller
+        }}
         clearOnFocus={false}
         onSelectItem={setSelectedItem}
         dataSet={dataSet}
@@ -25,6 +30,9 @@ export const CustomRightIconExample = memo(() => {
           </Text>
         )}
         RightIconComponent={<Feather name="smile" size={18} color="#f55" />}
+        onRightIconComponentPress={() => {
+          dropdownController.current?.toggle()
+        }}
         showChevron={false}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
