@@ -151,7 +151,7 @@ export const AutocompleteDropdown = memo(
     }, [props.dataSet])
 
     useEffect(() => {
-      if (!searchText.length) {
+      if (!searchText?.length) {
         setDataSet(props.dataSet)
         return
       }
