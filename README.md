@@ -237,7 +237,7 @@ npm run ios
 | `debounce` 	| wait **ms** before call `onChangeText` 	| number 	| 0 	|
 | `suggestionsListMaxHeight` 	| max height of dropdown 	| number 	| 200 	|
 | `direction` 	| "up" or "down" 	| string 	| down + auto calculate 	|
-| `position` 	| "relative" or "absolute" 	| string 	| relative 	|
+| `position` 	| "relative" or "absolute" 	| string 	| absolute 	|
 | `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	| number 	| 0 	|
 | `onChangeText` 	| event textInput onChangeText 	| function 	|  	|
 | `onSelectItem` 	| event onSelectItem 	| function 	|  	|
