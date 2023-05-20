@@ -42,29 +42,29 @@ const App = () => {
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={{ paddingBottom: 0 }}
             style={styles.scrollContainer}>
-            <View style={[styles.container]}>
+            <View style={styles.container}>
               <Text style={styles.title}>Autocomplete dropdown</Text>
-              <View style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
+              <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Local list</Text>
                 <LocalDataSetExample />
               </View>
-              <View style={[styles.section, Platform.select({ ios: { zIndex: 99 } })]}>
+              <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Local list customization</Text>
                 <LocalDataSetExample2 />
               </View>
-              <View style={[styles.section, Platform.select({ ios: { zIndex: 98 } })]}>
+              <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Remote list</Text>
                 <RemoteDataSetExample />
               </View>
-              <View style={[styles.section, Platform.select({ ios: { zIndex: 97 } })]}>
+              <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Remote list customization</Text>
                 <RemoteDataSetExample2 />
               </View>
-              <View style={[styles.section, Platform.select({ ios: { zIndex: 96 } })]}>
+              <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Remote list customization 2</Text>
                 <RemoteDataSetExample3 />
               </View>
-              <View style={[styles.section, Platform.select({ ios: { zIndex: 95 } })]}>
+              <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Custom Right Icon Example</Text>
                 <CustomRightIconExample />
               </View>

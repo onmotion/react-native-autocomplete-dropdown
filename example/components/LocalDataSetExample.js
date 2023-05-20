@@ -9,7 +9,7 @@ export const LocalDataSetExample = memo(() => {
   const dataSet = useMemo(generateDataSet, [])
 
   return (
-    <View>
+    <>
       <AutocompleteDropdown
         clearOnFocus={false}
         closeOnBlur={true}
@@ -25,6 +25,6 @@ export const LocalDataSetExample = memo(() => {
         getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
-    </View>
+    </>
   )
 })

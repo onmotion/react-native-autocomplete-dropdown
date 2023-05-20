@@ -1,12 +1,12 @@
 import React, { memo, useState } from 'react'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const LocalDataSetExample2 = memo(() => {
   const [selectedItem, setSelectedItem] = useState(null)
 
   return (
-    <View>
+    <>
       <AutocompleteDropdown
         clearOnFocus={false}
         closeOnBlur={true}
@@ -24,6 +24,6 @@ export const LocalDataSetExample2 = memo(() => {
         )}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
-    </View>
+    </>
   )
 })
