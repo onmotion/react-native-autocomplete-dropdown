@@ -2,9 +2,6 @@ import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View, Platform } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
-import Feather from 'react-native-vector-icons/Feather'
-Feather.loadFont()
-
 export const RemoteDataSetExample2 = memo(() => {
   const [loading, setLoading] = useState(false)
   const [suggestionsList, setSuggestionsList] = useState(null)
@@ -91,8 +88,8 @@ export const RemoteDataSetExample2 = memo(() => {
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => <Text style={{ color: '#fff', padding: 15 }}>{item.title}</Text>}
-          ChevronIconComponent={<Feather name="chevron-down" size={20} color="#fff" />}
-          ClearIconComponent={<Feather name="x-circle" size={18} color="#fff" />}
+        //   ChevronIconComponent={<Feather name="chevron-down" size={20} color="#fff" />}
+        //   ClearIconComponent={<Feather name="x-circle" size={18} color="#fff" />}
           inputHeight={50}
           showChevron={false}
           closeOnBlur={false}

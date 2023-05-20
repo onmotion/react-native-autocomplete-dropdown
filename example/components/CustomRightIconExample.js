@@ -3,9 +3,8 @@ import { useRef } from 'react'
 import { useMemo } from 'react'
 import { Text, View } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
-import Feather from 'react-native-vector-icons/Feather'
 import { generateDataSet } from '../helpers'
-Feather.loadFont()
+
 
 export const CustomRightIconExample = memo(() => {
   const [selectedItem, setSelectedItem] = useState(null)
@@ -29,7 +28,7 @@ export const CustomRightIconExample = memo(() => {
             -= {item.title} =-
           </Text>
         )}
-        RightIconComponent={<Feather name="smile" size={18} color="#f55" />}
+      //  RightIconComponent={<Feather name="smile" size={18} color="#f55" />}
         onRightIconComponentPress={() => {
           dropdownController.current?.toggle()
         }}

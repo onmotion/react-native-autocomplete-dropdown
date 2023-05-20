@@ -2,6 +2,7 @@ import React, { FC, ReactElement, useCallback, useRef, useState, useEffect, Muta
 import type { SetStateAction, Dispatch } from 'react'
 import { LayoutChangeEvent, View, ViewProps } from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import { fadeInDownShort, fadeInUpShort } from './helpers'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
@@ -93,7 +94,11 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
             opacity,
             ...contentStyles
           }}>
-          <Animatable.View useNativeDriver animation="fadeInDownShort" easing="ease-out-cubic" duration={200}>
+          <Animatable.View
+            useNativeDriver
+            animation={direction === 'up' ? fadeInUpShort : fadeInDownShort}
+            easing="ease-out-quad"
+            duration={100}>
             {content}
           </Animatable.View>
         </View>
@@ -101,16 +106,3 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
     </AutocompleteDropdownContext.Provider>
   )
 }
-
-Animatable.initializeRegistryWithDefinitions({
-  fadeInDownShort: {
-    0: {
-      opacity: 0.5,
-      transform: [{ translateY: -20 }]
-    },
-    1: {
-      opacity: 1,
-      transform: [{ translateY: 0 }]
-    }
-  }
-})
