@@ -13,7 +13,7 @@
   "dependencies": {
     "react": "18.2.0",
     "react-native": "0.71.8",
-    "react-native-autocomplete-dropdown": "file:./../",
+    "react-native-autocomplete-dropdown": "file:./..",
     "react-native-vector-icons": "^9.1.0"
   },
   "devDependencies": {

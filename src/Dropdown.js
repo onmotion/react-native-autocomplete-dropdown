@@ -4,7 +4,6 @@ import { StyleSheet, FlatList, View, Keyboard } from 'react-native'
 export const Dropdown = memo(
   ({
     position,
-    direction,
     inputHeight,
     dataSet,
     suggestionsListMaxHeight,
@@ -21,12 +20,6 @@ export const Dropdown = memo(
       <View
         style={{
           ...styles.listContainer,
-          position,
-          ...(position === 'relative'
-            ? { marginTop: 5 }
-            : {
-                [direction === 'down' ? 'top' : 'bottom']: inputHeight + 5
-              }),
           ...props.suggestionsListContainerStyle
         }}>
         <FlatList
