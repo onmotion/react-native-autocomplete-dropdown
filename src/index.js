@@ -16,13 +16,14 @@ import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { NothingFound } from './NothingFound'
 import { RightButton } from './RightButton'
 import { ScrollViewListItem } from './ScrollViewListItem'
+import { useContext } from 'react'
+import { AutocompleteDropdownContext } from 'react-native-autocomplete-dropdown/src/AutocompleteDropdownContext'
 
 export const AutocompleteDropdown = memo(
   forwardRef((props, ref) => {
     const inputRef = useRef(null)
     const containerRef = useRef(null)
     const [selectedItem, setSelectedItem] = useState(null)
-    const [direction, setDirection] = useState(props.direction ?? 'down')
     const [isOpened, setIsOpened] = useState(false)
     const [searchText, setSearchText] = useState('')
     const [dataSet, setDataSet] = useState(props.dataSet)
@@ -32,6 +33,12 @@ export const AutocompleteDropdown = memo(
     const position = props.position ?? 'absolute'
     const bottomOffset = props.bottomOffset ?? 0
     const InputComponent = props.InputComponent ?? TextInput
+    const {
+      setContent,
+      activeInputRef,
+      direction = props.direction,
+      setDirection
+    } = useContext(AutocompleteDropdownContext)
 
     useLayoutEffect(() => {
       if (ref) {
@@ -120,6 +127,8 @@ export const AutocompleteDropdown = memo(
     /** methods */
     const close = () => {
       setIsOpened(false)
+      setDirection(props.direction)
+      setContent(undefined)
     }
 
     const open = async () => {
@@ -268,6 +277,40 @@ export const AutocompleteDropdown = memo(
       [props.closeOnSubmit, props.onSubmit]
     )
 
+    useEffect(() => {
+      if (isOpened && Array.isArray(dataSet)) {
+        activeInputRef.current = containerRef.current
+        setContent(
+          <Dropdown
+            {...{
+              ...props,
+              position,
+              direction,
+              inputHeight,
+              dataSet,
+              suggestionsListMaxHeight,
+              renderItem,
+              ListEmptyComponent
+            }}
+          />
+        )
+      } else {
+        activeInputRef.current = undefined
+        setContent(undefined)
+      }
+    }, [
+      isOpened,
+      dataSet,
+      props,
+      position,
+      direction,
+      inputHeight,
+      dataSet,
+      suggestionsListMaxHeight,
+      renderItem,
+      ListEmptyComponent
+    ])
+
     return (
       <View style={[styles.container, props.containerStyle, Platform.select({ ios: { zIndex: 1 } })]}>
         {/* it's necessary use onLayout here for Androd (bug?) */}
@@ -306,20 +349,6 @@ export const AutocompleteDropdown = memo(
             onRightIconComponentPress={props.onRightIconComponentPress}
           />
         </View>
-        {isOpened && Array.isArray(dataSet) && (
-          <Dropdown
-            {...{
-              ...props,
-              position,
-              direction,
-              inputHeight,
-              dataSet,
-              suggestionsListMaxHeight,
-              renderItem,
-              ListEmptyComponent
-            }}
-          />
-        )}
       </View>
     )
   })
@@ -364,7 +393,8 @@ AutocompleteDropdown.propTypes = {
 
 const styles = ScaledSheet.create({
   container: {
-    marginVertical: 2
+    marginVertical: 2,
+    flex: 1
   },
   inputContainerStyle: {
     position: 'relative',

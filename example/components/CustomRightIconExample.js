@@ -22,7 +22,7 @@ export const CustomRightIconExample = memo(() => {
         clearOnFocus={false}
         onSelectItem={setSelectedItem}
         dataSet={dataSet}
-        direction="down"
+        // direction="down"
         suggestionsListMaxHeight={200}
         renderItem={(item, text) => (
           <Text style={{ color: '#f00', padding: 28, textAlign: 'center', fontWeight: 'bold', fontSize: 16 }}>

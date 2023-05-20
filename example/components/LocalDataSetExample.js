@@ -15,12 +15,12 @@ export const LocalDataSetExample = memo(() => {
         closeOnBlur={false}
         initialValue={{ id: '2' }} // or just '2'
         onSelectItem={setSelectedItem}
-        //  dataSet={dataSet}
-        dataSet={[
-          { id: '1', title: 'Alpha' },
-          { id: '2', title: 'Beta' },
-          { id: '3', title: 'Gamma' }
-        ]}
+        dataSet={dataSet}
+        // dataSet={[
+        //   { id: '1', title: 'Alpha' },
+        //   { id: '2', title: 'Beta' },
+        //   { id: '3', title: 'Gamma' }
+        // ]}
         ItemSeparatorComponent={<View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />}
         getItemLayout={(data, index) => ({ length: 50, offset: 50 * index, index })}
       />
