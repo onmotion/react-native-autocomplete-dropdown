@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useCallback, useRef, useState, useEffect, MutableRefObject } from 'react'
 import type { SetStateAction, Dispatch } from 'react'
 import { LayoutChangeEvent, View, ViewProps } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
@@ -29,11 +30,10 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
   const [opacity, setOpacity] = useState(0)
   const [contentStyles, setContentStyles] = useState<
     { top: number; left: number; width?: number } | undefined
-  >()
+  >(undefined)
   const activeInputRef = useRef<View>(null)
 
   useEffect(() => {
-    console.log({ direction, dropdownHeight, inputMeasurements })
     if (!inputMeasurements?.height) {
       setOpacity(0)
       return
@@ -41,14 +41,14 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
 
     if (dropdownHeight && direction === 'up') {
       setContentStyles({
-        top: inputMeasurements.y - dropdownHeight,
+        top: inputMeasurements.y - dropdownHeight - 10,
         left: inputMeasurements.x,
         width: inputMeasurements.width
       })
       setOpacity(1)
     } else if (direction === 'down') {
       setContentStyles({
-        top: inputMeasurements.y + inputMeasurements.height,
+        top: inputMeasurements.y + inputMeasurements.height + 5,
         left: inputMeasurements.x,
         width: inputMeasurements.width
       })
@@ -90,12 +90,27 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
           onLayout={onLayout}
           style={{
             position: 'absolute',
-            ...contentStyles,
-            opacity
+            opacity,
+            ...contentStyles
           }}>
-          {content}
+          <Animatable.View useNativeDriver animation="fadeInDownShort" easing="ease-out-cubic" duration={200}>
+            {content}
+          </Animatable.View>
         </View>
       )}
     </AutocompleteDropdownContext.Provider>
   )
 }
+
+Animatable.initializeRegistryWithDefinitions({
+  fadeInDownShort: {
+    0: {
+      opacity: 0.5,
+      transform: [{ translateY: -20 }]
+    },
+    1: {
+      opacity: 1,
+      transform: [{ translateY: 0 }]
+    }
+  }
+})

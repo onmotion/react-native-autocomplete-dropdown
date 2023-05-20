@@ -45,6 +45,7 @@
   "dependencies": {
     "lodash.debounce": "*",
     "prop-types": "*",
+    "react-native-animatable": "^1.3.3",
     "react-native-size-matters": "^0.4.0",
     "react-native-vector-icons": ">=7.0.0"
   },
