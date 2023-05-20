@@ -105,8 +105,6 @@ export const RemoteDataSetExample3 = memo(() => {
               </Text>
             )
           }}
-        //   ChevronIconComponent={<Feather name="chevron-down" size={20} color="#383b42" />}
-        //   ClearIconComponent={<Feather name="x-circle" size={18} color="#383b42" />}
           //inputHeight={50}
           //   showChevron={false}
           showClear={false}
