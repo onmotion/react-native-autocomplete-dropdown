@@ -48,8 +48,7 @@
     "prop-types": "*",
     "react-native-animatable": "^1.3.3",
     "react-native-feather": "^1.1.2",
-    "react-native-size-matters": "^0.4.0",
-    "react-native-svg": "13.0.0"
+    "react-native-size-matters": "^0.4.0"
   },
   "bugs": {
     "url": "https://github.com/onmotion/react-native-autocomplete-dropdown/issues"

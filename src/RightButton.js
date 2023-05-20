@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react'
 import { ActivityIndicator, Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { ArrowUpCircle } from 'react-native-feather'
+import { ChevronDown, XCircle } from 'react-native-feather'
 
 export const RightButton = memo(
   ({
@@ -42,7 +42,7 @@ export const RightButton = memo(
         }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
-            {ClearIconComponent ?? <ArrowUpCircle size={18} stroke="#aeb4c6" />}
+            {ClearIconComponent ?? <XCircle size={18} stroke="#aeb4c6" />}
           </TouchableOpacity>
         )}
         {loading && <ActivityIndicator color="#999" />}
@@ -54,7 +54,7 @@ export const RightButton = memo(
         {showChevron && (
           <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
             <TouchableOpacity onPress={onChevronPress} style={styles.chevronButton}>
-              {ChevronIconComponent ?? <ArrowUpCircle size={20} stroke="#727992" />}
+              {ChevronIconComponent ?? <ChevronDown size={20} stroke="#727992" />}
             </TouchableOpacity>
           </Animated.View>
         )}
