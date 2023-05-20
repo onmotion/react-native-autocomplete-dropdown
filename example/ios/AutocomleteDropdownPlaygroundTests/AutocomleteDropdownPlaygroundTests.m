@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface AwesomeProjectForAutocomleteDropdownTests : XCTestCase
+@interface AutocomleteDropdownPlaygroundTests : XCTestCase
 
 @end
 
-@implementation AwesomeProjectForAutocomleteDropdownTests
+@implementation AutocomleteDropdownPlaygroundTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

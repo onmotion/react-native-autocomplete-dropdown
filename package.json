@@ -1,6 +1,6 @@
 {
   "name": "react-native-autocomplete-dropdown",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -33,7 +33,6 @@
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.6.2"
