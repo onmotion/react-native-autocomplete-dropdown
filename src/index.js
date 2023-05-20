@@ -10,7 +10,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { Dimensions, Keyboard, LogBox, Platform, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Keyboard, LogBox, TextInput, TouchableOpacity, View } from 'react-native'
 import { Dropdown } from './Dropdown'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { NothingFound } from './NothingFound'
@@ -317,7 +317,7 @@ export const AutocompleteDropdown = memo(
     ])
 
     return (
-      <View style={[styles.container, props.containerStyle, Platform.select({ ios: { zIndex: 1 } })]}>
+      <View style={[styles.container, props.containerStyle]}>
         {/* it's necessary use onLayout here for Androd (bug?) */}
         <View
           ref={containerRef}

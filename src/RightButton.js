@@ -42,7 +42,7 @@ export const RightButton = memo(
         }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
-            {ClearIconComponent ?? <XCircle size={18} stroke="#aeb4c6" />}
+            {ClearIconComponent ?? <XCircle width={18} stroke="#aeb4c6" />}
           </TouchableOpacity>
         )}
         {loading && <ActivityIndicator color="#999" />}
@@ -54,7 +54,7 @@ export const RightButton = memo(
         {showChevron && (
           <Animated.View style={{ transform: [{ rotate: chevronSpin }] }}>
             <TouchableOpacity onPress={onChevronPress} style={styles.chevronButton}>
-              {ChevronIconComponent ?? <ChevronDown size={20} stroke="#727992" />}
+              {ChevronIconComponent ?? <ChevronDown width={20} stroke="#727992" />}
             </TouchableOpacity>
           </Animated.View>
         )}

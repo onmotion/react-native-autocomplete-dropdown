@@ -38,11 +38,7 @@ export const RemoteDataSetExample3 = memo(() => {
 
   return (
     <>
-      <View
-        style={[
-          { flex: 1, flexDirection: 'row', alignItems: 'center' },
-          Platform.select({ ios: { zIndex: 1 } })
-        ]}>
+      <View style={[{ flex: 0, flexDirection: 'row', alignItems: 'center' }]}>
         <Button style={{ flexGrow: 0 }} title="Clear" onPress={() => dropdownController.current.clear()} />
         <View style={{ width: 10 }} />
         <AutocompleteDropdown
