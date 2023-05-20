@@ -2,6 +2,11 @@ module.exports = {
   root: true,
   extends: ['@react-native-community', 'plugin:prettier/recommended', 'prettier'],
   plugins: ['react', 'unused-imports', 'prettier'],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
   rules: {
     'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
     'unused-imports/no-unused-imports': 'error',

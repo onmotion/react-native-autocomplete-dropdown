@@ -18,6 +18,7 @@ import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3'
 import { RemoteDataSetExample } from './components/RemoteDataSetExample'
 import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2'
 import { CustomRightIconExample } from './components/CustomRightIconExample'
+import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown/src/AutocompleteDropdownContext'
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -27,49 +28,51 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={(backgroundStyle, { flex: 1 })}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        enabled>
-        <ScrollView
-          nestedScrollEnabled
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps="handled"
-          contentInsetAdjustmentBehavior="automatic"
-          contentContainerStyle={{ paddingBottom: 200 }}
-          style={styles.scrollContainer}>
-          <View style={[styles.container]}>
-            <Text style={styles.title}>Autocomplete dropdown</Text>
-            <View style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
-              <Text style={styles.sectionTitle}>Local list</Text>
-              <LocalDataSetExample />
+    <AutocompleteDropdownContextProvider>
+      <SafeAreaView style={(backgroundStyle, { flex: 1 })}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          enabled>
+          <ScrollView
+            nestedScrollEnabled
+            keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps="handled"
+            contentInsetAdjustmentBehavior="automatic"
+            contentContainerStyle={{ paddingBottom: 0 }}
+            style={styles.scrollContainer}>
+            <View style={[styles.container]}>
+              <Text style={styles.title}>Autocomplete dropdown</Text>
+              <View style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
+                <Text style={styles.sectionTitle}>Local list</Text>
+                <LocalDataSetExample />
+              </View>
+              <View style={[styles.section, Platform.select({ ios: { zIndex: 99 } })]}>
+                <Text style={styles.sectionTitle}>Local list customization</Text>
+                <LocalDataSetExample2 />
+              </View>
+              <View style={[styles.section, Platform.select({ ios: { zIndex: 98 } })]}>
+                <Text style={styles.sectionTitle}>Remote list</Text>
+                <RemoteDataSetExample />
+              </View>
+              <View style={[styles.section, Platform.select({ ios: { zIndex: 97 } })]}>
+                <Text style={styles.sectionTitle}>Remote list customization</Text>
+                <RemoteDataSetExample2 />
+              </View>
+              <View style={[styles.section, Platform.select({ ios: { zIndex: 96 } })]}>
+                <Text style={styles.sectionTitle}>Remote list customization 2</Text>
+                <RemoteDataSetExample3 />
+              </View>
+              <View style={[styles.section, Platform.select({ ios: { zIndex: 95 } })]}>
+                <Text style={styles.sectionTitle}>Custom Right Icon Example</Text>
+                <CustomRightIconExample />
+              </View>
             </View>
-            <View style={[styles.section, Platform.select({ ios: { zIndex: 99 } })]}>
-              <Text style={styles.sectionTitle}>Local list customization</Text>
-              <LocalDataSetExample2 />
-            </View>
-            <View style={[styles.section, Platform.select({ ios: { zIndex: 98 } })]}>
-              <Text style={styles.sectionTitle}>Remote list</Text>
-              <RemoteDataSetExample />
-            </View>
-            <View style={[styles.section, Platform.select({ ios: { zIndex: 97 } })]}>
-              <Text style={styles.sectionTitle}>Remote list customization</Text>
-              <RemoteDataSetExample2 />
-            </View>
-            <View style={[styles.section, Platform.select({ ios: { zIndex: 96 } })]}>
-              <Text style={styles.sectionTitle}>Remote list customization 2</Text>
-              <RemoteDataSetExample3 />
-            </View>
-            <View style={[styles.section, Platform.select({ ios: { zIndex: 95 } })]}>
-              <Text style={styles.sectionTitle}>Custom Right Icon Example</Text>
-              <CustomRightIconExample />
-            </View>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </AutocompleteDropdownContextProvider>
   )
 }
 

@@ -30,12 +30,13 @@
     "@react-native-community/eslint-config": "^3.0.1",
     "@react-native-community/eslint-plugin": "^1.2.0",
     "@types/react": "*",
+    "@types/react-native": "^0.72.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.6.2"
+    "prettier": "^2.6.2",
+    "typescript": "4.8.4"
   },
   "peerDependencies": {
     "react": "*",
