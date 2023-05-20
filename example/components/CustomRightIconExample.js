@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
 import { useRef } from 'react'
 import { useMemo } from 'react'
-import { Text, View } from 'react-native'
+import { Text } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 import { generateDataSet } from '../helpers'
 import { Smile } from 'react-native-feather'
@@ -13,7 +13,7 @@ export const CustomRightIconExample = memo(() => {
   const dataSet = useMemo(generateDataSet, [])
 
   return (
-    <View>
+    <>
       <AutocompleteDropdown
         controller={controller => {
           dropdownController.current = controller
@@ -35,6 +35,6 @@ export const CustomRightIconExample = memo(() => {
         showChevron={false}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
-    </View>
+    </>
   )
 })

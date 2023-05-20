@@ -38,11 +38,7 @@ export const RemoteDataSetExample2 = memo(() => {
 
   return (
     <>
-      <View
-        style={[
-          { flex: 1, flexDirection: 'row', alignItems: 'center' },
-          Platform.select({ ios: { zIndex: 1 } })
-        ]}>
+      <View style={[{ flex: 0, flexDirection: 'row', alignItems: 'center' }]}>
         <AutocompleteDropdown
           ref={searchRef}
           controller={controller => {
