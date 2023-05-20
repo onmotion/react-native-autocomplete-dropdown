@@ -18,7 +18,7 @@ import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3'
 import { RemoteDataSetExample } from './components/RemoteDataSetExample'
 import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2'
 import { CustomRightIconExample } from './components/CustomRightIconExample'
-import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown/src/AutocompleteDropdownContext'
+import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown'
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'

@@ -17,7 +17,12 @@ import { NothingFound } from './NothingFound'
 import { RightButton } from './RightButton'
 import { ScrollViewListItem } from './ScrollViewListItem'
 import { useContext } from 'react'
-import { AutocompleteDropdownContext } from 'react-native-autocomplete-dropdown/src/AutocompleteDropdownContext'
+import {
+  AutocompleteDropdownContext,
+  AutocompleteDropdownContextProvider
+} from './AutocompleteDropdownContext'
+
+export { AutocompleteDropdownContextProvider }
 
 export const AutocompleteDropdown = memo(
   forwardRef((props, ref) => {
