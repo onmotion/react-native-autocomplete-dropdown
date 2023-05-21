@@ -421,8 +421,7 @@ AutocompleteDropdown.propTypes = {
 
 const styles = ScaledSheet.create({
   container: {
-    marginVertical: 2,
-    flex: 1
+    marginVertical: 2
   },
   inputContainerStyle: {
     display: 'flex',
