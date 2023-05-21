@@ -21,6 +21,7 @@ import {
   AutocompleteDropdownContext,
   AutocompleteDropdownContextProvider
 } from './AutocompleteDropdownContext'
+import { useKeyboardHeight } from './useKeyboardHeight'
 
 export { AutocompleteDropdownContextProvider }
 
@@ -37,6 +38,7 @@ export const AutocompleteDropdown = memo(
     const suggestionsListMaxHeight = props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
     const bottomOffset = props.bottomOffset ?? 10
     const InputComponent = props.InputComponent ?? TextInput
+    const kbHeight = useKeyboardHeight()
     const {
       setContent,
       activeInputRef,
@@ -52,7 +54,7 @@ export const AutocompleteDropdown = memo(
           ref.current = inputRef.current
         }
       }
-    }, [inputRef])
+    }, [inputRef, ref])
 
     useEffect(() => {
       // VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.
@@ -115,7 +117,7 @@ export const AutocompleteDropdown = memo(
       setIsOpened(false)
     }, [])
 
-    const calculateDirection = async () => {
+    const calculateDirection = useCallback(async () => {
       const [, positionY] = await new Promise(resolve =>
         containerRef.current?.measureInWindow((...rect) => {
           resolve(rect)
@@ -124,9 +126,10 @@ export const AutocompleteDropdown = memo(
 
       const screenHeight = Dimensions.get('window').height
 
-      const lowestPointOfDropdown = positionY + inputHeight + suggestionsListMaxHeight + bottomOffset
+      const lowestPointOfDropdown =
+        positionY + inputHeight + suggestionsListMaxHeight + bottomOffset + kbHeight
       setDirection(lowestPointOfDropdown < screenHeight ? 'down' : 'up')
-    }
+    }, [bottomOffset, inputHeight, kbHeight, setDirection, suggestionsListMaxHeight])
 
     /** methods */
     const close = () => {
@@ -134,6 +137,12 @@ export const AutocompleteDropdown = memo(
       setDirection(props.direction)
       setContent(undefined)
     }
+
+    // useEffect(() => {
+    //   if (isOpened && !props.direction) {
+    //     calculateDirection()
+    //   }
+    // }, [kbHeight, isOpened, props.direction])
 
     const open = async () => {
       if (!props.direction) {
@@ -278,12 +287,15 @@ export const AutocompleteDropdown = memo(
           props.onSubmit(e)
         }
       },
-      [props.closeOnSubmit, props.onSubmit]
+      [props.closeOnSubmit, props.onSubmit, close]
     )
 
     useEffect(() => {
       if (isOpened && Array.isArray(dataSet)) {
-        activeInputRef.current = containerRef.current
+        if (activeInputRef) {
+          activeInputRef.current = containerRef.current
+        }
+
         setContent(
           <Dropdown
             {...{
@@ -298,7 +310,6 @@ export const AutocompleteDropdown = memo(
           />
         )
       } else {
-        activeInputRef.current = undefined
         setContent(undefined)
       }
     }, [
@@ -307,10 +318,11 @@ export const AutocompleteDropdown = memo(
       props,
       direction,
       inputHeight,
-      dataSet,
       suggestionsListMaxHeight,
       renderItem,
-      ListEmptyComponent
+      ListEmptyComponent,
+      activeInputRef,
+      setContent
     ])
 
     return (
