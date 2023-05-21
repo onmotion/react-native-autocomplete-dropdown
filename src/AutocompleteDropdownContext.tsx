@@ -35,8 +35,6 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
   const activeInputRef = useRef<View>(null)
 
   useEffect(() => {
-    console.log({ inputMeasurements })
-
     if (!inputMeasurements?.height) {
       setOpacity(0)
       return
