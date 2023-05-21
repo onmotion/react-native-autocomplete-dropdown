@@ -35,6 +35,8 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
   const activeInputRef = useRef<View>(null)
 
   useEffect(() => {
+    console.log({ inputMeasurements })
+
     if (!inputMeasurements?.height) {
       setOpacity(0)
       return
@@ -78,9 +80,34 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
     }
   }, [content])
 
+  useEffect(() => {
+    let positionTrackingInterval
+    if (show) {
+      positionTrackingInterval = setInterval(() => {
+        requestAnimationFrame(() => {
+          activeInputRef?.current &&
+            activeInputRef?.current?.measureInWindow((x, y, width, height) => {
+              setInputMeasurements(prev =>
+                JSON.stringify(prev) === JSON.stringify({ x, y, width, height })
+                  ? prev
+                  : { x, y, width, height }
+              )
+            })
+        })
+      }, 16)
+    } else {
+      positionTrackingInterval && clearInterval(positionTrackingInterval)
+    }
+
+    return () => {
+      positionTrackingInterval && clearInterval(positionTrackingInterval)
+    }
+  }, [show])
+
   const onLayout: ViewProps['onLayout'] = useCallback((e: LayoutChangeEvent) => {
     setDropdownHeight(e.nativeEvent.layout.height)
   }, [])
+  console.log(show, opacity)
 
   return (
     <AutocompleteDropdownContext.Provider

@@ -32,5 +32,17 @@ module.exports = {
     'comma-dangle': ['warn', 'never'],
     'react-native/no-inline-styles': 'off',
     'react-hooks/exhaustive-deps': 'off'
-  }
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+      rules: {
+        '@typescript-eslint/no-shadow': ['error'],
+        'no-shadow': 'off',
+        'no-undef': 'off',
+        'react-hooks/exhaustive-deps': 'warn',
+        'react-native/no-unused-styles': 'warn'
+      }
+    }
+  ]
 }
