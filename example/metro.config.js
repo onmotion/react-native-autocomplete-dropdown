@@ -5,6 +5,8 @@
  * @format
  */
 
+const packagePath = '/Users/alexandrkozhevnikov/projects/react-native-autocomplete-dropdown'
+
 module.exports = {
   transformer: {
     getTransformOptions: async () => ({
@@ -13,5 +15,10 @@ module.exports = {
         inlineRequires: true
       }
     })
-  }
+  },
+  resolver: {
+    nodeModulesPaths: [packagePath, packagePath + '/example/node_modules']
+    // rest of metro resolver options...
+  },
+  watchFolders: [packagePath]
 }
