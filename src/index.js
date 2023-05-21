@@ -126,11 +126,13 @@ export const AutocompleteDropdown = memo(
       )
 
       const screenHeight = Dimensions.get('window').height
-
-      const lowestPointOfDropdown =
-        positionY + inputHeight + suggestionsListMaxHeight + bottomOffset + kbHeight
-      setDirection(lowestPointOfDropdown < screenHeight ? 'down' : 'up')
-    }, [bottomOffset, inputHeight, kbHeight, setDirection, suggestionsListMaxHeight])
+      setDirection((screenHeight - kbHeight) / 2 > positionY ? 'down' : 'up')
+      return new Promise(resolve => {
+        setTimeout(() => {
+          return resolve()
+        }, 1)
+      })
+    }, [kbHeight, setDirection])
 
     /** methods */
     const close = () => {
@@ -138,6 +140,12 @@ export const AutocompleteDropdown = memo(
       setDirection(props.direction)
       setContent(undefined)
     }
+
+    // useEffect(() => {
+    //   if (kbHeight && !props.direction) {
+    //     calculateDirection()
+    //   }
+    // }, [kbHeight, props.direction])
 
     const open = async () => {
       if (!props.direction) {
@@ -244,7 +252,7 @@ export const AutocompleteDropdown = memo(
       if (typeof props.onChevronPress === 'function') {
         props.onChevronPress()
       }
-    }, [isOpened, props.onChevronPress])
+    }, [props.onChevronPress, toggle])
 
     const onFocus = useCallback(
       e => {
