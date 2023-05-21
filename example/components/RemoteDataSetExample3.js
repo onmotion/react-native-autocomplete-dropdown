@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
-import { Button, Dimensions, Platform, Text, View } from 'react-native'
+import { Button, Dimensions, Text, View } from 'react-native'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample3 = memo(() => {
@@ -44,7 +44,7 @@ export const RemoteDataSetExample3 = memo(() => {
         <AutocompleteDropdown
           ref={searchRef}
           closeOnBlur={false}
-          direction={Platform.select({ ios: 'down' })}
+          // direction={Platform.select({ ios: 'down' })}
           controller={controller => {
             dropdownController.current = controller
           }}
