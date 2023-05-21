@@ -76,7 +76,7 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
 ```js
 <AutocompleteDropdownContextProvider>
     <AppRootOrWhatever/>
-<AutocompleteDropdownContextProvider />
+</AutocompleteDropdownContextProvider>
 ```
 
 import the package
