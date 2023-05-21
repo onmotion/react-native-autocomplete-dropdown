@@ -105,7 +105,6 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
   const onLayout: ViewProps['onLayout'] = useCallback((e: LayoutChangeEvent) => {
     setDropdownHeight(e.nativeEvent.layout.height)
   }, [])
-  console.log(show, opacity)
 
   return (
     <AutocompleteDropdownContext.Provider
