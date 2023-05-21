@@ -38,14 +38,26 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
 
 ## Installation
 
-Run: `npm install --save react-native-autocomplete-dropdown` or `yarn add react-native-autocomplete-dropdown`
+Run:
+
+```bash
+npm install --save react-native-autocomplete-dropdown
+```
+
+ or
+
+ ```bash
+ yarn add react-native-autocomplete-dropdown
+ ```
 
 ## Post-install Steps
 
 Make sure **react-native-svg** is installed. Follow the guide
 <https://github.com/software-mansion/react-native-svg>
 
-`yarn add react-native-svg`
+```bash
+yarn add react-native-svg
+```
 
 ### iOS
 
