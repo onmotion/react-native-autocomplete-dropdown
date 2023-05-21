@@ -35,8 +35,7 @@ export const AutocompleteDropdown = memo(
     const clearOnFocus = props.clearOnFocus === false ? false : true
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight = props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
-    const position = props.position ?? 'absolute'
-    const bottomOffset = props.bottomOffset ?? 0
+    const bottomOffset = props.bottomOffset ?? 10
     const InputComponent = props.InputComponent ?? TextInput
     const {
       setContent,
@@ -289,7 +288,6 @@ export const AutocompleteDropdown = memo(
           <Dropdown
             {...{
               ...props,
-              position,
               direction,
               inputHeight,
               dataSet,
@@ -307,7 +305,6 @@ export const AutocompleteDropdown = memo(
       isOpened,
       dataSet,
       props,
-      position,
       direction,
       inputHeight,
       dataSet,
@@ -372,7 +369,6 @@ AutocompleteDropdown.propTypes = {
   resetOnClose: PropTypes.bool,
   debounce: PropTypes.number,
   direction: PropTypes.oneOf(['down', 'up']),
-  position: PropTypes.oneOf(['absolute', 'relative']),
   suggestionsListMaxHeight: PropTypes.number,
   bottomOffset: PropTypes.number,
   onChangeText: PropTypes.func,
@@ -402,7 +398,6 @@ const styles = ScaledSheet.create({
     flex: 1
   },
   inputContainerStyle: {
-    position: 'relative',
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#e5ecf2',
