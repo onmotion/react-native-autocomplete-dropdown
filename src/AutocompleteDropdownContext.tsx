@@ -66,13 +66,14 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
 
   useEffect(() => {
     if (content) {
-      activeInputRef?.current?.measureInWindow((x, y, width, height) => {
-        setInputMeasurements({ x, y, width, height })
+      activeInputRef?.current?.measure((x, y, width, height, pageX, pageY) => {
+        setInputMeasurements({ x: pageX, y: pageY, width, height })
         setShow(true)
       })
     } else {
       setInputMeasurements(undefined)
       setDropdownHeight(0)
+      setOpacity(0)
       setContentStyles(undefined)
       setShow(false)
     }
@@ -80,11 +81,11 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
 
   useEffect(() => {
     let positionTrackingInterval
-    if (show) {
+    if (show && !!opacity) {
       positionTrackingInterval = setInterval(() => {
         requestAnimationFrame(() => {
           activeInputRef?.current &&
-            activeInputRef?.current?.measureInWindow((x, y, width, height) => {
+            activeInputRef?.current?.measure((_x, _y, width, height, x, y) => {
               setInputMeasurements(prev =>
                 JSON.stringify(prev) === JSON.stringify({ x, y, width, height })
                   ? prev
@@ -100,7 +101,7 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
     return () => {
       positionTrackingInterval && clearInterval(positionTrackingInterval)
     }
-  }, [show])
+  }, [opacity, show])
 
   const onLayout: ViewProps['onLayout'] = useCallback((e: LayoutChangeEvent) => {
     setDropdownHeight(e.nativeEvent.layout.height)
