@@ -44,28 +44,20 @@ Run: `npm install --save react-native-autocomplete-dropdown` or `yarn add react-
 
 ## Post-install Steps
 
-Make sure **react-native-svg** is installed. Follow the guide
-<https://github.com/software-mansion/react-native-svg>
+Make sure **react-native-vector-icons** is installed. Follow the guides
+<https://github.com/oblador/react-native-vector-icons>
 
-`yarn add react-native-svg`
+`yarn add react-native-vector-icons`
 
 ### iOS
 
-Run: `npx pod-install` for install `react-native-svg` dependency (if not installed yet).
+Run: `npx pod-install` for install react-native-vector-iconsreact-native-vector-icons dependency (if not installed yet).
 
 ### Android
 
-No additional steps are necessary
+Follow the guides from <https://github.com/oblador/react-native-vector-icons#android> for install react-native-vector-icons dependency (if not installed yet).
 
 ## Usage
-
-Wrap your root component in `AutocompleteDropdownContextProvider` from `react-native-autocomplete-dropdown` as you can see in [example](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/example/App.js)
-
-```js
-<AutocompleteDropdownContextProvider>
-    <AppRootOrWhatever/>
-<AutocompleteDropdownContextProvider />
-```
 
 import the package
 
@@ -245,6 +237,7 @@ npm run ios
 | `debounce` 	| wait **ms** before call `onChangeText` 	| number 	| 0 	|
 | `suggestionsListMaxHeight` 	| max height of dropdown 	| number 	| 200 	|
 | `direction` 	| "up" or "down" 	| string 	| down + auto calculate 	|
+| `position` 	| "relative" or "absolute" 	| string 	| relative 	|
 | `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	| number 	| 0 	|
 | `onChangeText` 	| event textInput onChangeText 	| function 	|  	|
 | `onSelectItem` 	| event onSelectItem 	| function 	|  	|

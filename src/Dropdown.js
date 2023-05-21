@@ -2,15 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { StyleSheet, FlatList, View, Keyboard } from 'react-native'
 
 export const Dropdown = memo(
-  ({
-    position,
-    inputHeight,
-    dataSet,
-    suggestionsListMaxHeight,
-    renderItem,
-    ListEmptyComponent,
-    ...props
-  }) => {
+  ({ dataSet, suggestionsListMaxHeight, renderItem, ListEmptyComponent, ...props }) => {
     const ItemSeparatorComponent = useMemo(() => {
       return () =>
         props.ItemSeparatorComponent ?? <View style={{ height: 1, width: '100%', backgroundColor: '#ddd' }} />
