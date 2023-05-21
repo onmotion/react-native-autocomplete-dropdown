@@ -6,6 +6,8 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
 [![npm](https://img.shields.io/npm/v/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
 [![npm](https://img.shields.io/npm/dm/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
 
+> This is documentation for version 3.x, if you are looking docs for version 2.x, you can find it [here](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/README%5E2.md)
+
 <p style="text-align: center;" align="center">
     <img src="./screens/Example.png" width="500px" >
 </p>
