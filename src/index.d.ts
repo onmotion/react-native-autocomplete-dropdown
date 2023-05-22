@@ -23,7 +23,7 @@ interface AutocompleteDropdownProps {
    *     { id: "3", title: "Gamma" }
    * ]
    */
-  dataSet?: TAutocompleteDropdownItem[]
+  dataSet?: TAutocompleteDropdownItem[] | null
   inputHeight?: number
   suggestionsListMaxHeight?: number
   initialValue?: string | object
