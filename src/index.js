@@ -35,6 +35,7 @@ export const AutocompleteDropdown = memo(
     const [searchText, setSearchText] = useState('')
     const [dataSet, setDataSet] = useState(props.dataSet)
     const clearOnFocus = props.clearOnFocus === false ? false : true
+      const ignoreAccents = props.ignoreAccents === false ? false : true
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight = props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
     const bottomOffset = props.bottomOffset ?? 0
@@ -186,11 +187,12 @@ export const AutocompleteDropdown = memo(
         return
       }
 
-      const lowerSearchText = diacriticless( searchText.toLowerCase())
+      const findWhat = ignoreAccents ? diacriticless( searchText.toLowerCase()) : searchText.toLowerCase()
 
-      const newSet = props.dataSet.filter(
-        item => typeof item.title === 'string' && diacriticless( item.title.toLowerCase()).indexOf(lowerSearchText) !== -1
-      )
+        const newSet = props.dataSet.filter((item) => {
+            const findWhere = ignoreAccents ? diacriticless(item.title.toLowerCase()) : item.title.toLowerCase();
+            return typeof item.title === 'string' && findWhere.indexOf(findWhat) !== -1;
+        });
 
       setDataSet(newSet)
     }, [searchText, props.dataSet, props.useFilter])
@@ -209,6 +211,7 @@ export const AutocompleteDropdown = memo(
             highlight={searchText}
             style={props.suggestionsListTextStyle}
             onPress={() => _onSelectItem(item)}
+            ignoreAccents={ignoreAccents}
           />
         )
       },
@@ -395,6 +398,8 @@ AutocompleteDropdown.propTypes = {
   closeOnSubmit: PropTypes.bool,
   clearOnFocus: PropTypes.bool,
   resetOnClose: PropTypes.bool,
+    ignoreAccents: PropTypes.bool,
+    matchFrom: PropTypes.oneOf(['any', 'start']),
   debounce: PropTypes.number,
   direction: PropTypes.oneOf(['down', 'up']),
   suggestionsListMaxHeight: PropTypes.number,
