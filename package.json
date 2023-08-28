@@ -1,14 +1,14 @@
 {
-  "name": "react-native-autocomplete-dropdown",
-  "version": "3.0.2",
-  "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
+  "name": "@dravec/react-native-autocomplete-dropdown",
+  "version": "1.0.0",
+  "description": "Dropdown Item picker with search, support for accents and autocomplete (typeahead) functionality for react native",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/onmotion/react-native-autocomplete-dropdown.git"
+    "url": "git+ssh://git@github.com/dravec/react-native-autocomplete-dropdown.git"
   },
-  "homepage": "https://github.com/onmotion/react-native-autocomplete-dropdown",
+  "homepage": "https://github.com/dravec/react-native-autocomplete-dropdown",
   "keywords": [
     "react-native",
     "dropdown",
@@ -51,7 +51,7 @@
     "react-native-size-matters": "^0.4.0"
   },
   "bugs": {
-    "url": "https://github.com/onmotion/react-native-autocomplete-dropdown/issues"
+    "url": "https://github.com/dravec/react-native-autocomplete-dropdown/issues"
   },
   "directories": {
     "example": "example"
