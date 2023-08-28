@@ -22,6 +22,7 @@ import {
   AutocompleteDropdownContextProvider
 } from './AutocompleteDropdownContext'
 import { useKeyboardHeight } from './useKeyboardHeight'
+import diacriticless from './diacriticless';
 
 export { AutocompleteDropdownContextProvider }
 

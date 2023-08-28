@@ -1,5 +1,6 @@
 import React, { memo, useMemo } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import diacriticless from './diacriticless';
 
 export const ScrollViewListItem = memo(({ highlight, title, style, onPress, numberOfLines = 2 }) => {
   const titleParts = useMemo(() => {
@@ -8,7 +9,11 @@ export const ScrollViewListItem = memo(({ highlight, title, style, onPress, numb
     let titleEnd = ''
 
     if (typeof title === 'string' && title.length > 0 && highlight.length > 0) {
-      const substrIndex = title.toLowerCase().indexOf(highlight.toLowerCase())
+
+      const highlightIn = diacriticless( title.toLowerCase())
+      const hightligWhat = diacriticless( highlight.toLowerCase())
+
+      const substrIndex = highlightIn.indexOf( hightligWhat )
       if (substrIndex !== -1) {
         titleStart = title.slice(0, substrIndex)
         titleHighlighted = title.slice(substrIndex, substrIndex + highlight.length)
