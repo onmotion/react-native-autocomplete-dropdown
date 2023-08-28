@@ -185,10 +185,10 @@ export const AutocompleteDropdown = memo(
         return
       }
 
-      const lowerSearchText = searchText.toLowerCase()
+      const lowerSearchText = diacriticless( searchText.toLowerCase())
 
       const newSet = props.dataSet.filter(
-        item => typeof item.title === 'string' && item.title.toLowerCase().indexOf(lowerSearchText) !== -1
+        item => typeof item.title === 'string' && diacriticless( item.title.toLowerCase()).indexOf(lowerSearchText) !== -1
       )
 
       setDataSet(newSet)
