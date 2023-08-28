@@ -1,5 +1,6 @@
 import React, { memo, useMemo } from 'react'
-import { StyleSheet, FlatList, View, Keyboard } from 'react-native'
+import { StyleSheet, View, Keyboard } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler';
 
 export const Dropdown = memo(
   ({ dataSet, suggestionsListMaxHeight, renderItem, ListEmptyComponent, ...props }) => {

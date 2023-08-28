@@ -1,5 +1,5 @@
 {
-  "name": "@dravec/react-native-autocomplete-dropdown",
+  "name": "react-native-autocomplete-dropdown-extended",
   "version": "1.0.0",
   "description": "Dropdown Item picker with search, support for accents and autocomplete (typeahead) functionality for react native",
   "main": "src/index.js",
