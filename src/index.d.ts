@@ -9,6 +9,7 @@ export type TAutocompleteDropdownItem = {
 export interface AutocompleteDropdownRef {
   clear: () => void
   close: () => void
+  blur: () => void
   open: () => Promise<void>
   setInputText: (text: string) => void
   toggle: () => void

@@ -87,7 +87,7 @@ export const AutocompleteDropdown = memo(
     /** expose controller methods */
     useEffect(() => {
       if (typeof props.controller === 'function') {
-        props.controller({ close, open, toggle, clear, setInputText, setItem })
+        props.controller({ close, blur, open, toggle, clear, setInputText, setItem })
       }
     }, [isOpened, props.controller])
 
@@ -161,6 +161,10 @@ export const AutocompleteDropdown = memo(
     const toggle = () => {
       isOpened ? close() : open()
     }
+
+    const blur = () => {
+        inputRef.current.blur()
+      }
 
     const clear = () => {
       onClearPress()
