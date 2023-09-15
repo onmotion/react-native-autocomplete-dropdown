@@ -65,6 +65,7 @@ interface AutocompleteDropdownProps {
   suggestionsListTextStyle?: StyleProp<TextStyle>;
   ChevronIconComponent?: JSX.Element;
   RightIconComponent?: JSX.Element;
+  LeftComponent?: JSX.Element;
   ClearIconComponent?: JSX.Element;
   InputComponent?: React.ComponentType;
   ItemSeparatorComponent?: JSX.Element;
