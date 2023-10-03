@@ -7,12 +7,12 @@ export const ScrollViewListItem = memo(({ highlight, title, style, onPress, numb
     let titleStart = title
     let titleEnd = ''
 
-    if (typeof title === 'string' && title.length > 0 && highlight.length > 0) {
+    if (typeof title === 'string' && title?.length > 0 && highlight?.length > 0) {
       const substrIndex = title.toLowerCase().indexOf(highlight.toLowerCase())
       if (substrIndex !== -1) {
         titleStart = title.slice(0, substrIndex)
-        titleHighlighted = title.slice(substrIndex, substrIndex + highlight.length)
-        titleEnd = title.slice(substrIndex + highlight.length)
+        titleHighlighted = title.slice(substrIndex, substrIndex + highlight?.length)
+        titleEnd = title.slice(substrIndex + highlight?.length)
       }
     }
 
