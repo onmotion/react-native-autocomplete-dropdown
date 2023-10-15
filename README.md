@@ -79,6 +79,20 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
 </AutocompleteDropdownContextProvider>
 ```
 
+If you have a header component, you can pass an offset.  For example with react navigation 
+
+```js
+//...
+import { useHeaderHeight } from '@react-navigation/elements';
+//...
+const headerHeight = useHeaderHeight();
+//...
+
+<AutocompleteDropdownContextProvider headerOffset={headerHeight} >
+    <AppRootOrWhatever/>
+</AutocompleteDropdownContextProvider>
+```
+
 import the package
 
 ```js

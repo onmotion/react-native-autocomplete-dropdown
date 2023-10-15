@@ -20,7 +20,7 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   activeInputRef: undefined
 })
 
-export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
+export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0, children }) => {
   const [content, setContent] = useState<IAutocompleteDropdownContext['content']>()
   const [direction, setDirection] = useState<IAutocompleteDropdownContext['direction']>(undefined)
   const [show, setShow] = useState(false)
@@ -42,14 +42,14 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ children }) => {
 
     if (dropdownHeight && direction === 'up') {
       setContentStyles({
-        top: inputMeasurements.y - dropdownHeight - 10,
+        top: inputMeasurements.y - dropdownHeight - 10 - headerOffset,
         left: inputMeasurements.x,
         width: inputMeasurements.width
       })
       setOpacity(1)
     } else if (direction === 'down') {
       setContentStyles({
-        top: inputMeasurements.y + inputMeasurements.height + 5,
+        top: inputMeasurements.y + inputMeasurements.height + 5 - headerOffset,
         left: inputMeasurements.x,
         width: inputMeasurements.width
       })
