@@ -3,6 +3,10 @@
 Dropdown Item picker with search and autocomplete (typeahead) functionality for react native
 
 [![license](https://img.shields.io/github/license/onmotion/react-native-autocomplete-dropdown)](https://img.shields.io/github/license/onmotion/react-native-autocomplete-dropdown)
+[![npm](https://img.shields.io/npm/v/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
+[![npm](https://img.shields.io/npm/dm/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
+
+> This is documentation for version 3.x, if you are looking docs for version 2.x, you can find it [here](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/README%5E2.md)
 
 <p style="text-align: center;" align="center">
     <img src="./screens/Example.png" width="500px" >
@@ -14,6 +18,10 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
     <img src="./screens/android.gif" width="280px" >
     <img src="./screens/ios.gif" width="280px" >
 </p>
+
+> Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.io/@onmotion/react-native-autocomplete-dropdown-v3)
+
+<img src="./screens/expo-qr.png" width="150">
 
 ## Nav
 
@@ -35,13 +43,13 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
 Run:
 
 ```bash
-npm install --save react-native-autocomplete-dropdown-extended
+npm install --save react-native-autocomplete-dropdown
 ```
 
  or
 
  ```bash
- yarn add react-native-autocomplete-dropdown-extended
+ yarn add react-native-autocomplete-dropdown
  ```
 
 ## Post-install Steps
@@ -74,7 +82,7 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
 import the package
 
 ```js
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown-extended';
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 ```
 
 ### Dataset item format
@@ -217,7 +225,7 @@ export const RemoteDataSetExample2 = memo(() => {
 
 ```
 
-More examples see at <https://github.com/dravec/react-native-autocomplete-dropdown/tree/main/example>
+More examples see at <https://github.com/onmotion/react-native-autocomplete-dropdown/tree/main/example>
 
 ## Playground
 
