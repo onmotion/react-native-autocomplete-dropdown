@@ -8,16 +8,15 @@ export const ScrollViewListItem = memo(({ highlight, title, style, onPress, igno
     let titleStart = title
     let titleEnd = ''
 
-    if (typeof title === 'string' && title.length > 0 && highlight.length > 0) {
+  if (typeof title === 'string' && title?.length > 0 && highlight?.length > 0) {
+      const highlightIn = ignoreAccents ? diacriticless(title?.toLowerCase()) : title?.toLowerCase()
+      const highlightWhat = ignoreAccents ? diacriticless(highlight?.toLowerCase()) : highlight?.toLowerCase()
 
-      const highlightIn = ignoreAccents ? diacriticless( title.toLowerCase()) : title.toLowerCase()
-      const highlightWhat = ignoreAccents ? diacriticless( highlight.toLowerCase()) : highlight.toLowerCase()
-
-      const substrIndex = highlightIn.indexOf( highlightWhat )
+      const substrIndex = highlightIn?.indexOf(highlightWhat)
       if (substrIndex !== -1) {
-        titleStart = title.slice(0, substrIndex)
-        titleHighlighted = title.slice(substrIndex, substrIndex + highlight.length)
-        titleEnd = title.slice(substrIndex + highlight.length)
+        titleStart = title?.slice(0, substrIndex)
+        titleHighlighted = title?.slice(substrIndex, substrIndex + highlight?.length)
+        titleEnd = title?.slice(substrIndex + highlight?.length)
       }
     }
 
