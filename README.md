@@ -3,10 +3,6 @@
 Dropdown Item picker with search and autocomplete (typeahead) functionality for react native
 
 [![license](https://img.shields.io/github/license/onmotion/react-native-autocomplete-dropdown)](https://img.shields.io/github/license/onmotion/react-native-autocomplete-dropdown)
-[![npm](https://img.shields.io/npm/v/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
-[![npm](https://img.shields.io/npm/dm/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
-
-> This is documentation for version 3.x, if you are looking docs for version 2.x, you can find it [here](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/README%5E2.md)
 
 <p style="text-align: center;" align="center">
     <img src="./screens/Example.png" width="500px" >
@@ -18,10 +14,6 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
     <img src="./screens/android.gif" width="280px" >
     <img src="./screens/ios.gif" width="280px" >
 </p>
-
-> Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.io/@onmotion/react-native-autocomplete-dropdown-v3)
-
-<img src="./screens/expo-qr.png" width="150">
 
 ## Nav
 
@@ -43,13 +35,13 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
 Run:
 
 ```bash
-npm install --save react-native-autocomplete-dropdown
+npm install --save react-native-autocomplete-dropdown-extended
 ```
 
  or
 
  ```bash
- yarn add react-native-autocomplete-dropdown
+ yarn add react-native-autocomplete-dropdown-extended
  ```
 
 ## Post-install Steps
@@ -82,7 +74,7 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
 import the package
 
 ```js
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown-extended';
 ```
 
 ### Dataset item format
@@ -225,7 +217,7 @@ export const RemoteDataSetExample2 = memo(() => {
 
 ```
 
-More examples see at <https://github.com/onmotion/react-native-autocomplete-dropdown/tree/main/example>
+More examples see at <https://github.com/dravec/react-native-autocomplete-dropdown/tree/main/example>
 
 ## Playground
 
@@ -239,40 +231,42 @@ yarn ios
 
 ## Options
 
-| **Option** 	| **Description** 	| **Type** 	| **Default** 	|
-|---	|---	|---	|---	|
-| `dataSet` 	| set of list items 	| array 	| null 	|
-| `initialValue` 	| string (**id**) or object that contain **id** 	| string \| object 	| null 	|
-| `loading` 	| loading state 	| bool 	| false 	|
-| `useFilter` 	| whether use local filter by dataSet (useful set to false for remote filtering to prevent rerender twice) 	| bool 	| true 	|
-| `showClear` 	| show clear button 	| bool 	| true 	|
-| `showChevron` 	| show chevron (open/close) button 	| bool 	| true 	|
-| `closeOnBlur` 	| whether to close dropdown on blur 	| bool 	| false 	|
-| `closeOnSubmit` 	| whether to close dropdown on submit 	| bool 	| false 	|
-| `clearOnFocus` 	| whether to clear typed text on focus 	| bool 	| true 	|
-| `debounce` 	| wait **ms** before call `onChangeText` 	| number 	| 0 	|
-| `suggestionsListMaxHeight` 	| max height of dropdown 	| number 	| 200 	|
-| `direction` 	| "up" or "down" 	| string 	| down + auto calculate 	|
-| `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	| number 	| 0 	|
-| `onChangeText` 	| event textInput onChangeText 	| function 	|  	|
-| `onSelectItem` 	| event onSelectItem 	| function 	|  	|
-| `onOpenSuggestionsList` 	| event onOpenSuggestionsList 	| function 	|  	|
-| `onChevronPress` 	| event onChevronPress 	| function 	|  	|
-| `onClear` 	| event on clear button press 	| function 	|  	|
-| `onSubmit` 	| event on submit KB button press 	| function 	|  	|
-| `onBlur` 	| event fired on text input blur 	| function 	|  	|
-| `onFocus` 	| event on focus text input 	| function 	|  	|
-| `renderItem` 	| JSX for render item `(item, searchText) => JSX \| null` if return null then the element will not be displayed 	| function 	| item.title 	|
-| `controller` 	| return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** 	| function 	|  	|
-| `containerStyle` 	|  	| ViewStyle 	|  	|
-| `rightButtonsContainerStyle` 	|  	| ViewStyle 	|  	|
-| `suggestionsListContainerStyle` 	|  	| ViewStyle 	|  	|
-| `suggestionsListTextStyle` 	|  	| TextStyle 	| styles of suggestions list text items 	|
-| `ChevronIconComponent` 	|  	| React.Component 	| Feather chevron icon 	|
-| `ClearIconComponent` 	|  	| React.Component 	| Feather x icon 	|
-| ~~ScrollViewComponent~~ 	| removed in 2.0.0 based on FlatList 	| React.Component name 	| ScrollView that provide suggestions content 	|
-| `EmptyResultComponent` 	| replace the default `` Component on empty result 	| React.Component 	|  	|
-| `InputComponent` 	| input element component 	| React.ComponentType 	| TextInput 	|
-| `emptyResultText` 	| replace the default "Nothing found" text on empty result 	| string 	| "Nothing found" 	|
-| `textInputProps` 	| text input props 	| TextInputProps 	|  	|
-| `flatListProps` 	| props for \ component 	| FlatListProps\ 	|  	|
+| **Option** 	| **Description** 	                                                                                               | **Type** 	| **Default** 	                                 |
+|---	|-----------------------------------------------------------------------------------------------------------------|---	|-----------------------------------------------|
+| `dataSet` 	| set of list items 	                                                                                             | array 	| null 	                                        |
+| `initialValue` 	| string (**id**) or object that contain **id** 	                                                                 | string \| object 	| null 	                                        |
+| `loading` 	| loading state 	                                                                                                 | bool 	| false 	                                       |
+| `useFilter` 	| whether use local filter by dataSet (useful set to false for remote filtering to prevent rerender twice) 	      | bool 	| true 	                                        |
+| `showClear` 	| show clear button 	                                                                                             | bool 	| true 	                                        |
+| `showChevron` 	| show chevron (open/close) button 	                                                                              | bool 	| true 	                                        |
+| `closeOnBlur` 	| whether to close dropdown on blur 	                                                                             | bool 	| false 	                                       |
+| `closeOnSubmit` 	| whether to close dropdown on submit 	                                                                           | bool 	| false 	                                       |
+| `clearOnFocus` 	| whether to clear typed text on focus 	                                                                          | bool 	| true 	                                        |
+| `ignoreAccents` 	| ignore diacritics 	                                                                                             | bool 	| true 	                                        |
+| `debounce` 	| wait **ms** before call `onChangeText` 	                                                                        | number 	| 0 	                                           |
+| `suggestionsListMaxHeight` 	| max height of dropdown 	                                                                                        | number 	| 200 	                                         |
+| `direction` 	| "up" or "down" 	                                                                                                | string 	| down + auto calculate 	                       |
+| `matchFrom` 	| whether match suggestions from start of titles or anywhere in the title. Possible values are "any" or "start" 	 | string 	| any 	                                         |
+| `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	                                                                | number 	| 0 	                                           |
+| `onChangeText` 	| event textInput onChangeText 	                                                                                  | function 	| 	                                             |
+| `onSelectItem` 	| event onSelectItem 	                                                                                            | function 	| 	                                             |
+| `onOpenSuggestionsList` 	| event onOpenSuggestionsList 	                                                                                   | function 	| 	                                             |
+| `onChevronPress` 	| event onChevronPress 	                                                                                          | function 	| 	                                             |
+| `onClear` 	| event on clear button press 	                                                                                   | function 	| 	                                             |
+| `onSubmit` 	| event on submit KB button press 	                                                                               | function 	| 	                                             |
+| `onBlur` 	| event fired on text input blur 	                                                                                | function 	| 	                                             |
+| `onFocus` 	| event on focus text input 	                                                                                     | function 	| 	                                             |
+| `renderItem` 	| JSX for render item `(item, searchText) => JSX \| null` if return null then the element will not be displayed 	 | function 	| item.title 	                                  |
+| `controller` 	| return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** 	      | function 	| 	                                             |
+| `containerStyle` 	| 	                                                                                                               | ViewStyle 	| 	                                             |
+| `rightButtonsContainerStyle` 	| 	                                                                                                               | ViewStyle 	| 	                                             |
+| `suggestionsListContainerStyle` 	| 	                                                                                                               | ViewStyle 	| 	                                             |
+| `suggestionsListTextStyle` 	| 	                                                                                                               | TextStyle 	| styles of suggestions list text items 	       |
+| `ChevronIconComponent` 	| 	                                                                                                               | React.Component 	| Feather chevron icon 	                        |
+| `ClearIconComponent` 	| 	                                                                                                               | React.Component 	| Feather x icon 	                              |
+| ~~ScrollViewComponent~~ 	| removed in 2.0.0 based on FlatList 	                                                                            | React.Component name 	| ScrollView that provide suggestions content 	 |
+| `EmptyResultComponent` 	| replace the default `` Component on empty result 	                                                              | React.Component 	| 	                                             |
+| `InputComponent` 	| input element component 	                                                                                       | React.ComponentType 	| TextInput 	                                   |
+| `emptyResultText` 	| replace the default "Nothing found" text on empty result 	                                                      | string 	| "Nothing found" 	                             |
+| `textInputProps` 	| text input props 	                                                                                              | TextInputProps 	| 	                                             |
+| `flatListProps` 	| props for \ component 	                                                                                         | FlatListProps\ 	| 	                                             |
