@@ -1,13 +1,13 @@
 import React, { memo, useCallback, useState } from 'react'
 import { Text } from 'react-native'
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown, TAutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [remoteDataSet, setRemoteDataSet] = useState(null)
-  const [selectedItem, setSelectedItem] = useState(null)
+  const [remoteDataSet, setRemoteDataSet] = useState<TAutocompleteDropdownItem[] | null>(null)
+  const [selectedItem, setSelectedItem] = useState<TAutocompleteDropdownItem | null>(null)
 
-  const getSuggestions = useCallback(async q => {
+  const getSuggestions = useCallback(async (q: string) => {
     const filterToken = q.toLowerCase()
     console.log('getSuggestions', filterToken)
     if (typeof q !== 'string' || q.length < 3) {
@@ -18,10 +18,10 @@ export const RemoteDataSetExample = memo(() => {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts').then(
       data =>
         new Promise(res => {
-          setTimeout(() => res(data), 2000) // imitate of a long response
+          setTimeout(() => res(data.json()), 2000) // imitate of a long response
         })
     )
-    const items = await response.json()
+    const items = await response as Record<string, string>[]
 
     const suggestions = items
       .filter(item => item.title.toLowerCase().includes(filterToken))

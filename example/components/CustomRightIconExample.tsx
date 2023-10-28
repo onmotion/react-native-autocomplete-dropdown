@@ -2,13 +2,13 @@ import React, { memo, useState } from 'react'
 import { useRef } from 'react'
 import { useMemo } from 'react'
 import { Text } from 'react-native'
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown, AutocompleteDropdownRef, TAutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
 import { generateDataSet } from '../helpers'
 import { Smile } from 'react-native-feather'
 
 export const CustomRightIconExample = memo(() => {
-  const [selectedItem, setSelectedItem] = useState(null)
-  const dropdownController = useRef(null)
+  const [selectedItem, setSelectedItem] = useState<TAutocompleteDropdownItem | null>(null)
+  const dropdownController = useRef<AutocompleteDropdownRef>()
 
   const dataSet = useMemo(generateDataSet, [])
 
@@ -28,7 +28,7 @@ export const CustomRightIconExample = memo(() => {
             -= {item.title} =-
           </Text>
         )}
-        RightIconComponent={<Smile name="smile" size={18} color="#f55" />}
+        RightIconComponent={<Smile color="#f55" />}
         onRightIconComponentPress={() => {
           dropdownController.current?.toggle()
         }}
