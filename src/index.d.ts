@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps } from 'react-native'
+import { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
 
 export type TAutocompleteDropdownItem = {
   id: string
@@ -67,8 +67,9 @@ interface AutocompleteDropdownProps {
   EmptyResultComponent?: React.ReactElement
   emptyResultText?: string
   flatListProps?: FlatListProps<any>
+  ref?: React.LegacyRef<TextInput> | undefined
 }
 
-export const AutocompleteDropdown: FC<AutocompleteDropdownProps>
+export const AutocompleteDropdown: (props: AutocompleteDropdownProps) => JSX.Element
 
 export const AutocompleteDropdownContextProvider: FC<any>

@@ -1,6 +1,10 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import { AutocompleteDropdown, AutocompleteDropdownRef, TAutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import {
+  AutocompleteDropdown,
+  AutocompleteDropdownRef,
+  TAutocompleteDropdownItem
+} from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample2 = memo(() => {
   const [loading, setLoading] = useState(false)
@@ -19,7 +23,7 @@ export const RemoteDataSetExample2 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const items = await response.json() as TAutocompleteDropdownItem[]
+    const items = (await response.json()) as TAutocompleteDropdownItem[]
     const suggestions = items
       .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
@@ -34,7 +38,9 @@ export const RemoteDataSetExample2 = memo(() => {
     setSuggestionsList(null)
   }, [])
 
-  const onOpenSuggestionsList = useCallback((isOpened: boolean) => {}, [])
+  const onOpenSuggestionsList = useCallback((isOpened: boolean) => {
+    console.log({ isOpened })
+  }, [])
 
   return (
     <>
@@ -92,7 +98,7 @@ export const RemoteDataSetExample2 = memo(() => {
           //  showClear={false}
         />
         <View style={{ width: 10 }} />
-        <Button style={{ flexGrow: 0 }} title="Toggle" onPress={() => dropdownController.current?.toggle()} />
+        <Button title="Toggle" onPress={() => dropdownController.current?.toggle()} />
       </View>
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item id: {JSON.stringify(selectedItem)}</Text>
     </>

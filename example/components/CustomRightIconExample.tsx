@@ -2,7 +2,11 @@ import React, { memo, useState } from 'react'
 import { useRef } from 'react'
 import { useMemo } from 'react'
 import { Text } from 'react-native'
-import { AutocompleteDropdown, AutocompleteDropdownRef, TAutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import {
+  AutocompleteDropdown,
+  AutocompleteDropdownRef,
+  TAutocompleteDropdownItem
+} from 'react-native-autocomplete-dropdown'
 import { generateDataSet } from '../helpers'
 import { Smile } from 'react-native-feather'
 

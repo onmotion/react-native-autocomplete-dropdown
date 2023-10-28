@@ -1,16 +1,20 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import {
+  AutocompleteDropdown,
+  AutocompleteDropdownRef,
+  TAutocompleteDropdownItem
+} from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample3 = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [suggestionsList, setSuggestionsList] = useState(null)
-  const [selectedItem, setSelectedItem] = useState(null)
-  const dropdownController = useRef(null)
+  const [suggestionsList, setSuggestionsList] = useState<TAutocompleteDropdownItem[] | null>(null)
+  const [selectedItem, setSelectedItem] = useState<string | null>(null)
+  const dropdownController = useRef<AutocompleteDropdownRef>()
 
   const searchRef = useRef(null)
 
-  const getSuggestions = useCallback(async q => {
+  const getSuggestions = useCallback(async (q: string) => {
     console.log('getSuggestions', q)
     const filterToken = q.toLowerCase()
     if (typeof q !== 'string' || q.length < 3) {
@@ -19,9 +23,9 @@ export const RemoteDataSetExample3 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const items = await response.json()
+    const items = (await response.json()) as TAutocompleteDropdownItem[]
     const suggestions = items
-      .filter(item => item.title.toLowerCase().includes(filterToken))
+      .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
         title: item.title
@@ -34,12 +38,10 @@ export const RemoteDataSetExample3 = memo(() => {
     setSuggestionsList(null)
   }, [])
 
-  const onOpenSuggestionsList = useCallback(isOpened => {}, [])
-
   return (
     <>
       <View style={[{ flex: 0, flexDirection: 'row', alignItems: 'center' }]}>
-        <Button style={{ flexGrow: 0 }} title="Clear" onPress={() => dropdownController.current.clear()} />
+        <Button title="Clear" onPress={() => dropdownController.current?.clear()} />
         <View style={{ width: 10 }} />
         <AutocompleteDropdown
           ref={searchRef}
@@ -57,7 +59,6 @@ export const RemoteDataSetExample3 = memo(() => {
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.3}
           onClear={onClearPress}
           onSubmit={e => console.log(e.nativeEvent.text)}
-          onOpenSuggestionsList={onOpenSuggestionsList}
           loading={loading}
           useFilter={false} // prevent rerender twice
           textInputProps={{

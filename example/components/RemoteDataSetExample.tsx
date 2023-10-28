@@ -21,7 +21,7 @@ export const RemoteDataSetExample = memo(() => {
           setTimeout(() => res(data.json()), 2000) // imitate of a long response
         })
     )
-    const items = await response as Record<string, string>[]
+    const items = (await response) as Record<string, string>[]
 
     const suggestions = items
       .filter(item => item.title.toLowerCase().includes(filterToken))
