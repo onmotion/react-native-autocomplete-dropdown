@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <AutocompleteDropdownContextProvider>
-      <SafeAreaView style={[backgroundStyle, { flex: 1, backgroundColor: 'red' }]}>
+      <SafeAreaView style={[backgroundStyle, { flex: 1 }]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <KeyboardAvoidingView
           style={{ flex: 1 }}
