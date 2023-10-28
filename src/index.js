@@ -307,7 +307,7 @@ export const AutocompleteDropdown = memo(
     )
 
     useEffect(() => {
-      if (!content) {
+      if (!content || props.loading) {
         setIsOpened(false)
       }
     }, [content])

@@ -29,11 +29,11 @@ const App = () => {
 
   return (
     <AutocompleteDropdownContextProvider>
-      <SafeAreaView style={[backgroundStyle, { flex: 1 }]}>
+      <SafeAreaView style={[backgroundStyle, { flex: 1, backgroundColor: 'red' }]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <KeyboardAvoidingView
           style={{ flex: 1 }}
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           enabled>
           <ScrollView
             nestedScrollEnabled
