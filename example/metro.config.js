@@ -4,8 +4,9 @@
  *
  * @format
  */
+const path = require('path');
 
-const packagePath = '/Users/alexandrkozhevnikov/projects/react-native-autocomplete-dropdown'
+const packagePath = path.resolve('..')
 
 module.exports = {
   transformer: {
