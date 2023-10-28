@@ -5,7 +5,8 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       jsx: true
-    }
+    },
+    requireConfigFile: false
   },
   rules: {
     '@typescript-eslint/no-unused-vars': 'off', // or "no-unused-vars": "off",
