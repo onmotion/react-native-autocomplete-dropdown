@@ -3,5 +3,26 @@
         {
             "mode": "auto"
         }
-    ]
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.lintTask.enable": true,
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "markdown",
+        "react",
+        "tsx",
+        "ts"
+    ],
+    "jest.autoRun": "off",
+    "prettier.requireConfig": true,
+    "prettier.semi": false,
+    "prettier.trailingComma": "none",
+    "typescript.format.enable": false,
+    "typescript.preferences.includePackageJsonAutoImports": "on"
 }

@@ -1,5 +1,4 @@
 import debounce from 'lodash.debounce'
-import PropTypes from 'prop-types'
 import React, {
   forwardRef,
   memo,
@@ -22,7 +21,7 @@ import {
   AutocompleteDropdownContextProvider
 } from './AutocompleteDropdownContext'
 import { useKeyboardHeight } from './useKeyboardHeight'
-import diacriticless from './diacriticless';
+import diacriticless from './diacriticless'
 
 export { AutocompleteDropdownContextProvider }
 
@@ -163,8 +162,8 @@ export const AutocompleteDropdown = memo(
     }
 
     const blur = () => {
-        inputRef.current.blur()
-      }
+      inputRef.current.blur()
+    }
 
     const clear = () => {
       onClearPress()
@@ -192,21 +191,20 @@ export const AutocompleteDropdown = memo(
         return
       }
 
-      const findWhat = ignoreAccents ? diacriticless( searchText.toLowerCase()) : searchText.toLowerCase()
+      const findWhat = ignoreAccents ? diacriticless(searchText.toLowerCase()) : searchText.toLowerCase()
 
-        const newSet = props.dataSet.filter((item) => {
-            const findWhere = ignoreAccents ? diacriticless(item.title.toLowerCase()) : item.title.toLowerCase()
+      const newSet = props.dataSet.filter(item => {
+        const findWhere = ignoreAccents ? diacriticless(item.title.toLowerCase()) : item.title.toLowerCase()
 
-            if (matchFromStart) {
-                return typeof item.title === 'string' && findWhere.startsWith( findWhat )
-            } else {
-                return typeof item.title === 'string' && findWhere.indexOf(findWhat) !== -1
-            }
-
-        });
+        if (matchFromStart) {
+          return typeof item.title === 'string' && findWhere.startsWith(findWhat)
+        } else {
+          return typeof item.title === 'string' && findWhere.indexOf(findWhat) !== -1
+        }
+      })
 
       setDataSet(newSet)
-    }, [searchText, props.dataSet, props.useFilter])
+    }, [searchText, props.dataSet, props.useFilter, ignoreAccents, matchFromStart])
 
     const renderItem = useCallback(
       ({ item }) => {
@@ -309,7 +307,7 @@ export const AutocompleteDropdown = memo(
     )
 
     useEffect(() => {
-      if (!content) {
+      if (!content || props.loading) {
         setIsOpened(false)
       }
     }, [content])
@@ -362,7 +360,7 @@ export const AutocompleteDropdown = memo(
           ref={containerRef}
           onLayout={_ => {}}
           style={[styles.inputContainerStyle, props.inputContainerStyle]}>
-            {props.LeftComponent}
+          {props.LeftComponent}
           <InputComponent
             ref={inputRef}
             value={searchText}
@@ -398,44 +396,6 @@ export const AutocompleteDropdown = memo(
     )
   })
 )
-
-AutocompleteDropdown.propTypes = {
-  dataSet: PropTypes.array,
-  initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  loading: PropTypes.bool,
-  useFilter: PropTypes.bool,
-  showClear: PropTypes.bool,
-  showChevron: PropTypes.bool,
-  closeOnBlur: PropTypes.bool,
-  closeOnSubmit: PropTypes.bool,
-  clearOnFocus: PropTypes.bool,
-  resetOnClose: PropTypes.bool,
-  ignoreAccents: PropTypes.bool,
-  matchFrom: PropTypes.oneOf(['any', 'start']),
-  debounce: PropTypes.number,
-  direction: PropTypes.oneOf(['down', 'up']),
-  suggestionsListMaxHeight: PropTypes.number,
-  bottomOffset: PropTypes.number,
-  onChangeText: PropTypes.func,
-  onSelectItem: PropTypes.func,
-  onOpenSuggestionsList: PropTypes.func,
-  onChevronPress: PropTypes.func,
-  onClear: PropTypes.func,
-  onSubmit: PropTypes.func,
-  onBlur: PropTypes.func,
-  controller: PropTypes.func,
-  containerStyle: PropTypes.object,
-  rightButtonsContainerStyle: PropTypes.object,
-  suggestionsListContainerStyle: PropTypes.object,
-  suggestionsListTextStyle: PropTypes.object,
-  ChevronIconComponent: PropTypes.element,
-  RightIconComponent: PropTypes.element,
-  ClearIconComponent: PropTypes.element,
-  ScrollViewComponent: PropTypes.elementType,
-  EmptyResultComponent: PropTypes.element,
-  emptyResultText: PropTypes.string,
-  flatListProps: PropTypes.object
-}
 
 const styles = ScaledSheet.create({
   container: {

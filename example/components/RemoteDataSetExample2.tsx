@@ -1,16 +1,20 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
+import {
+  AutocompleteDropdown,
+  AutocompleteDropdownRef,
+  TAutocompleteDropdownItem
+} from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample2 = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [suggestionsList, setSuggestionsList] = useState(null)
-  const [selectedItem, setSelectedItem] = useState(null)
-  const dropdownController = useRef(null)
+  const [suggestionsList, setSuggestionsList] = useState<TAutocompleteDropdownItem[] | null>(null)
+  const [selectedItem, setSelectedItem] = useState<string | null>(null)
+  const dropdownController = useRef<AutocompleteDropdownRef>()
 
   const searchRef = useRef(null)
 
-  const getSuggestions = useCallback(async q => {
+  const getSuggestions = useCallback(async (q: string) => {
     const filterToken = q.toLowerCase()
     console.log('getSuggestions', q)
     if (typeof q !== 'string' || q.length < 3) {
@@ -19,9 +23,9 @@ export const RemoteDataSetExample2 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const items = await response.json()
+    const items = (await response.json()) as TAutocompleteDropdownItem[]
     const suggestions = items
-      .filter(item => item.title.toLowerCase().includes(filterToken))
+      .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
         title: item.title
@@ -34,7 +38,9 @@ export const RemoteDataSetExample2 = memo(() => {
     setSuggestionsList(null)
   }, [])
 
-  const onOpenSuggestionsList = useCallback(isOpened => {}, [])
+  const onOpenSuggestionsList = useCallback((isOpened: boolean) => {
+    console.log({ isOpened })
+  }, [])
 
   return (
     <>
@@ -92,7 +98,7 @@ export const RemoteDataSetExample2 = memo(() => {
           //  showClear={false}
         />
         <View style={{ width: 10 }} />
-        <Button style={{ flexGrow: 0 }} title="Toggle" onPress={() => dropdownController.current.toggle()} />
+        <Button title="Toggle" onPress={() => dropdownController.current?.toggle()} />
       </View>
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item id: {JSON.stringify(selectedItem)}</Text>
     </>
