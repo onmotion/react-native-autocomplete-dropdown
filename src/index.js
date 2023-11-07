@@ -35,6 +35,7 @@ export const AutocompleteDropdown = memo(
     const [dataSet, setDataSet] = useState(props.dataSet)
     const clearOnFocus = props.clearOnFocus === false ? false : true
     const ignoreAccents = props.ignoreAccents === false ? false : true
+    const trimSearchText = props.trimSearchText === false ? false : true
     const matchFromStart = props.matchFrom === 'start' ? true : false
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight = props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
@@ -191,7 +192,15 @@ export const AutocompleteDropdown = memo(
         return
       }
 
-      const findWhat = ignoreAccents ? diacriticless(searchText.toLowerCase()) : searchText.toLowerCase()
+      let findWhat = searchText.toLowerCase()
+
+      if (ignoreAccents) {
+          findWhat = diacriticless(findWhat)
+      }
+
+      if (trimSearchText) {
+          findWhat = findWhat.trim()
+      }
 
       const newSet = props.dataSet.filter(item => {
         const findWhere = ignoreAccents ? diacriticless(item.title.toLowerCase()) : item.title.toLowerCase()

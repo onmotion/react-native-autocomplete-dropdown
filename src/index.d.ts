@@ -36,6 +36,7 @@ interface AutocompleteDropdownProps {
   closeOnSubmit?: boolean
   clearOnFocus?: boolean
   ignoreAccents?: boolean
+  trimSearchText?: boolean
   matchFrom?: 'any' | 'start'
   debounce?: number
   direction?: 'down' | 'up'
