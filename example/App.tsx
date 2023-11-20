@@ -19,6 +19,7 @@ import { RemoteDataSetExample } from './components/RemoteDataSetExample'
 import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2'
 import { CustomRightIconExample } from './components/CustomRightIconExample'
 import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown'
+import { ModalExample } from './components/ModalExample'
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -67,6 +68,10 @@ const App = () => {
               <View style={styles.section}>
                 <Text style={styles.sectionTitle}>Custom Right Icon Example</Text>
                 <CustomRightIconExample />
+              </View>
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>Modal Example</Text>
+                <ModalExample />
               </View>
             </View>
           </ScrollView>
