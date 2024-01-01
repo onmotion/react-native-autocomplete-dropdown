@@ -1,6 +1,6 @@
 {
     "name": "react-native-autocomplete-dropdown",
-    "version": "3.1.1",
+    "version": "3.1.2",
     "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
     "main": "src/index.js",
     "typings": "src/index.d.ts",
@@ -42,7 +42,7 @@
     "peerDependencies": {
         "react": "*",
         "react-native": ">=0.60.0",
-        "react-native-svg": "^13.0.0"
+        "react-native-svg": ">=13.0.0"
     },
     "dependencies": {
         "lodash.debounce": "*",

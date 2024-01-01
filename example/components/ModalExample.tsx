@@ -10,7 +10,7 @@ export const ModalExample = memo(() => {
       <Button onPress={() => setOpened(prev => !prev)} title="Open modal" />
       <Modal visible={opened}>
         <AutocompleteDropdownContextProvider>
-          <View style={{ paddingHorizontal: 20, flex: 1 }}>
+          <View style={{ paddingHorizontal: 20, flex: 1, paddingTop: 40 }}>
             <RemoteDataSetExample />
             <Button onPress={() => setOpened(false)} title="Close modal" />
           </View>
