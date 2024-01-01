@@ -265,6 +265,7 @@ yarn ios
 | `closeOnSubmit` 	| whether to close dropdown on submit 	                                                                           | bool 	| false 	                                       |
 | `clearOnFocus` 	| whether to clear typed text on focus 	                                                                          | bool 	| true 	                                        |
 | `ignoreAccents` 	| ignore diacritics 	                                                                                             | bool 	| true 	                                        |
+| `trimSearchText` | trim the searched text                                                                                         | bool 	| true 	                                        |
 | `debounce` 	| wait **ms** before call `onChangeText` 	                                                                        | number 	| 0 	                                           |
 | `suggestionsListMaxHeight` 	| max height of dropdown 	                                                                                        | number 	| 200 	                                         |
 | `direction` 	| "up" or "down" 	                                                                                                | string 	| down + auto calculate 	                       |
