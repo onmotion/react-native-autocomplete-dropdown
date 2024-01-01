@@ -10,6 +10,7 @@ export const LocalDataSetExample2 = memo(() => {
       <AutocompleteDropdown
         clearOnFocus={false}
         closeOnBlur={true}
+        direction="up"
         onSelectItem={setSelectedItem}
         dataSet={[
           { id: '1', title: '🐑' },

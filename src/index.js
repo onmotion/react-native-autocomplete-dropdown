@@ -151,11 +151,15 @@ export const AutocompleteDropdown = memo(
     // }, [kbHeight, props.direction])
 
     const open = async () => {
-      if (!props.direction) {
+      if (props.direction) {
+        setDirection(props.direction)
+      } else {
         await calculateDirection()
       }
 
-      setIsOpened(true)
+      setTimeout(() => {
+        setIsOpened(true)
+      }, 0)
     }
 
     const toggle = () => {
