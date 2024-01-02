@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import { Animated, Easing } from 'react-native'
+import { Animated, Easing, ViewProps } from 'react-native'
 
-export const withFadeAnimation = (WrappedComponent, containerStyle) => {
+export const withFadeAnimation = (
+  WrappedComponent: React.ComponentType,
+  containerStyle?: ViewProps['style']
+) => {
   return props => {
     const opacityAnimationValue = useRef(new Animated.Value(0)).current
 
