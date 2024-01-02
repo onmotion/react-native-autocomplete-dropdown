@@ -16,7 +16,7 @@ export interface AutocompleteDropdownRef {
   setItem: (item: TAutocompleteDropdownItem) => void
 }
 
-interface AutocompleteDropdownProps {
+export interface AutocompleteDropdownProps {
   /**
    * @example [
    *     { id: "1", title: "Alpha" },
