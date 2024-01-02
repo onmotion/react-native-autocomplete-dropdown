@@ -1,8 +1,17 @@
-import React, { memo, useMemo } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { FC, memo, useMemo } from 'react'
+import { StyleSheet, Text, TouchableOpacity, View, ViewProps } from 'react-native'
 import diacriticless from './diacriticless'
 
-export const ScrollViewListItem = memo(
+interface ScrollViewListItemProps {
+  highlight: string
+  title: string
+  style?: ViewProps['style']
+  onPress?: () => void
+  ignoreAccents: boolean
+  numberOfLines: number
+}
+
+export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
   ({ highlight, title, style, onPress, ignoreAccents, numberOfLines = 2 }) => {
     const titleParts = useMemo(() => {
       let titleHighlighted = ''
@@ -30,13 +39,13 @@ export const ScrollViewListItem = memo(
       <TouchableOpacity onPress={onPress}>
         <View style={styles.container}>
           <Text numberOfLines={numberOfLines}>
-            <Text numberOfLines={1} style={{ ...styles.text, ...style }}>
+            <Text numberOfLines={1} style={{ ...styles.text, ...(style as object) }}>
               {titleParts.titleStart}
             </Text>
-            <Text numberOfLines={1} style={{ ...styles.text, ...style, fontWeight: 'bold' }}>
+            <Text numberOfLines={1} style={{ ...styles.text, ...(style as object), fontWeight: 'bold' }}>
               {titleParts.titleHighlighted}
             </Text>
-            <Text numberOfLines={1} style={{ ...styles.text, ...style }}>
+            <Text numberOfLines={1} style={{ ...styles.text, ...(style as object) }}>
               {titleParts.titleEnd}
             </Text>
           </Text>
