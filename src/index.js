@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { Dimensions, Keyboard, LogBox, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Keyboard, TextInput, TouchableOpacity, View } from 'react-native'
 import { Dropdown } from './Dropdown'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { NothingFound } from './NothingFound'
@@ -46,6 +46,7 @@ export const AutocompleteDropdown = memo(
       content,
       setContent,
       activeInputRef,
+      controllerRef,
       direction = props.direction,
       setDirection
     } = useContext(AutocompleteDropdownContext)
@@ -59,15 +60,6 @@ export const AutocompleteDropdown = memo(
         }
       }
     }, [inputRef, ref])
-
-    useEffect(() => {
-      // VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.
-      LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-
-      return () => {
-        setContent(undefined)
-      }
-    }, [])
 
     /** Set initial value */
     useEffect(() => {
@@ -93,6 +85,7 @@ export const AutocompleteDropdown = memo(
       if (typeof props.controller === 'function') {
         props.controller({ close, blur, open, toggle, clear, setInputText, setItem })
       }
+      controllerRef.current = { close, blur, open, toggle, clear, setInputText, setItem }
     }, [isOpened, props.controller])
 
     useEffect(() => {
@@ -299,14 +292,11 @@ export const AutocompleteDropdown = memo(
 
     const onBlur = useCallback(
       e => {
-        if (props.closeOnBlur) {
-          close()
-        }
         if (typeof props.onBlur === 'function') {
           props.onBlur(e)
         }
       },
-      [props.closeOnBlur, props.onBlur]
+      [props.onBlur]
     )
 
     const onSubmit = useCallback(
@@ -371,7 +361,12 @@ export const AutocompleteDropdown = memo(
     ])
 
     return (
-      <View style={[styles.container, props.containerStyle]}>
+      <View
+        onStartShouldSetResponder={() => true}
+        onTouchEnd={e => {
+          e.stopPropagation()
+        }}
+        style={[styles.container, props.containerStyle]}>
         {/* it's necessary use onLayout here for Androd (bug?) */}
         <View
           ref={containerRef}

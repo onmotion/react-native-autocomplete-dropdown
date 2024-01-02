@@ -45,7 +45,7 @@ interface AutocompleteDropdownProps {
   textInputProps?: TextInputProps
   onChangeText?: (text: string) => void
   onSelectItem?: (item: TAutocompleteDropdownItem) => void
-  renderItem?: (item: TAutocompleteDropdownItem, searchText: string) => React.ReactElement
+  renderItem?: (item: TAutocompleteDropdownItem, searchText: string) => React.ReactElement | null
   onOpenSuggestionsList?: (isOpened: boolean) => void
   onClear?: () => void
   onChevronPress?: () => void
@@ -64,7 +64,7 @@ interface AutocompleteDropdownProps {
   LeftComponent?: React.ReactElement
   ClearIconComponent?: React.ReactElement
   InputComponent?: React.ComponentType
-  ItemSeparatorComponent?: React.ReactElement
+  ItemSeparatorComponent?: React.ComponentType<any> | null
   EmptyResultComponent?: React.ReactElement
   emptyResultText?: string
   flatListProps?: FlatListProps<any>

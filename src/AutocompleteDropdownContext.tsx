@@ -3,6 +3,7 @@ import type { SetStateAction, Dispatch } from 'react'
 import { LayoutChangeEvent, View, ViewProps } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { fadeInDownShort, fadeInUpShort } from './helpers'
+import { AutocompleteDropdownRef } from './index.d'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
@@ -10,6 +11,7 @@ export interface IAutocompleteDropdownContext {
   direction?: 'up' | 'down'
   setDirection: Dispatch<SetStateAction<IAutocompleteDropdownContext['direction']>>
   activeInputRef?: MutableRefObject<View | null>
+  controllerRef?: MutableRefObject<AutocompleteDropdownRef | null>
 }
 
 export const AutocompleteDropdownContext = React.createContext<IAutocompleteDropdownContext>({
@@ -17,7 +19,8 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   setContent: () => null,
   direction: undefined,
   setDirection: () => null,
-  activeInputRef: undefined
+  activeInputRef: undefined,
+  controllerRef: undefined
 })
 
 export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0, children }) => {
@@ -33,6 +36,7 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
     { top: number; left: number; width?: number } | undefined
   >(undefined)
   const activeInputRef = useRef<View>(null)
+  const controllerRef = useRef<AutocompleteDropdownRef>(null)
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
@@ -109,8 +113,15 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
 
   return (
     <AutocompleteDropdownContext.Provider
-      value={{ content, setContent, activeInputRef, direction, setDirection }}>
-      {children}
+      value={{ content, setContent, activeInputRef, direction, setDirection, controllerRef }}>
+      <View
+        style={{ flex: 1 }}
+        onTouchEnd={() => {
+          controllerRef.current?.close()
+          controllerRef.current?.blur()
+        }}>
+        {children}
+      </View>
       {!!content && show && (
         <View
           onLayout={onLayout}
