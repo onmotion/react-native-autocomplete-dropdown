@@ -117,7 +117,7 @@ export const AutocompleteDropdown = memo(
 
     const _onSelectItem = useCallback(item => {
       setSelectedItem(item)
-      inputRef.current.blur()
+      inputRef.current?.blur()
       setIsOpened(false)
     }, [])
 
