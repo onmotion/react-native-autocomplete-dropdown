@@ -82,7 +82,7 @@ export const AutocompleteDropdown = memo(
       if (dataSetItem) {
         setSelectedItem(dataSetItem)
       }
-    }, [])
+    }, [dataSet])
 
     /** expose controller methods */
     useEffect(() => {
