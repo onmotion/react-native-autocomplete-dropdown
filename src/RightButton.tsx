@@ -2,7 +2,22 @@ import React, { memo, useEffect, useRef } from 'react'
 import { ActivityIndicator, Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { ChevronDown, XCircle } from 'react-native-feather'
 
-export const RightButton = memo(
+interface RightButtonProps {
+  inputHeight: number
+  onClearPress: () => void
+  onChevronPress: () => void
+  isOpened: boolean
+  showChevron: boolean
+  showClear: boolean
+  loading: boolean
+  buttonsContainerStyle?: object
+  ChevronIconComponent?: React.ReactNode
+  ClearIconComponent?: React.ReactNode
+  RightIconComponent?: React.ReactNode
+  onRightIconComponentPress?: () => void
+}
+
+export const RightButton: React.FC<RightButtonProps> = memo(
   ({
     inputHeight,
     onClearPress,
