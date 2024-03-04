@@ -70,7 +70,7 @@ export const AutocompleteDropdown = memo(
       return () => {
         setContent(undefined)
       };
-    }, []);;
+    }, []);
 
     /** Set initial value */
     useEffect(() => {
