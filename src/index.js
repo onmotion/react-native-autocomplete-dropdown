@@ -65,6 +65,13 @@ export const AutocompleteDropdown = memo(
       LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
     }, [])
 
+    useEffect(() => {
+      // Do content cleaning when the component is unmounted
+      return () => {
+        setContent(undefined)
+      };
+    }, []);;
+
     /** Set initial value */
     useEffect(() => {
       if (!Array.isArray(dataSet) || selectedItem) {
