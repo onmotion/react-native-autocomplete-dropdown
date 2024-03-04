@@ -7,8 +7,8 @@ interface ScrollViewListItemProps {
   title: string
   style?: ViewProps['style']
   onPress?: () => void
-  ignoreAccents: boolean
-  numberOfLines: number
+  ignoreAccents?: boolean
+  numberOfLines?: number
 }
 
 export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
