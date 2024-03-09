@@ -64,7 +64,9 @@ export const AutocompleteDropdown = memo(
       if (!!props.initialValue) setSelectedItem(props.initialValue);
 
       // VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.
-      LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
+      LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+      
+      return () => setContent(undefined);
     }, [])
 
     useEffect(() => {
