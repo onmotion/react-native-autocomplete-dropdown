@@ -39,7 +39,6 @@ export const AutocompleteDropdown = memo(
     const matchFromStart = props.matchFrom === 'start' ? true : false
     const inputHeight = props.inputHeight ?? moderateScale(40, 0.2)
     const suggestionsListMaxHeight = props.suggestionsListMaxHeight ?? moderateScale(200, 0.2)
-    const bottomOffset = props.bottomOffset ?? 0
     const InputComponent = props.InputComponent ?? TextInput
     const kbHeight = useKeyboardHeight()
     const {
@@ -61,28 +60,28 @@ export const AutocompleteDropdown = memo(
     }, [inputRef, ref])
 
     useEffect(() => {
+      /** Set initial value */
+      if (!!props.initialValue) setSelectedItem(props.initialValue);
+
       // VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.
       LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
     }, [])
 
-    /** Set initial value */
     useEffect(() => {
-      if (!Array.isArray(dataSet) || selectedItem) {
-        // nothing to set or already setted
-        return
+      if (selectedItem !== null) {
+        if (typeof selectedItem === 'object') {
+          setSearchText(selectedItem.title ?? selectedItem.id)
+        } else if (typeof selectedItem === 'string') {
+          setSearchText(selectedItem)
+        } else {
+          setSearchText('')
+        }
       }
 
-      let dataSetItem
-      if (typeof props.initialValue === 'string') {
-        dataSetItem = dataSet.find(el => el.id === props.initialValue)
-      } else if (typeof props.initialValue === 'object' && props.initialValue.id) {
-        dataSetItem = dataSet.find(el => el.id === props.initialValue.id)
+      if (typeof props.onSelectItem === 'function') {
+        props.onSelectItem(selectedItem)
       }
-
-      if (dataSetItem) {
-        setSelectedItem(dataSetItem)
-      }
-    }, [dataSet])
+    }, [selectedItem])
 
     /** expose controller methods */
     useEffect(() => {
@@ -90,18 +89,6 @@ export const AutocompleteDropdown = memo(
         props.controller({ close, blur, open, toggle, clear, setInputText, setItem })
       }
     }, [isOpened, props.controller])
-
-    useEffect(() => {
-      if (selectedItem) {
-        setSearchText(selectedItem.title ?? '')
-      } else {
-        setSearchText('')
-      }
-
-      if (typeof props.onSelectItem === 'function') {
-        props.onSelectItem(selectedItem)
-      }
-    }, [selectedItem])
 
     useEffect(() => {
       if (typeof props.onOpenSuggestionsList === 'function') {
@@ -283,7 +270,7 @@ export const AutocompleteDropdown = memo(
     const onFocus = useCallback(
       e => {
         if (clearOnFocus) {
-          setSearchText('')
+          setSelectedItem(null);
         }
         if (typeof props.onFocus === 'function') {
           props.onFocus(e)
