@@ -1,9 +1,10 @@
 import React, { memo, useMemo } from 'react'
 import { StyleSheet, FlatList, View, ListRenderItem } from 'react-native'
-import { AutocompleteDropdownProps } from './index.d'
+import { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './index.d'
 
-interface DropdownProps extends AutocompleteDropdownProps {
+interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 'ref'> {
   ListEmptyComponent: JSX.Element
+  renderItem: ListRenderItem<AutocompleteDropdownItem>
 }
 
 export const Dropdown = memo((props: DropdownProps) => {
@@ -40,7 +41,7 @@ export const Dropdown = memo((props: DropdownProps) => {
         nestedScrollEnabled={true}
         data={dataSet}
         style={{ maxHeight: suggestionsListMaxHeight }}
-        renderItem={renderItem as unknown as ListRenderItem<any>}
+        renderItem={renderItem}
         keyExtractor={item => item.id}
         ListEmptyComponent={ListEmptyComponent}
         ItemSeparatorComponent={ItemSeparatorComponent ?? defaultItemSeparator}

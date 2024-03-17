@@ -3,7 +3,7 @@ import type { SetStateAction, Dispatch } from 'react'
 import { LayoutChangeEvent, View, ViewProps } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { fadeInDownShort, fadeInUpShort } from './helpers'
-import { AutocompleteDropdownRef } from './index.d'
+import { IAutocompleteDropdownRef } from './index.d'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
@@ -11,7 +11,7 @@ export interface IAutocompleteDropdownContext {
   direction?: 'up' | 'down'
   setDirection: Dispatch<SetStateAction<IAutocompleteDropdownContext['direction']>>
   activeInputRef?: MutableRefObject<View | null>
-  controllerRef?: MutableRefObject<AutocompleteDropdownRef | null>
+  controllerRef?: MutableRefObject<IAutocompleteDropdownRef | null>
 }
 
 export const AutocompleteDropdownContext = React.createContext<IAutocompleteDropdownContext>({
@@ -36,7 +36,7 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
     { top: number; left: number; width?: number } | undefined
   >(undefined)
   const activeInputRef = useRef<View>(null)
-  const controllerRef = useRef<AutocompleteDropdownRef>(null)
+  const controllerRef = useRef<IAutocompleteDropdownRef>(null)
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
