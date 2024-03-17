@@ -74,3 +74,8 @@ export interface IAutocompleteDropdownProps {
 export const AutocompleteDropdown: (props: IAutocompleteDropdownProps) => JSX.Element
 
 export const AutocompleteDropdownContextProvider: FC<any>
+
+declare global {
+  function setInterval(callback: () => void, ms?: number | undefined): number
+  function setTimeout(callback: () => void, ms?: number | undefined): number
+}

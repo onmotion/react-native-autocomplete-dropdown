@@ -37,6 +37,7 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
   >(undefined)
   const activeInputRef = useRef<View>(null)
   const controllerRef = useRef<IAutocompleteDropdownRef>(null)
+  const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
@@ -60,12 +61,13 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
       setOpacity(1)
     }
   }, [
-    dropdownHeight,
     direction,
-    inputMeasurements?.y,
-    inputMeasurements?.x,
+    dropdownHeight,
+    headerOffset,
     inputMeasurements?.height,
-    inputMeasurements?.width
+    inputMeasurements?.width,
+    inputMeasurements?.x,
+    inputMeasurements?.y
   ])
 
   useEffect(() => {
@@ -84,9 +86,8 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
   }, [content])
 
   useEffect(() => {
-    let positionTrackingInterval
     if (show && !!opacity) {
-      positionTrackingInterval = setInterval(() => {
+      positionTrackingIntervalRef.current = setInterval(() => {
         requestAnimationFrame(() => {
           activeInputRef?.current &&
             activeInputRef?.current?.measure((_x, _y, width, height, x, y) => {
@@ -99,11 +100,11 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
         })
       }, 16)
     } else {
-      positionTrackingInterval && clearInterval(positionTrackingInterval)
+      clearInterval(positionTrackingIntervalRef.current)
     }
 
     return () => {
-      positionTrackingInterval && clearInterval(positionTrackingInterval)
+      clearInterval(positionTrackingIntervalRef.current)
     }
   }, [opacity, show])
 
