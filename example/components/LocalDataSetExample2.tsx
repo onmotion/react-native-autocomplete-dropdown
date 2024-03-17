@@ -1,16 +1,16 @@
 import React, { memo, useState } from 'react'
 import { Text } from 'react-native'
-import { AutocompleteDropdown, TAutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
 
 export const LocalDataSetExample2 = memo(() => {
-  const [selectedItem, setSelectedItem] = useState<TAutocompleteDropdownItem | null>(null)
+  const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
 
   return (
     <>
       <AutocompleteDropdown
         clearOnFocus={false}
         closeOnBlur={true}
-        direction="up"
+        //  direction="up"
         onSelectItem={setSelectedItem}
         dataSet={[
           { id: '1', title: '🐑' },

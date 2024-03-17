@@ -37,6 +37,6 @@ module.exports = {
     semi: 'off',
     'comma-dangle': ['warn', 'never'],
     'react-native/no-inline-styles': 'off',
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'warn'
   }
 }
