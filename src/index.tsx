@@ -58,13 +58,13 @@ export const AutocompleteDropdown = memo(
       emptyResultText,
       onClear,
       onChangeText: onTextChange,
-      debounce: debounceDelay = 200,
+      debounce: debounceDelay = 0,
       onChevronPress: onChevronPressProp,
       onFocus: onFocusProp,
       onBlur: onBlurProp,
       onSubmit: onSubmitProp,
       closeOnSubmit,
-      loading,
+      loading: loadingProp,
       LeftComponent,
       textInputProps,
       showChevron,
@@ -83,6 +83,7 @@ export const AutocompleteDropdown = memo(
     const containerRef = useRef<View>(null)
     const [searchText, setSearchText] = useState('')
     const [inputValue, setInputValue] = useState('')
+    const [loading, setLoading] = useState(loadingProp)
     const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
     const [isOpened, setIsOpened] = useState(false)
     const initialDataSetRef = useRef<AutocompleteDropdownItem[] | undefined | null>(dataSetProp)
@@ -99,20 +100,19 @@ export const AutocompleteDropdown = memo(
       setDirection
     } = useContext(AutocompleteDropdownContext)
 
+    useEffect(() => {
+      setLoading(loadingProp)
+    }, [loadingProp])
+
     const calculateDirection = useCallback(async () => {
       const [, positionY] = await new Promise<[x: number, y: number, width: number, height: number]>(
-        resolve =>
-          containerRef.current?.measureInWindow((...rect) => {
-            resolve(rect)
-          })
+        resolve => containerRef.current?.measureInWindow((...rect) => resolve(rect))
       )
 
       const screenHeight = Dimensions.get('window').height
       setDirection((screenHeight - kbHeight) / 2 > positionY ? 'down' : 'up')
       return new Promise<void>(resolve => {
-        setTimeout(() => {
-          return resolve()
-        }, 1)
+        setTimeout(resolve, 1)
       })
     }, [kbHeight, setDirection])
 
@@ -245,10 +245,10 @@ export const AutocompleteDropdown = memo(
 
     useEffect(() => {
       // renew state on close
-      if (!isOpened && selectedItem && !loading) {
+      if (!isOpened && selectedItem && !loading && !inputRef.current?.isFocused()) {
+        console.log(selectedItem.title, { isOpened, selectedItem, loading })
+
         setInputValue(selectedItem.title || '')
-      } else {
-        setInputValue(searchText || '')
       }
     }, [isOpened, loading, searchText, selectedItem])
 
@@ -329,6 +329,7 @@ export const AutocompleteDropdown = memo(
           if (typeof onTextChange === 'function') {
             onTextChange(text)
           }
+          setLoading(false)
         }, debounceDelay),
       [debounceDelay, onTextChange]
     )
@@ -336,6 +337,8 @@ export const AutocompleteDropdown = memo(
     const onChangeText = useCallback(
       (text: string) => {
         setSearchText(text)
+        setInputValue(text)
+        setLoading(true)
         debouncedEvent(text)
       },
       [debouncedEvent]
@@ -388,16 +391,17 @@ export const AutocompleteDropdown = memo(
     )
 
     useEffect(() => {
-      if (!content && !inputRef.current?.isFocused()) {
+      if ((!content && !inputRef.current?.isFocused()) || loading) {
         setIsOpened(false)
       }
-    }, [content, searchText])
+    }, [content, loading])
 
     useEffect(() => {
-      if (searchText && inputRef.current?.isFocused()) {
+      // searchTextRef
+      if (searchText && inputRef.current?.isFocused() && !loading) {
         setIsOpened(true)
       }
-    }, [content, searchText])
+    }, [loading])
 
     useEffect(() => {
       if (isOpened && Array.isArray(dataSet)) {
