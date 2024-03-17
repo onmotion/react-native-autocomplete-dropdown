@@ -63,14 +63,11 @@ export const AutocompleteDropdown = memo(
     useEffect(() => {
       // VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.
       LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
-    }, [])
 
-    useEffect(() => {
-      // Do content cleaning when the component is unmounted
       return () => {
         setContent(undefined)
-      };
-    }, []);
+      }
+    }, [])
 
     /** Set initial value */
     useEffect(() => {
@@ -206,11 +203,11 @@ export const AutocompleteDropdown = memo(
       let findWhat = searchText.toLowerCase()
 
       if (ignoreAccents) {
-          findWhat = diacriticless(findWhat)
+        findWhat = diacriticless(findWhat)
       }
 
       if (trimSearchText) {
-          findWhat = findWhat.trim()
+        findWhat = findWhat.trim()
       }
 
       const newSet = props.dataSet.filter(item => {
