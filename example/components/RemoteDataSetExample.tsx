@@ -1,11 +1,11 @@
 import React, { memo, useCallback, useState } from 'react'
 import { Text } from 'react-native'
-import { AutocompleteDropdown, TAutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [remoteDataSet, setRemoteDataSet] = useState<TAutocompleteDropdownItem[] | null>(null)
-  const [selectedItem, setSelectedItem] = useState<TAutocompleteDropdownItem | null>(null)
+  const [remoteDataSet, setRemoteDataSet] = useState<AutocompleteDropdownItem[] | null>(null)
+  const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
 
   const getSuggestions = useCallback(async (q: string) => {
     const filterToken = q.toLowerCase()
@@ -42,7 +42,7 @@ export const RemoteDataSetExample = memo(() => {
         useFilter={false}
         clearOnFocus={false}
         textInputProps={{
-          placeholder: 'Start typing est...'
+          placeholder: 'Start typing "est"...'
         }}
         onSelectItem={setSelectedItem}
         loading={loading}

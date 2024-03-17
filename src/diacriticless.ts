@@ -1,5 +1,9 @@
+interface DiacriticsMap {
+  [key: string]: string[]
+}
+
 // all diacritics
-var diacritics = {
+const diacritics: DiacriticsMap = {
   a: [
     'a',
     'à',
@@ -541,30 +545,24 @@ var diacritics = {
 /*
  * Main function of the module which removes all diacritics from the received text
  */
-module.exports = function (text) {
-  var result = []
 
-  // iterate over all the characters of the received text
-  for (var i = 0; i < text.length; i++) {
-    var searchChar = text.charAt(i)
-    var foundChar = false
+export default function removeDiacritics(text: string): string {
+  const result: string[] = []
 
-    // iterate over all the diacritics
-    for (var key in diacritics) {
-      var indexChar = diacritics[key].indexOf(searchChar)
+  for (let i = 0; i < text.length; i++) {
+    const searchChar = text.charAt(i)
+    let foundChar = false
 
-      // check if the current character is a diacritic
-      if (indexChar !== -1) {
-        // as the character is a diacritic, adds into the result array, the key of the found diacritic
+    for (const key in diacritics) {
+      const index = diacritics[key].indexOf(searchChar)
+      if (index !== -1) {
         result.push(key)
         foundChar = true
         break
       }
     }
 
-    // check if the character was not found
     if (!foundChar) {
-      // as the character was not found, returns it
       result.push(searchChar)
     }
   }

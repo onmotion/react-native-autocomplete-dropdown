@@ -1,0 +1,15 @@
+{
+    "extends": "@react-native/typescript-config/tsconfig.json", /* Recommended React Native TSConfig base */
+    "exclude": [
+        "node_modules",
+        "babel.config.js",
+        "metro.config.js",
+        "jest.config.js"
+    ],
+    "compilerOptions": {
+        "baseUrl": "./",
+        "resolvePackageJsonExports": false,
+        "lib": ["ES2021"],
+        "types": [],
+    }
+}

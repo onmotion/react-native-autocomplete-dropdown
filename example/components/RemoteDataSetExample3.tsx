@@ -2,15 +2,15 @@ import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
 import {
   AutocompleteDropdown,
-  AutocompleteDropdownRef,
-  TAutocompleteDropdownItem
+  IAutocompleteDropdownRef,
+  AutocompleteDropdownItem
 } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample3 = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [suggestionsList, setSuggestionsList] = useState<TAutocompleteDropdownItem[] | null>(null)
+  const [suggestionsList, setSuggestionsList] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const dropdownController = useRef<AutocompleteDropdownRef>()
+  const dropdownController = useRef<IAutocompleteDropdownRef>()
 
   const searchRef = useRef(null)
 
@@ -23,7 +23,7 @@ export const RemoteDataSetExample3 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const items = (await response.json()) as TAutocompleteDropdownItem[]
+    const items = (await response.json()) as AutocompleteDropdownItem[]
     const suggestions = items
       .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
@@ -53,7 +53,7 @@ export const RemoteDataSetExample3 = memo(() => {
           dataSet={suggestionsList}
           onChangeText={getSuggestions}
           onSelectItem={item => {
-            item && setSelectedItem(item.id)
+            setSelectedItem(item?.id || null)
           }}
           debounce={600}
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.3}
