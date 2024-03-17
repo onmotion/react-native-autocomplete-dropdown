@@ -1,11 +1,15 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, FC, ComponentType } from 'react'
 import { Animated, Easing, ViewProps } from 'react-native'
 
-export const withFadeAnimation = (
-  WrappedComponent: React.ComponentType,
+interface WithFadeAnimationProps {
   containerStyle?: ViewProps['style']
-) => {
-  return props => {
+}
+
+export const withFadeAnimation = <P extends object>(
+  WrappedComponent: ComponentType<P>,
+  { containerStyle }: WithFadeAnimationProps = {}
+): FC<P> => {
+  return (props: P) => {
     const opacityAnimationValue = useRef(new Animated.Value(0)).current
 
     useEffect(() => {
@@ -15,7 +19,7 @@ export const withFadeAnimation = (
         useNativeDriver: true,
         easing: Easing.bezier(0.3, 0.58, 0.25, 0.99)
       }).start()
-    }, [])
+    }, [opacityAnimationValue])
 
     return (
       <Animated.View style={[containerStyle, { opacity: opacityAnimationValue }]}>

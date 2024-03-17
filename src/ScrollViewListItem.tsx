@@ -33,7 +33,7 @@ export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
       }
 
       return { titleHighlighted, titleStart, titleEnd }
-    }, [title, highlight])
+    }, [highlight, ignoreAccents, title])
 
     return (
       <TouchableOpacity onPress={onPress}>

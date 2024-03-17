@@ -58,7 +58,7 @@ export const AutocompleteDropdown = memo(
       emptyResultText,
       onClear,
       onChangeText: onTextChange,
-      debounce: debounceDelay,
+      debounce: debounceDelay = 200,
       onChevronPress: onChevronPressProp,
       onFocus: onFocusProp,
       onBlur: onBlurProp,
@@ -171,7 +171,7 @@ export const AutocompleteDropdown = memo(
           ref.current = inputRef.current
         }
       }
-    }, [inputRef, ref])
+    }, [ref])
 
     /** Set initial value */
     useEffect(() => {
@@ -193,6 +193,13 @@ export const AutocompleteDropdown = memo(
         setSelectedItem(dataSetItem)
       }
     }, [])
+
+    useEffect(() => {
+      return () => {
+        setContent(undefined)
+        setIsOpened(false)
+      }
+    }, [setContent])
 
     const setInputText = useCallback((text: string) => {
       setSearchText(text)
@@ -316,13 +323,14 @@ export const AutocompleteDropdown = memo(
       return EmptyResultComponent ?? <NothingFound emptyResultText={emptyResultText} />
     }, [EmptyResultComponent, emptyResultText])
 
-    const debouncedEvent = useCallback(
-      debounce((text: string) => {
-        if (typeof onTextChange === 'function') {
-          onTextChange(text)
-        }
-      }, debounceDelay ?? 0),
-      [onTextChange]
+    const debouncedEvent = useMemo(
+      () =>
+        debounce((text: string) => {
+          if (typeof onTextChange === 'function') {
+            onTextChange(text)
+          }
+        }, debounceDelay),
+      [debounceDelay, onTextChange]
     )
 
     const onChangeText = useCallback(

@@ -50,7 +50,7 @@ export const RightButton: React.FC<RightButtonProps> = memo(
         useNativeDriver: true,
         easing: Easing.bezier(0.3, 0.58, 0.25, 0.99)
       }).start()
-    }, [isOpened])
+    }, [isOpened, isOpenedAnimationValue])
 
     const chevronSpin = isOpenedAnimationValue.interpolate({
       inputRange: [0, 1],
