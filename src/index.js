@@ -211,12 +211,20 @@ export const AutocompleteDropdown = memo(
       }
 
       const newSet = props.dataSet.filter(item => {
-        const findWhere = ignoreAccents ? diacriticless(item.title.toLowerCase()) : item.title.toLowerCase()
-
-        if (matchFromStart) {
-          return typeof item.title === 'string' && findWhere.startsWith(findWhat)
+        let findWhere = '';
+        if(!isNaN(parseInt(findWhat))) {
+          findWhere = item.id;
         } else {
-          return typeof item.title === 'string' && findWhere.indexOf(findWhat) !== -1
+          findWhere = ignoreAccents ? diacriticless(item.title.toLowerCase()) : item.title.toLowerCase();
+        }
+        if (!isNaN(parseInt(findWhat))) {
+          return (typeof item.id === 'string' && findWhere.indexOf(findWhat) !== -1)
+        } else {
+          if (matchFromStart) {
+            return typeof item.title === 'string' && findWhere.startsWith(findWhat)
+          } else {
+            return typeof item.title === 'string' && findWhere.indexOf(findWhat) !== -1
+          }
         }
       })
 
