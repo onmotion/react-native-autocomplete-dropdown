@@ -392,7 +392,13 @@ export const AutocompleteDropdown = memo(
 
     useEffect(() => {
       if ((!content && !inputRef.current?.isFocused()) || loading) {
-        setIsOpened(false)
+        const db = debounce(() => {
+          setIsOpened(false)
+        }, 100)
+        db()
+        return () => {
+          db.cancel()
+        }
       }
     }, [content, loading])
 
@@ -401,7 +407,7 @@ export const AutocompleteDropdown = memo(
       if (searchText && inputRef.current?.isFocused() && !loading) {
         setIsOpened(true)
       }
-    }, [loading])
+    }, [loading, searchText])
 
     useEffect(() => {
       if (isOpened && Array.isArray(dataSet)) {
