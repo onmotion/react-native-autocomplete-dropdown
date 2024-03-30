@@ -1,5 +1,9 @@
 export const fadeInDownShort = {
   0: {
+    opacity: 0,
+    transform: [{ translateY: -20 }],
+  },
+  0.05: {
     opacity: 0.5,
     transform: [{ translateY: -20 }],
   },
@@ -11,6 +15,10 @@ export const fadeInDownShort = {
 
 export const fadeInUpShort = {
   0: {
+    opacity: 0.0,
+    transform: [{ translateY: 20 }],
+  },
+  0.05: {
     opacity: 0.5,
     transform: [{ translateY: 20 }],
   },

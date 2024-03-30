@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 15.46,
-
-    elevation: 20,
+    
+    elevation: 20 // elevation doesn't work properly with a container opacity
   },
 })
