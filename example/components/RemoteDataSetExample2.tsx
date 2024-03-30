@@ -62,6 +62,7 @@ export const RemoteDataSetExample2 = memo(() => {
           useFilter={false} // set false to prevent rerender twice
           textInputProps={{
             placeholder: 'Type 3+ letters (dolo...)',
+            placeholderTextColor: '#aaa',
             autoCorrect: false,
             autoCapitalize: 'none',
             style: {

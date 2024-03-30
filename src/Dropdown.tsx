@@ -1,7 +1,10 @@
 import React, { memo, useMemo } from 'react'
 import type { ListRenderItem } from 'react-native'
-import { StyleSheet, FlatList, View } from 'react-native'
+import { StyleSheet, FlatList, View, useColorScheme } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './index.d'
+import { fadeInDownShort, fadeInUpShort } from './helpers'
+import { theme } from './theme'
 
 interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 'ref'> {
   ListEmptyComponent: JSX.Element
@@ -9,14 +12,29 @@ interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 
 }
 
 export const Dropdown = memo((props: DropdownProps) => {
-  const { dataSet, suggestionsListMaxHeight, renderItem, ListEmptyComponent, ItemSeparatorComponent, ...rest } = props
+  const {
+    dataSet,
+    suggestionsListMaxHeight,
+    renderItem,
+    ListEmptyComponent,
+    ItemSeparatorComponent,
+    direction,
+    ...rest
+  } = props
+  const themeName = useColorScheme()
+  const styles = useMemo(() => getStyles(themeName || 'light'), [themeName])
 
   const defaultItemSeparator = useMemo(() => {
     return () => <View style={styles.itemSeparator} />
-  }, [])
+  }, [styles.itemSeparator])
 
   return (
-    <View
+    <Animatable.View
+      useNativeDriver
+      animation={direction === 'up' ? fadeInUpShort : fadeInDownShort}
+      easing="ease-out-quad"
+      delay={direction === 'up' ? 150 : 0}
+      duration={150}
       style={{
         ...styles.listContainer,
         ...(rest.suggestionsListContainerStyle as object),
@@ -33,30 +51,31 @@ export const Dropdown = memo((props: DropdownProps) => {
         ItemSeparatorComponent={ItemSeparatorComponent ?? defaultItemSeparator}
         {...rest.flatListProps}
       />
-    </View>
+    </Animatable.View>
   )
 })
 
-const styles = StyleSheet.create({
-  container: {},
-  listContainer: {
-    backgroundColor: '#fff',
-    width: '100%',
-    zIndex: 9,
-    borderRadius: 5,
-    shadowColor: '#00000099',
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 15.46,
+const getStyles = (themeName: 'light' | 'dark' = 'light') =>
+  StyleSheet.create({
+    container: {},
+    listContainer: {
+      backgroundColor: theme[themeName].suggestionsListBackgroundColor,
+      width: '100%',
+      zIndex: 9,
+      borderRadius: 5,
+      shadowColor: theme[themeName || 'light'].shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 12,
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: 15.46,
 
-    elevation: 20, // elevation doesn't work properly with a container opacity
-  },
-  itemSeparator: {
-    height: 1,
-    width: '100%',
-    backgroundColor: '#ddd',
-  },
-})
+      elevation: 20,
+    },
+    itemSeparator: {
+      height: 1,
+      width: '100%',
+      backgroundColor: theme[themeName || 'light'].itemSeparatorColor,
+    },
+  })

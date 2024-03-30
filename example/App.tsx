@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   SafeAreaView,
   ScrollView,
@@ -22,10 +22,12 @@ import { CustomRightIconExample } from './components/CustomRightIconExample'
 import { ModalExample } from './components/ModalExample'
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark'
+  const themeName = useColorScheme() || 'light'
+  const styles = useMemo(() => getStyles(themeName), [themeName])
+  const isDarkMode = themeName === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    backgroundColor: isDarkMode ? '#000' : Colors.lighter,
   }
 
   return (
@@ -82,28 +84,31 @@ const App = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  scrollContainer: {
-    flex: 1,
-  },
-  container: {
-    padding: 20,
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 25,
-    marginBottom: 50,
-  },
-  section: {
-    marginBottom: 40,
-  },
-  sectionTitle: {
-    fontWeight: 'bold',
-    marginBottom: 3,
-  },
-})
+const getStyles = (themeName: 'light' | 'dark' = 'light') =>
+  StyleSheet.create({
+    safeArea: {
+      flex: 1,
+    },
+    scrollContainer: {
+      flex: 1,
+    },
+    container: {
+      padding: 20,
+    },
+    title: {
+      textAlign: 'center',
+      fontSize: 25,
+      marginBottom: 50,
+      color: themeName === 'dark' ? '#fff' : '#000',
+    },
+    section: {
+      marginBottom: 40,
+    },
+    sectionTitle: {
+      fontWeight: 'bold',
+      marginBottom: 3,
+      color: themeName === 'dark' ? '#ffffffb6' : '#000000b0',
+    },
+  })
 
 export default App

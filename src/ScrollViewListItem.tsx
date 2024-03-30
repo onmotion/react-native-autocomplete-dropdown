@@ -1,8 +1,9 @@
 import type { FC } from 'react'
 import React, { memo, useMemo } from 'react'
 import type { ViewProps } from 'react-native'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from 'react-native'
 import diacriticless from './diacriticless'
+import { theme } from './theme'
 
 interface ScrollViewListItemProps {
   highlight: string
@@ -15,6 +16,9 @@ interface ScrollViewListItemProps {
 
 export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
   ({ highlight, title, style, onPress, ignoreAccents, numberOfLines = 2 }) => {
+    const themeName = useColorScheme()
+    const styles = useMemo(() => getStyles(themeName || 'light'), [themeName])
+
     const titleParts = useMemo(() => {
       let titleHighlighted = ''
       let titleStart = title
@@ -55,24 +59,25 @@ export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
   },
 )
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 15,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    flexWrap: 'nowrap',
+const getStyles = (themeName: 'light' | 'dark' = 'light') =>
+  StyleSheet.create({
+    container: {
+      padding: 15,
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      flexWrap: 'nowrap',
 
-    width: '100%',
-  },
-  text: {
-    color: '#333',
-    fontSize: 16,
-    flexGrow: 1,
-    flexShrink: 0,
-  },
-  textBold: {
-    fontWeight: 'bold',
-  },
-})
+      width: '100%',
+    },
+    text: {
+      color: theme[themeName].listItemTextColor,
+      fontSize: 16,
+      flexGrow: 1,
+      flexShrink: 0,
+    },
+    textBold: {
+      fontWeight: 'bold',
+    },
+  })

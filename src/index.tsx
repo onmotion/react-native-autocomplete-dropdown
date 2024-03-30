@@ -16,7 +16,7 @@ import type {
   TextInputFocusEventData,
   TextInputSubmitEditingEventData,
 } from 'react-native'
-import { Dimensions, Keyboard, TextInput, TouchableOpacity, View } from 'react-native'
+import { Dimensions, Keyboard, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { Dropdown } from './Dropdown'
 import { NothingFound } from './NothingFound'
@@ -26,6 +26,7 @@ import { AutocompleteDropdownContext, AutocompleteDropdownContextProvider } from
 import { useKeyboardHeight } from './useKeyboardHeight'
 import diacriticless from './diacriticless'
 import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './index.d'
+import { theme } from './theme'
 
 export { AutocompleteDropdownContextProvider }
 
@@ -92,6 +93,8 @@ export const AutocompleteDropdown = memo(
       direction = directionProp,
       setDirection,
     } = useContext(AutocompleteDropdownContext)
+    const themeName = useColorScheme() || 'light'
+    const styles = useMemo(() => getStyles(themeName), [themeName])
 
     useEffect(() => {
       setLoading(loadingProp)
@@ -205,6 +208,9 @@ export const AutocompleteDropdown = memo(
     /** expose controller methods */
     useEffect(() => {
       const methods = controllerRef ? { close, blur, open, toggle, clear, setInputText, setItem } : null
+      if (controllerRef) {
+        controllerRef.current = methods
+      }
       if (typeof controller === 'function') {
         controller(methods)
       } else if (controller) {
@@ -457,7 +463,7 @@ export const AutocompleteDropdown = memo(
             onBlur={onBlur}
             onFocus={onFocus}
             onSubmitEditing={onSubmit}
-            placeholderTextColor="#d0d4dc"
+            placeholderTextColor={theme[themeName].inputPlaceholderColor}
             {...textInputProps}
             style={[styles.Input, { height: inputHeight }, (textInputProps ?? {}).style]}
           />
@@ -481,21 +487,23 @@ export const AutocompleteDropdown = memo(
   }),
 )
 
-const styles = ScaledSheet.create({
-  container: {
-    marginVertical: 2,
-  },
-  inputContainerStyle: {
-    display: 'flex',
-    flexDirection: 'row',
-    backgroundColor: '#e5ecf2',
-    borderRadius: 5,
-  },
-  Input: {
-    flexGrow: 1,
-    flexShrink: 1,
-    overflow: 'hidden',
-    paddingHorizontal: 13,
-    fontSize: 16,
-  },
-})
+const getStyles = (themeName: 'light' | 'dark' = 'light') =>
+  ScaledSheet.create({
+    container: {
+      marginVertical: 2,
+    },
+    inputContainerStyle: {
+      display: 'flex',
+      flexDirection: 'row',
+      backgroundColor: theme[themeName].inputBackgroundColor,
+      borderRadius: 5,
+    },
+    Input: {
+      flexGrow: 1,
+      flexShrink: 1,
+      overflow: 'hidden',
+      paddingHorizontal: 13,
+      fontSize: 16,
+      color: theme[themeName].inputTextColor,
+    },
+  })
