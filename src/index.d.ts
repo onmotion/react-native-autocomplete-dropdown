@@ -25,7 +25,7 @@ export interface IAutocompleteDropdownProps {
    *     { id: "3", title: "Gamma" }
    * ]
    */
-  dataSet?: AutocompleteDropdownItem[] | null
+  dataSet: AutocompleteDropdownItem[] | null
   inputHeight?: number
   suggestionsListMaxHeight?: number
   initialValue?: string | { id: string }

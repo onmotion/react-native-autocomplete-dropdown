@@ -79,7 +79,7 @@ export const AutocompleteDropdown = memo(
     const [loading, setLoading] = useState(loadingProp)
     const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
     const [isOpened, setIsOpened] = useState(false)
-    const initialDataSetRef = useRef<AutocompleteDropdownItem[] | undefined | null>(dataSetProp)
+    const initialDataSetRef = useRef<AutocompleteDropdownItem[] | null>(dataSetProp)
     const initialValueRef = useRef(initialValueProp)
     const [dataSet, setDataSet] = useState(dataSetProp)
     const matchFromStart = matchFrom === 'start' ? true : false
