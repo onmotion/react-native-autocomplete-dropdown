@@ -12,15 +12,7 @@ export const Dropdown = memo((props: DropdownProps) => {
   const { dataSet, suggestionsListMaxHeight, renderItem, ListEmptyComponent, ItemSeparatorComponent, ...rest } = props
 
   const defaultItemSeparator = useMemo(() => {
-    return () => (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#ddd',
-        }}
-      />
-    )
+    return () => <View style={styles.itemSeparator} />
   }, [])
 
   return (
@@ -59,7 +51,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 15.46,
-    
-    elevation: 20 // elevation doesn't work properly with a container opacity
+
+    elevation: 20, // elevation doesn't work properly with a container opacity
+  },
+  itemSeparator: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#ddd',
   },
 })

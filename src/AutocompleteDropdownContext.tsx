@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react'
 import type { SetStateAction, Dispatch, FC, ReactElement, MutableRefObject } from 'react'
 import type { LayoutChangeEvent, ViewProps } from 'react-native'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { fadeInDownShort, fadeInUpShort } from './helpers'
 import type { IAutocompleteDropdownRef } from './index.d'
@@ -123,7 +123,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     <AutocompleteDropdownContext.Provider
       value={{ content, setContent, activeInputRef, direction, setDirection, controllerRef }}>
       <View
-        style={{ flex: 1 }}
+        style={styles.clickOutsideHandlerArea}
         onTouchEnd={() => {
           controllerRef.current?.close()
           controllerRef.current?.blur()
@@ -134,7 +134,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
         <View
           onLayout={onLayout}
           style={{
-            position: 'absolute',
+            ...styles.wrapper,
             opacity,
             ...contentStyles,
           }}>
@@ -151,3 +151,12 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     </AutocompleteDropdownContext.Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  clickOutsideHandlerArea: {
+    flex: 1,
+  },
+  wrapper: {
+    position: 'absolute',
+  },
+})

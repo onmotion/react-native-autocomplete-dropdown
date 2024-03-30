@@ -42,7 +42,7 @@ export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
             <Text numberOfLines={1} style={{ ...styles.text, ...(style as object) }}>
               {titleParts.titleStart}
             </Text>
-            <Text numberOfLines={1} style={{ ...styles.text, ...(style as object), fontWeight: 'bold' }}>
+            <Text numberOfLines={1} style={{ ...styles.text, ...(style as object), ...styles.textBold }}>
               {titleParts.titleHighlighted}
             </Text>
             <Text numberOfLines={1} style={{ ...styles.text, ...(style as object) }}>
@@ -71,5 +71,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flexGrow: 1,
     flexShrink: 0,
+  },
+  textBold: {
+    fontWeight: 'bold',
   },
 })

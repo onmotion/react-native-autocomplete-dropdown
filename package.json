@@ -57,6 +57,7 @@
         "eslint-plugin-simple-import-sort": "^12.0.0",
         "eslint-plugin-unused-imports": "^3.0.0",
         "prettier": "^3.0.0",
+        "react": "^18.2.0",
         "typescript": "4.8.4"
     },
     "peerDependencies": {
