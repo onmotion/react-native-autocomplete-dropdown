@@ -52,6 +52,12 @@ npm install --save react-native-autocomplete-dropdown
  yarn add react-native-autocomplete-dropdown
  ```
 
+ or to try out the new beta version branch run
+
+```bash
+ yarn add react-native-autocomplete-dropdown@next
+```
+
 ## Post-install Steps
 
 Make sure **react-native-svg** is installed. Follow the guide
@@ -79,7 +85,7 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
 </AutocompleteDropdownContextProvider>
 ```
 
-If you have a header component, you can pass an offset.  For example with react navigation 
+If you have a header component, you can pass an offset.  For example with react navigation
 
 ```js
 //...
