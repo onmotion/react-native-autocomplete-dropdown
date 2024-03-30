@@ -1,42 +1,70 @@
 module.exports = {
   root: true,
-  extends: ['@react-native', 'plugin:prettier/recommended', 'prettier'],
-  plugins: ['react', 'unused-imports', 'prettier'],
+  extends: ['plugin:prettier/recommended', '@react-native'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react-native', 'prettier', '@typescript-eslint', 'unused-imports', 'simple-import-sort', 'import'],
+  env: {
+    'react-native/react-native': true,
+  },
+  ignorePatterns: ['node_modules'],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
-    requireConfigFile: false
+  },
+  settings: {
+    'react-native/style-sheet-object-names': ['ScaledSheet'],
   },
   rules: {
+    'react-native/no-unused-styles': 2,
     '@typescript-eslint/no-unused-vars': 'off', // or "no-unused-vars": "off",
     'unused-imports/no-unused-imports': 'error',
-    'unused-imports/no-unused-vars': [
-      'warn',
-      {
-        vars: 'all',
-        varsIgnorePattern: '^_',
-        args: 'after-used',
-        argsIgnorePattern: '^_'
-      }
-    ],
+    'unused-imports/no-unused-vars': 0,
+    semi: ['warn', 'never'],
     'prettier/prettier': [
       'error',
       {
-        printWidth: 110,
+        singleQuote: true,
+        semi: false,
         arrowParens: 'avoid',
         bracketSameLine: true,
         bracketSpacing: true,
-        singleQuote: true,
-        trailingComma: 'none',
-        tabWidth: 2,
-        useTabs: false,
-        semi: false
-      }
+        trailingComma: 'all',
+        printWidth: 120,
+      },
     ],
-    semi: 'off',
-    'comma-dangle': ['warn', 'never'],
-    'react-native/no-inline-styles': 'off',
-    'react-hooks/exhaustive-deps': 'warn'
-  }
+    'comma-dangle': 0,
+    'simple-import-sort/imports': 'off',
+    'simple-import-sort/exports': 'error',
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'builtin',
+            position: 'before',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+      },
+    ],
+    'import/first': 'error',
+    'import/newline-after-import': 'off',
+    'import/no-duplicates': 'error',
+    'react/display-name': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        '@typescript-eslint/no-shadow': ['error'],
+        'no-shadow': 'off',
+        'no-undef': 'off',
+        'react-hooks/exhaustive-deps': 'warn',
+        'react-native/no-unused-styles': 'warn',
+      },
+    },
+  ],
 }

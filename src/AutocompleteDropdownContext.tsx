@@ -1,9 +1,10 @@
-import React, { FC, ReactElement, useCallback, useRef, useState, useEffect, MutableRefObject } from 'react'
-import type { SetStateAction, Dispatch } from 'react'
-import { LayoutChangeEvent, View, ViewProps } from 'react-native'
+import React, { useCallback, useRef, useState, useEffect } from 'react'
+import type { SetStateAction, Dispatch, FC, ReactElement, MutableRefObject } from 'react'
+import type { LayoutChangeEvent, ViewProps } from 'react-native'
+import { View } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { fadeInDownShort, fadeInUpShort } from './helpers'
-import { IAutocompleteDropdownRef } from './index.d'
+import type { IAutocompleteDropdownRef } from './index.d'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
@@ -25,12 +26,12 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   direction: undefined,
   setDirection: () => null,
   activeInputRef: undefined,
-  controllerRef: undefined
+  controllerRef: undefined,
 })
 
 export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps> = ({
   headerOffset = 0,
-  children
+  children,
 }) => {
   const [content, setContent] = useState<IAutocompleteDropdownContext['content']>()
   const [direction, setDirection] = useState<IAutocompleteDropdownContext['direction']>(undefined)
@@ -40,12 +41,12 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     { x: number; y: number; width: number; height: number } | undefined
   >()
   const [opacity, setOpacity] = useState(0)
-  const [contentStyles, setContentStyles] = useState<
-    { top: number; left: number; width?: number } | undefined
-  >(undefined)
+  const [contentStyles, setContentStyles] = useState<{ top: number; left: number; width?: number } | undefined>(
+    undefined,
+  )
   const activeInputRef = useRef<View>(null)
   const controllerRef = useRef<IAutocompleteDropdownRef>(null)
-  const positionTrackingIntervalRef = useRef<number>()
+  const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
@@ -57,14 +58,14 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
       setContentStyles({
         top: inputMeasurements.y - dropdownHeight - 10 - headerOffset,
         left: inputMeasurements.x,
-        width: inputMeasurements.width
+        width: inputMeasurements.width,
       })
       setOpacity(1)
     } else if (direction === 'down') {
       setContentStyles({
         top: inputMeasurements.y + inputMeasurements.height + 5 - headerOffset,
         left: inputMeasurements.x,
-        width: inputMeasurements.width
+        width: inputMeasurements.width,
       })
       setOpacity(1)
     }
@@ -75,7 +76,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     inputMeasurements?.height,
     inputMeasurements?.width,
     inputMeasurements?.x,
-    inputMeasurements?.y
+    inputMeasurements?.y,
   ])
 
   useEffect(() => {
@@ -100,9 +101,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
           activeInputRef?.current &&
             activeInputRef?.current?.measure((_x, _y, width, height, x, y) => {
               setInputMeasurements(prev =>
-                JSON.stringify(prev) === JSON.stringify({ x, y, width, height })
-                  ? prev
-                  : { x, y, width, height }
+                JSON.stringify(prev) === JSON.stringify({ x, y, width, height }) ? prev : { x, y, width, height },
               )
             })
         })
@@ -137,7 +136,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
           style={{
             position: 'absolute',
             opacity,
-            ...contentStyles
+            ...contentStyles,
           }}>
           <Animatable.View
             useNativeDriver

@@ -1,14 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react'
-import {
-  ActivityIndicator,
-  Animated,
-  Easing,
-  StyleProp,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewStyle
-} from 'react-native'
+import type { StyleProp, ViewStyle } from 'react-native'
+import { ActivityIndicator, Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { ChevronDown, XCircle } from 'react-native-feather'
 
 interface RightButtonProps {
@@ -39,7 +31,7 @@ export const RightButton: React.FC<RightButtonProps> = memo(
     ChevronIconComponent,
     ClearIconComponent,
     RightIconComponent,
-    onRightIconComponentPress
+    onRightIconComponentPress,
   }) => {
     const isOpenedAnimationValue = useRef(new Animated.Value(0)).current
 
@@ -48,13 +40,13 @@ export const RightButton: React.FC<RightButtonProps> = memo(
         duration: 350,
         toValue: isOpened ? 1 : 0,
         useNativeDriver: true,
-        easing: Easing.bezier(0.3, 0.58, 0.25, 0.99)
+        easing: Easing.bezier(0.3, 0.58, 0.25, 0.99),
       }).start()
     }, [isOpened, isOpenedAnimationValue])
 
     const chevronSpin = isOpenedAnimationValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '180deg']
+      outputRange: ['0deg', '180deg'],
     })
 
     return (
@@ -62,7 +54,7 @@ export const RightButton: React.FC<RightButtonProps> = memo(
         style={{
           ...styles.container,
           height: inputHeight,
-          ...(buttonsContainerStyle as object)
+          ...(buttonsContainerStyle as object),
         }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
@@ -84,7 +76,7 @@ export const RightButton: React.FC<RightButtonProps> = memo(
         )}
       </View>
     )
-  }
+  },
 )
 
 const styles = StyleSheet.create({
@@ -96,16 +88,16 @@ const styles = StyleSheet.create({
     zIndex: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   clearButton: {
     width: 26,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   chevronButton: {
     width: 26,
     alignItems: 'center',
     height: '100%',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })

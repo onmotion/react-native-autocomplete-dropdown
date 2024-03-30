@@ -1,5 +1,7 @@
-import React, { FC, memo, useMemo } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, ViewProps } from 'react-native'
+import type { FC } from 'react'
+import React, { memo, useMemo } from 'react'
+import type { ViewProps } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import diacriticless from './diacriticless'
 
 interface ScrollViewListItemProps {
@@ -20,9 +22,7 @@ export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
 
       if (typeof title === 'string' && title?.length > 0 && highlight?.length > 0) {
         const highlightIn = ignoreAccents ? diacriticless(title?.toLowerCase()) : title?.toLowerCase()
-        const highlightWhat = ignoreAccents
-          ? diacriticless(highlight?.toLowerCase())
-          : highlight?.toLowerCase()
+        const highlightWhat = ignoreAccents ? diacriticless(highlight?.toLowerCase()) : highlight?.toLowerCase()
 
         const substrIndex = highlightIn?.indexOf(highlightWhat)
         if (substrIndex !== -1) {
@@ -52,7 +52,7 @@ export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
         </View>
       </TouchableOpacity>
     )
-  }
+  },
 )
 
 const styles = StyleSheet.create({
@@ -64,12 +64,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexWrap: 'nowrap',
 
-    width: '100%'
+    width: '100%',
   },
   text: {
     color: '#333',
     fontSize: 16,
     flexGrow: 1,
-    flexShrink: 0
-  }
+    flexShrink: 0,
+  },
 })

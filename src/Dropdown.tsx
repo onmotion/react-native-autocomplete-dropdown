@@ -1,6 +1,7 @@
 import React, { memo, useMemo } from 'react'
-import { StyleSheet, FlatList, View, ListRenderItem } from 'react-native'
-import { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './index.d'
+import type { ListRenderItem } from 'react-native'
+import { StyleSheet, FlatList, View } from 'react-native'
+import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './index.d'
 
 interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 'ref'> {
   ListEmptyComponent: JSX.Element
@@ -8,14 +9,7 @@ interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 
 }
 
 export const Dropdown = memo((props: DropdownProps) => {
-  const {
-    dataSet,
-    suggestionsListMaxHeight,
-    renderItem,
-    ListEmptyComponent,
-    ItemSeparatorComponent,
-    ...rest
-  } = props
+  const { dataSet, suggestionsListMaxHeight, renderItem, ListEmptyComponent, ItemSeparatorComponent, ...rest } = props
 
   const defaultItemSeparator = useMemo(() => {
     return () => (
@@ -23,7 +17,7 @@ export const Dropdown = memo((props: DropdownProps) => {
         style={{
           height: 1,
           width: '100%',
-          backgroundColor: '#ddd'
+          backgroundColor: '#ddd',
         }}
       />
     )
@@ -33,7 +27,7 @@ export const Dropdown = memo((props: DropdownProps) => {
     <View
       style={{
         ...styles.listContainer,
-        ...(rest.suggestionsListContainerStyle as object)
+        ...(rest.suggestionsListContainerStyle as object),
       }}>
       <FlatList
         keyboardDismissMode="on-drag"
@@ -61,11 +55,11 @@ const styles = StyleSheet.create({
     shadowColor: '#00000099',
     shadowOffset: {
       width: 0,
-      height: 12
+      height: 12,
     },
     shadowOpacity: 0.3,
     shadowRadius: 15.46,
 
-    elevation: 20
-  }
+    elevation: 20,
+  },
 })
