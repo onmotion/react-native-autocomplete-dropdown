@@ -29,7 +29,9 @@ const App = () => {
   }
 
   return (
-    <AutocompleteDropdownContextProvider>
+    <AutocompleteDropdownContextProvider
+    //  headerOffset={100}
+    >
       <SafeAreaView style={[styles.safeArea, backgroundStyle]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <KeyboardAvoidingView

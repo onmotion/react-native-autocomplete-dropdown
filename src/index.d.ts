@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import type React from 'react'
 import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
+import type { IAutocompleteDropdownContextProviderProps } from './AutocompleteDropdownContext'
 
 export type AutocompleteDropdownItem = {
   id: string
@@ -74,7 +75,7 @@ export interface IAutocompleteDropdownProps {
 
 export const AutocompleteDropdown: (props: IAutocompleteDropdownProps) => JSX.Element
 
-export const AutocompleteDropdownContextProvider: FC<any>
+export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps>
 
 declare global {
   function setInterval(callback: () => void, ms?: number | undefined): number
