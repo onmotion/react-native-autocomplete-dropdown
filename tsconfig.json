@@ -10,6 +10,6 @@
         "baseUrl": "./",
         "resolvePackageJsonExports": false,
         "lib": ["ES2021"],
-        "types": [],
+        "types": ["@types/react", "@types/react-native"],
     }
 }

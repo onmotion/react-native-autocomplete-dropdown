@@ -204,11 +204,11 @@ export const AutocompleteDropdown = memo(
 
     /** expose controller methods */
     useEffect(() => {
+      const methods = controllerRef ? { close, blur, open, toggle, clear, setInputText, setItem } : null
       if (typeof controller === 'function') {
-        controller({ close, blur, open, toggle, clear, setInputText, setItem })
-      }
-      if (controllerRef) {
-        controllerRef.current = { close, blur, open, toggle, clear, setInputText, setItem }
+        controller(methods)
+      } else if (controller) {
+        controller.current = methods
       }
     }, [blur, clear, close, controller, controllerRef, open, setInputText, setItem, toggle])
 

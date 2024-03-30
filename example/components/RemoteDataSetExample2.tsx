@@ -7,7 +7,7 @@ export const RemoteDataSetExample2 = memo(() => {
   const [loading, setLoading] = useState(false)
   const [suggestionsList, setSuggestionsList] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const dropdownController = useRef<IAutocompleteDropdownRef>()
+  const dropdownController = useRef<IAutocompleteDropdownRef>(null)
 
   const searchRef = useRef(null)
 
@@ -44,9 +44,7 @@ export const RemoteDataSetExample2 = memo(() => {
       <View style={[{ flex: 0, flexDirection: 'row', alignItems: 'center' }]}>
         <AutocompleteDropdown
           ref={searchRef}
-          controller={controller => {
-            dropdownController.current = controller
-          }}
+          controller={dropdownController}
           // initialValue={'1'}
           // direction={Platform.select({ ios: 'down' })}
           dataSet={suggestionsList}

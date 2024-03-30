@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC, MutableRefObject } from 'react'
 import type React from 'react'
 import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
 import type { IAutocompleteDropdownContextProviderProps } from './AutocompleteDropdownContext'
@@ -55,7 +55,9 @@ export interface IAutocompleteDropdownProps {
   onSubmit?: TextInputProps['onSubmitEditing']
   onBlur?: TextInputProps['onBlur']
   onFocus?: TextInputProps['onFocus']
-  controller?: (controller: IAutocompleteDropdownRef) => void
+  controller?:
+    | MutableRefObject<IAutocompleteDropdownRef | null>
+    | ((controller: IAutocompleteDropdownRef | null) => void)
   containerStyle?: StyleProp<ViewStyle>
   inputContainerStyle?: StyleProp<ViewStyle>
   rightButtonsContainerStyle?: StyleProp<ViewStyle>
