@@ -8,34 +8,31 @@ import {
   useColorScheme,
   View,
   Platform,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native'
 
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown'
 import { LocalDataSetExample } from './components/LocalDataSetExample'
 import { LocalDataSetExample2 } from './components/LocalDataSetExample2'
 import { RemoteDataSetExample3 } from './components/RemoteDataSetExample3'
 import { RemoteDataSetExample } from './components/RemoteDataSetExample'
 import { RemoteDataSetExample2 } from './components/RemoteDataSetExample2'
 import { CustomRightIconExample } from './components/CustomRightIconExample'
-import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown'
 import { ModalExample } from './components/ModalExample'
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   }
 
   return (
     <AutocompleteDropdownContextProvider>
       <SafeAreaView style={[backgroundStyle, { flex: 1 }]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          enabled>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} enabled>
           <ScrollView
             nestedScrollEnabled
             keyboardDismissMode="on-drag"
@@ -83,23 +80,23 @@ const App = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flex: 1
+    flex: 1,
   },
   container: {
-    padding: 20
+    padding: 20,
   },
   title: {
     textAlign: 'center',
     fontSize: 25,
-    marginBottom: 50
+    marginBottom: 50,
   },
   section: {
-    marginBottom: 40
+    marginBottom: 40,
   },
   sectionTitle: {
     fontWeight: 'bold',
-    marginBottom: 3
-  }
+    marginBottom: 3,
+  },
 })
 
 export default App

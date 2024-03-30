@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react'
 import { Button, Modal, View } from 'react-native'
-import { RemoteDataSetExample } from './RemoteDataSetExample'
 import { AutocompleteDropdownContextProvider } from '../../src'
+import { RemoteDataSetExample } from './RemoteDataSetExample'
 
 export const ModalExample = memo(() => {
   const [opened, setOpened] = useState(false)

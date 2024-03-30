@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useState } from 'react'
 import { Text } from 'react-native'
-import { AutocompleteDropdown, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import type { AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample = memo(() => {
   const [loading, setLoading] = useState(false)
@@ -19,7 +20,7 @@ export const RemoteDataSetExample = memo(() => {
       data =>
         new Promise(res => {
           setTimeout(() => res(data.json()), 2000) // imitate of a long response
-        })
+        }),
     )
     const items = (await response) as Record<string, string>[]
 
@@ -27,7 +28,7 @@ export const RemoteDataSetExample = memo(() => {
       .filter(item => item.title.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
-        title: item.title
+        title: item.title,
       }))
 
     setRemoteDataSet(suggestions)
@@ -42,13 +43,13 @@ export const RemoteDataSetExample = memo(() => {
         useFilter={false}
         clearOnFocus={false}
         textInputProps={{
-          placeholder: 'Start typing "est"...'
+          placeholder: 'Start typing "est"...',
         }}
         onSelectItem={setSelectedItem}
         loading={loading}
         onChangeText={getSuggestions}
         suggestionsListTextStyle={{
-          color: '#8f3c96'
+          color: '#8f3c96',
         }}
         EmptyResultComponent={<Text style={{ padding: 10, fontSize: 15 }}>Oops ¯\_(ツ)_/¯</Text>}
       />

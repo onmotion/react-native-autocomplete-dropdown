@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import { Text, View } from 'react-native'
-import { AutocompleteDropdown, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import type { AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 const ItemSeparatorComponent = () => <View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />
 
@@ -17,7 +18,7 @@ export const LocalDataSetExample = memo(() => {
         dataSet={[
           { id: '1', title: 'Alpha' },
           { id: '2', title: 'Beta' },
-          { id: '3', title: 'Gamma' }
+          { id: '3', title: 'Gamma' },
         ]}
         ItemSeparatorComponent={ItemSeparatorComponent}
         ignoreAccents

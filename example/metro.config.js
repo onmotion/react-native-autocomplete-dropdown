@@ -1,3 +1,4 @@
+const path = require('path')
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
 
 /**
@@ -7,8 +8,6 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
  * @type {import('metro-config').MetroConfig}
  */
 
-const path = require('path')
-
 const packagePath = path.resolve('..')
 
 const config = {
@@ -16,15 +15,15 @@ const config = {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: true
-      }
-    })
+        inlineRequires: true,
+      },
+    }),
   },
   resolver: {
-    nodeModulesPaths: [packagePath, packagePath + '/example/node_modules']
+    nodeModulesPaths: [packagePath, packagePath + '/example/node_modules'],
     // rest of metro resolver options...
   },
-  watchFolders: [packagePath]
+  watchFolders: [packagePath],
 }
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config)
