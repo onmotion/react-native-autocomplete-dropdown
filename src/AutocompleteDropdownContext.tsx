@@ -14,6 +14,11 @@ export interface IAutocompleteDropdownContext {
   controllerRef?: MutableRefObject<IAutocompleteDropdownRef | null>
 }
 
+export interface IAutocompleteDropdownContextProviderProps {
+  headerOffset?: number
+  children: React.ReactNode
+}
+
 export const AutocompleteDropdownContext = React.createContext<IAutocompleteDropdownContext>({
   content: undefined,
   setContent: () => null,
@@ -23,7 +28,10 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   controllerRef: undefined
 })
 
-export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0, children }) => {
+export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps> = ({
+  headerOffset = 0,
+  children
+}) => {
   const [content, setContent] = useState<IAutocompleteDropdownContext['content']>()
   const [direction, setDirection] = useState<IAutocompleteDropdownContext['direction']>(undefined)
   const [show, setShow] = useState(false)
@@ -37,7 +45,7 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
   >(undefined)
   const activeInputRef = useRef<View>(null)
   const controllerRef = useRef<IAutocompleteDropdownRef>(null)
-  const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
+  const positionTrackingIntervalRef = useRef<number>()
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
