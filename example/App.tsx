@@ -30,15 +30,17 @@ const App = () => {
 
   return (
     <AutocompleteDropdownContextProvider>
-      <SafeAreaView style={[backgroundStyle, { flex: 1 }]}>
+      <SafeAreaView style={[styles.safeArea, backgroundStyle]}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined} enabled>
+        <KeyboardAvoidingView
+          style={styles.scrollContainer}
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          enabled>
           <ScrollView
             nestedScrollEnabled
             keyboardDismissMode="on-drag"
             keyboardShouldPersistTaps="handled"
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={{ paddingBottom: 0 }}
             style={styles.scrollContainer}>
             <View style={styles.container}>
               <Text style={styles.title}>Autocomplete dropdown</Text>
@@ -79,6 +81,9 @@ const App = () => {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   scrollContainer: {
     flex: 1,
   },
