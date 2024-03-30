@@ -52,6 +52,15 @@ export const RemoteDataSetExample3 = memo(() => {
           onSelectItem={item => {
             setSelectedItem(item?.id || null)
           }}
+          onBlur={() => {
+            console.log('onBlur triggered')
+          }}
+          onFocus={() => {
+            console.log('onFocus triggered')
+          }}
+          onOpenSuggestionsList={() => {
+            console.log('onOpenSuggestionsList triggered')
+          }}
           debounce={600}
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.3}
           onClear={onClearPress}
@@ -92,7 +101,7 @@ export const RemoteDataSetExample3 = memo(() => {
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => {
-            console.log(text)
+            console.log('custom renderItem fn called', item)
             return (
               <Text style={{ color: '#383b42', padding: 15 }}>
                 ({text}) - {item.title}

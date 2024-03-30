@@ -52,6 +52,7 @@ export const RemoteDataSetExample2 = memo(() => {
           dataSet={suggestionsList}
           onChangeText={getSuggestions}
           onSelectItem={item => {
+            console.log('onSelectItem', item)
             item && setSelectedItem(item.id) // prevent reset the value
           }}
           debounce={600}

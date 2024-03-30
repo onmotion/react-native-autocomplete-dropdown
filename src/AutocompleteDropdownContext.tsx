@@ -142,7 +142,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
             useNativeDriver
             animation={direction === 'up' ? fadeInUpShort : fadeInDownShort}
             easing="ease-out-quad"
-            delay={direction === 'up' ? 100 : 0}
+            delay={direction === 'up' ? 150 : 0}
             duration={100}>
             {content}
           </Animatable.View>

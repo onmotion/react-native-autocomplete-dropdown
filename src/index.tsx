@@ -44,7 +44,7 @@ export const AutocompleteDropdown = memo(
       direction: directionProp,
       controller,
       onSelectItem: onSelectItemProp,
-      onOpenSuggestionsList,
+      onOpenSuggestionsList: onOpenSuggestionsListProp,
       useFilter,
       renderItem: customRenderItem,
       EmptyResultComponent,
@@ -228,19 +228,19 @@ export const AutocompleteDropdown = memo(
       if (typeof onSelectItemProp === 'function') {
         onSelectItemProp(selectedItem)
       }
-    }, [onSelectItemProp, selectedItem])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedItem])
 
     useEffect(() => {
-      if (typeof onOpenSuggestionsList === 'function') {
-        onOpenSuggestionsList(isOpened)
+      if (typeof onOpenSuggestionsListProp === 'function') {
+        onOpenSuggestionsListProp(isOpened)
       }
-    }, [isOpened, onOpenSuggestionsList])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpened])
 
     useEffect(() => {
       // renew state on close
       if (!isOpened && selectedItem && !loading && !inputRef.current?.isFocused()) {
-        console.log(selectedItem.title, { isOpened, selectedItem, loading })
-
         setInputValue(selectedItem.title || '')
       }
     }, [isOpened, loading, searchText, selectedItem])
