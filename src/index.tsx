@@ -11,12 +11,22 @@ import React, {
 } from 'react'
 import debounce from 'lodash.debounce'
 import type {
+  GestureResponderEvent,
   ListRenderItem,
   NativeSyntheticEvent,
   TextInputFocusEventData,
   TextInputSubmitEditingEventData,
 } from 'react-native'
-import { Dimensions, Keyboard, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native'
+import {
+  Dimensions,
+  Keyboard,
+  Platform,
+  Pressable,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useColorScheme,
+} from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
 import { Dropdown } from './Dropdown'
 import { NothingFound } from './NothingFound'
@@ -38,6 +48,7 @@ export const AutocompleteDropdown = memo(
       clearOnFocus = true,
       ignoreAccents = true,
       trimSearchText = true,
+      editable = true,
       matchFrom,
       inputHeight = moderateScale(40, 0.2),
       suggestionsListMaxHeight = moderateScale(200, 0.2),
@@ -389,6 +400,17 @@ export const AutocompleteDropdown = memo(
       [close, closeOnSubmit, onSubmitProp],
     )
 
+    const onPressOut = useCallback(
+      (e: GestureResponderEvent) => {
+        if (editable) {
+          inputRef?.current?.focus()
+        } else {
+          toggle()
+        }
+      },
+      [editable, toggle],
+    )
+
     useEffect(() => {
       if ((!content && !inputRef.current?.isFocused()) || loading) {
         const db = debounce(() => {
@@ -455,18 +477,24 @@ export const AutocompleteDropdown = memo(
           onLayout={_ => {}} // it's necessary use onLayout here for Androd (bug?)
           style={[styles.inputContainerStyle, inputContainerStyle]}>
           {LeftComponent}
-          <InputComponent
-            ref={inputRef}
-            value={inputValue}
-            onChangeText={onChangeText}
-            autoCorrect={false}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            onSubmitEditing={onSubmit}
-            placeholderTextColor={theme[themeName].inputPlaceholderColor}
-            {...textInputProps}
-            style={[styles.Input, { height: inputHeight }, (textInputProps ?? {}).style]}
-          />
+          <Pressable
+            style={styles.pressable}
+            pointerEvents={Platform.select({ ios: 'box-only', default: 'auto' })}
+            onPressOut={onPressOut}>
+            <InputComponent
+              ref={inputRef}
+              value={inputValue}
+              onChangeText={onChangeText}
+              autoCorrect={false}
+              editable={editable}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              onSubmitEditing={onSubmit}
+              placeholderTextColor={theme[themeName].inputPlaceholderColor}
+              {...textInputProps}
+              style={[styles.input, { height: inputHeight }, (textInputProps ?? {}).style]}
+            />
+          </Pressable>
           <RightButton
             isOpened={isOpened}
             inputHeight={inputHeight}
@@ -497,13 +525,18 @@ const getStyles = (themeName: 'light' | 'dark' = 'light') =>
       flexDirection: 'row',
       backgroundColor: theme[themeName].inputBackgroundColor,
       borderRadius: 5,
+      overflow: 'hidden',
     },
-    Input: {
+    input: {
       flexGrow: 1,
       flexShrink: 1,
       overflow: 'hidden',
       paddingHorizontal: 13,
       fontSize: 16,
       color: theme[themeName].inputTextColor,
+    },
+    pressable: {
+      flexGrow: 1,
+      flexShrink: 1,
     },
   })

@@ -39,6 +39,7 @@ export interface IAutocompleteDropdownProps {
   clearOnFocus?: boolean
   ignoreAccents?: boolean
   trimSearchText?: boolean
+  editable?: boolean
   matchFrom?: 'any' | 'start'
   debounce?: number
   direction?: 'down' | 'up'
