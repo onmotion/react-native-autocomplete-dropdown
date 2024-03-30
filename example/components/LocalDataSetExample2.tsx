@@ -12,6 +12,7 @@ export const LocalDataSetExample2 = memo(() => {
         clearOnFocus={false}
         closeOnBlur={true}
         editable={false}
+        showClear={true}
         //  direction="up"
         onSelectItem={setSelectedItem}
         LeftComponent={
