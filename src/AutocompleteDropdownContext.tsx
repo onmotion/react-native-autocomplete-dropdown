@@ -9,7 +9,7 @@ export interface IAutocompleteDropdownContext {
   setContent: Dispatch<SetStateAction<ReactElement | undefined>>
   direction?: 'up' | 'down'
   setDirection: Dispatch<SetStateAction<IAutocompleteDropdownContext['direction']>>
-  activeInputRef?: MutableRefObject<View | null>
+  activeInputContainerRef?: MutableRefObject<View | null>
   controllerRef?: MutableRefObject<IAutocompleteDropdownRef | null>
 }
 
@@ -23,7 +23,7 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   setContent: () => null,
   direction: undefined,
   setDirection: () => null,
-  activeInputRef: undefined,
+  activeInputContainerRef: undefined,
   controllerRef: undefined,
 })
 
@@ -42,7 +42,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
   const [contentStyles, setContentStyles] = useState<{ top: number; left: number; width?: number } | undefined>(
     undefined,
   )
-  const activeInputRef = useRef<View>(null)
+  const activeInputContainerRef = useRef<View>(null)
   const controllerRef = useRef<IAutocompleteDropdownRef>(null)
   const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
 
@@ -79,7 +79,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
 
   useEffect(() => {
     if (content) {
-      activeInputRef?.current?.measure((x, y, width, height, pageX, pageY) => {
+      activeInputContainerRef?.current?.measure((x, y, width, height, pageX, pageY) => {
         setInputMeasurements({ x: pageX, y: pageY, width, height })
         setShow(true)
       })
@@ -96,8 +96,8 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     if (show && !!opacity) {
       positionTrackingIntervalRef.current = setInterval(() => {
         requestAnimationFrame(() => {
-          activeInputRef?.current &&
-            activeInputRef?.current?.measure((_x, _y, width, height, x, y) => {
+          activeInputContainerRef?.current &&
+            activeInputContainerRef?.current?.measure((_x, _y, width, height, x, y) => {
               setInputMeasurements(prev =>
                 JSON.stringify(prev) === JSON.stringify({ x, y, width, height }) ? prev : { x, y, width, height },
               )
@@ -119,7 +119,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
 
   return (
     <AutocompleteDropdownContext.Provider
-      value={{ content, setContent, activeInputRef, direction, setDirection, controllerRef }}>
+      value={{ content, setContent, activeInputContainerRef, direction, setDirection, controllerRef }}>
       <View
         style={styles.clickOutsideHandlerArea}
         onTouchEnd={() => {

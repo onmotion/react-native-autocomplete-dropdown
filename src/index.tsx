@@ -99,7 +99,7 @@ export const AutocompleteDropdown = memo(
     const {
       content,
       setContent,
-      activeInputRef,
+      activeInputContainerRef,
       controllerRef,
       direction = directionProp,
       setDirection,
@@ -432,8 +432,8 @@ export const AutocompleteDropdown = memo(
 
     useEffect(() => {
       if (isOpened && Array.isArray(dataSet)) {
-        if (activeInputRef) {
-          activeInputRef.current = containerRef.current
+        if (activeInputContainerRef) {
+          activeInputContainerRef.current = containerRef.current
         }
 
         setContent(
@@ -454,7 +454,7 @@ export const AutocompleteDropdown = memo(
       }
     }, [
       ListEmptyComponent,
-      activeInputRef,
+      activeInputContainerRef,
       dataSet,
       direction,
       inputHeight,
