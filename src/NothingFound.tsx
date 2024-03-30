@@ -1,4 +1,5 @@
-import React, { FC, memo } from 'react'
+import type { FC } from 'react'
+import React, { memo } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { withFadeAnimation } from './HOC/withFadeAnimation'
 
@@ -13,14 +14,14 @@ export const NothingFound: FC<NothingFoundProps> = memo(({ ...props }) => {
         <Text style={styles.text}>{props.emptyResultText || 'Nothing found'}</Text>
       </View>
     ),
-    {}
+    {},
   )
   return <EL />
 })
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10
+    padding: 10,
   },
-  text: { textAlign: 'center' }
+  text: { textAlign: 'center' },
 })

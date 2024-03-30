@@ -1,4 +1,3 @@
-import debounce from 'lodash.debounce'
 import React, {
   forwardRef,
   memo,
@@ -7,29 +6,23 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
+  useContext,
 } from 'react'
-import {
-  Dimensions,
-  Keyboard,
+import debounce from 'lodash.debounce'
+import type {
   ListRenderItem,
   NativeSyntheticEvent,
-  TextInput,
   TextInputFocusEventData,
   TextInputSubmitEditingEventData,
-  TouchableOpacity,
-  View
 } from 'react-native'
-import { Dropdown } from './Dropdown'
+import { Dimensions, Keyboard, TextInput, TouchableOpacity, View } from 'react-native'
 import { moderateScale, ScaledSheet } from 'react-native-size-matters'
+import { Dropdown } from './Dropdown'
 import { NothingFound } from './NothingFound'
 import { RightButton } from './RightButton'
 import { ScrollViewListItem } from './ScrollViewListItem'
-import { useContext } from 'react'
-import {
-  AutocompleteDropdownContext,
-  AutocompleteDropdownContextProvider
-} from './AutocompleteDropdownContext'
+import { AutocompleteDropdownContext, AutocompleteDropdownContextProvider } from './AutocompleteDropdownContext'
 import { useKeyboardHeight } from './useKeyboardHeight'
 import diacriticless from './diacriticless'
 import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './index.d'
@@ -51,7 +44,7 @@ export const AutocompleteDropdown = memo(
       direction: directionProp,
       controller,
       onSelectItem: onSelectItemProp,
-      onOpenSuggestionsList,
+      onOpenSuggestionsList: onOpenSuggestionsListProp,
       useFilter,
       renderItem: customRenderItem,
       EmptyResultComponent,
@@ -76,7 +69,7 @@ export const AutocompleteDropdown = memo(
       onRightIconComponentPress,
       containerStyle,
       inputContainerStyle,
-      suggestionsListTextStyle
+      suggestionsListTextStyle,
     } = props
     const InputComponent = (props.InputComponent as typeof TextInput) || TextInput
     const inputRef = useRef<TextInput>(null)
@@ -97,7 +90,7 @@ export const AutocompleteDropdown = memo(
       activeInputRef,
       controllerRef,
       direction = directionProp,
-      setDirection
+      setDirection,
     } = useContext(AutocompleteDropdownContext)
 
     useEffect(() => {
@@ -106,7 +99,7 @@ export const AutocompleteDropdown = memo(
 
     const calculateDirection = useCallback(async () => {
       const [, positionY] = await new Promise<[x: number, y: number, width: number, height: number]>(
-        resolve => containerRef.current?.measureInWindow((...rect) => resolve(rect))
+        resolve => containerRef.current?.measureInWindow((...rect) => resolve(rect)),
       )
 
       const screenHeight = Dimensions.get('window').height
@@ -235,19 +228,19 @@ export const AutocompleteDropdown = memo(
       if (typeof onSelectItemProp === 'function') {
         onSelectItemProp(selectedItem)
       }
-    }, [onSelectItemProp, selectedItem])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedItem])
 
     useEffect(() => {
-      if (typeof onOpenSuggestionsList === 'function') {
-        onOpenSuggestionsList(isOpened)
+      if (typeof onOpenSuggestionsListProp === 'function') {
+        onOpenSuggestionsListProp(isOpened)
       }
-    }, [isOpened, onOpenSuggestionsList])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpened])
 
     useEffect(() => {
       // renew state on close
       if (!isOpened && selectedItem && !loading && !inputRef.current?.isFocused()) {
-        console.log(selectedItem.title, { isOpened, selectedItem, loading })
-
         setInputValue(selectedItem.title || '')
       }
     }, [isOpened, loading, searchText, selectedItem])
@@ -316,7 +309,7 @@ export const AutocompleteDropdown = memo(
           />
         )
       },
-      [_onSelectItem, customRenderItem, ignoreAccents, searchText, suggestionsListTextStyle]
+      [_onSelectItem, customRenderItem, ignoreAccents, searchText, suggestionsListTextStyle],
     )
 
     const ListEmptyComponent = useMemo(() => {
@@ -331,7 +324,7 @@ export const AutocompleteDropdown = memo(
           }
           setLoading(false)
         }, debounceDelay),
-      [debounceDelay, onTextChange]
+      [debounceDelay, onTextChange],
     )
 
     const onChangeText = useCallback(
@@ -341,7 +334,7 @@ export const AutocompleteDropdown = memo(
         setLoading(true)
         debouncedEvent(text)
       },
-      [debouncedEvent]
+      [debouncedEvent],
     )
 
     const onChevronPress = useCallback(() => {
@@ -364,7 +357,7 @@ export const AutocompleteDropdown = memo(
         }
         open()
       },
-      [clearOnFocus, onFocusProp, open]
+      [clearOnFocus, onFocusProp, open],
     )
 
     const onBlur = useCallback(
@@ -373,7 +366,7 @@ export const AutocompleteDropdown = memo(
           onBlurProp(e)
         }
       },
-      [onBlurProp]
+      [onBlurProp],
     )
 
     const onSubmit = useCallback(
@@ -387,7 +380,7 @@ export const AutocompleteDropdown = memo(
           onSubmitProp(e)
         }
       },
-      [close, closeOnSubmit, onSubmitProp]
+      [close, closeOnSubmit, onSubmitProp],
     )
 
     useEffect(() => {
@@ -424,9 +417,9 @@ export const AutocompleteDropdown = memo(
               dataSet,
               suggestionsListMaxHeight,
               renderItem,
-              ListEmptyComponent
+              ListEmptyComponent,
             }}
-          />
+          />,
         )
       } else {
         setContent(undefined)
@@ -441,7 +434,7 @@ export const AutocompleteDropdown = memo(
       props,
       renderItem,
       setContent,
-      suggestionsListMaxHeight
+      suggestionsListMaxHeight,
     ])
 
     return (
@@ -485,24 +478,24 @@ export const AutocompleteDropdown = memo(
         </View>
       </View>
     )
-  })
+  }),
 )
 
 const styles = ScaledSheet.create({
   container: {
-    marginVertical: 2
+    marginVertical: 2,
   },
   inputContainerStyle: {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#e5ecf2',
-    borderRadius: 5
+    borderRadius: 5,
   },
   Input: {
     flexGrow: 1,
     flexShrink: 1,
     overflow: 'hidden',
     paddingHorizontal: 13,
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 })

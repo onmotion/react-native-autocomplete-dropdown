@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
-import { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
+import type { FC } from 'react'
+import type React from 'react'
+import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
 
 export type AutocompleteDropdownItem = {
   id: string

@@ -1,10 +1,7 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import {
-  AutocompleteDropdown,
-  IAutocompleteDropdownRef,
-  AutocompleteDropdownItem
-} from 'react-native-autocomplete-dropdown'
+import type { IAutocompleteDropdownRef, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample3 = memo(() => {
   const [loading, setLoading] = useState(false)
@@ -28,7 +25,7 @@ export const RemoteDataSetExample3 = memo(() => {
       .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
-        title: item.title
+        title: item.title,
       }))
     setSuggestionsList(suggestions)
     setLoading(false)
@@ -55,6 +52,15 @@ export const RemoteDataSetExample3 = memo(() => {
           onSelectItem={item => {
             setSelectedItem(item?.id || null)
           }}
+          onBlur={() => {
+            console.log('onBlur triggered')
+          }}
+          onFocus={() => {
+            console.log('onFocus triggered')
+          }}
+          onOpenSuggestionsList={() => {
+            console.log('onOpenSuggestionsList triggered')
+          }}
           debounce={600}
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.3}
           onClear={onClearPress}
@@ -68,12 +74,12 @@ export const RemoteDataSetExample3 = memo(() => {
             style: {
               borderRadius: 25,
               color: '#383b42',
-              paddingLeft: 18
-            }
+              paddingLeft: 18,
+            },
           }}
           rightButtonsContainerStyle={{
             height: 30,
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
           inputContainerStyle={{
             borderRadius: 25,
@@ -83,19 +89,19 @@ export const RemoteDataSetExample3 = memo(() => {
             shadowColor: '#00000099',
             shadowOffset: {
               width: 0,
-              height: 5
+              height: 5,
             },
             shadowOpacity: 0.3,
             shadowRadius: 8.46,
 
-            elevation: 13
+            elevation: 13,
           }}
           suggestionsListContainerStyle={{
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => {
-            console.log(text)
+            console.log('custom renderItem fn called', item)
             return (
               <Text style={{ color: '#383b42', padding: 15 }}>
                 ({text}) - {item.title}
