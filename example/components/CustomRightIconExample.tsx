@@ -4,15 +4,15 @@ import { useMemo } from 'react'
 import { Text } from 'react-native'
 import {
   AutocompleteDropdown,
-  AutocompleteDropdownRef,
-  TAutocompleteDropdownItem
+  IAutocompleteDropdownRef,
+  AutocompleteDropdownItem
 } from 'react-native-autocomplete-dropdown'
 import { generateDataSet } from '../helpers'
 import { Smile } from 'react-native-feather'
 
 export const CustomRightIconExample = memo(() => {
-  const [selectedItem, setSelectedItem] = useState<TAutocompleteDropdownItem | null>(null)
-  const dropdownController = useRef<AutocompleteDropdownRef>()
+  const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
+  const dropdownController = useRef<IAutocompleteDropdownRef>()
 
   const dataSet = useMemo(generateDataSet, [])
 

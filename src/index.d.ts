@@ -1,22 +1,22 @@
 import React, { FC } from 'react'
 import { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
 
-export type TAutocompleteDropdownItem = {
+export type AutocompleteDropdownItem = {
   id: string
-  title: string | null
+  title?: string | null
 }
 
-export interface AutocompleteDropdownRef {
+export interface IAutocompleteDropdownRef {
   clear: () => void
   close: () => void
   blur: () => void
   open: () => Promise<void>
   setInputText: (text: string) => void
   toggle: () => void
-  setItem: (item: TAutocompleteDropdownItem) => void
+  setItem: (item: AutocompleteDropdownItem) => void
 }
 
-interface AutocompleteDropdownProps {
+export interface IAutocompleteDropdownProps {
   /**
    * @example [
    *     { id: "1", title: "Alpha" },
@@ -24,10 +24,10 @@ interface AutocompleteDropdownProps {
    *     { id: "3", title: "Gamma" }
    * ]
    */
-  dataSet?: TAutocompleteDropdownItem[] | null
+  dataSet?: AutocompleteDropdownItem[] | null
   inputHeight?: number
   suggestionsListMaxHeight?: number
-  initialValue?: string | object
+  initialValue?: string | { id: string }
   loading?: boolean
   useFilter?: boolean
   showClear?: boolean
@@ -44,8 +44,8 @@ interface AutocompleteDropdownProps {
   bottomOffset?: number
   textInputProps?: TextInputProps
   onChangeText?: (text: string) => void
-  onSelectItem?: (item: TAutocompleteDropdownItem) => void
-  renderItem?: (item: TAutocompleteDropdownItem, searchText: string) => React.ReactElement
+  onSelectItem?: (item: AutocompleteDropdownItem | null) => void
+  renderItem?: (item: AutocompleteDropdownItem, searchText: string) => React.ReactElement | null
   onOpenSuggestionsList?: (isOpened: boolean) => void
   onClear?: () => void
   onChevronPress?: () => void
@@ -53,7 +53,7 @@ interface AutocompleteDropdownProps {
   onSubmit?: TextInputProps['onSubmitEditing']
   onBlur?: TextInputProps['onBlur']
   onFocus?: TextInputProps['onFocus']
-  controller?: (controller: AutocompleteDropdownRef) => void
+  controller?: (controller: IAutocompleteDropdownRef) => void
   containerStyle?: StyleProp<ViewStyle>
   inputContainerStyle?: StyleProp<ViewStyle>
   rightButtonsContainerStyle?: StyleProp<ViewStyle>
@@ -64,13 +64,18 @@ interface AutocompleteDropdownProps {
   LeftComponent?: React.ReactElement
   ClearIconComponent?: React.ReactElement
   InputComponent?: React.ComponentType
-  ItemSeparatorComponent?: React.ReactElement
+  ItemSeparatorComponent?: React.ComponentType<any> | null
   EmptyResultComponent?: React.ReactElement
   emptyResultText?: string
   flatListProps?: FlatListProps<any>
   ref?: React.LegacyRef<TextInput> | undefined
 }
 
-export const AutocompleteDropdown: (props: AutocompleteDropdownProps) => JSX.Element
+export const AutocompleteDropdown: (props: IAutocompleteDropdownProps) => JSX.Element
 
 export const AutocompleteDropdownContextProvider: FC<any>
+
+declare global {
+  function setInterval(callback: () => void, ms?: number | undefined): number
+  function setTimeout(callback: () => void, ms?: number | undefined): number
+}

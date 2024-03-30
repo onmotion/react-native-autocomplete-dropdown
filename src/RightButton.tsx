@@ -1,8 +1,32 @@
 import React, { memo, useEffect, useRef } from 'react'
-import { ActivityIndicator, Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Animated,
+  Easing,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle
+} from 'react-native'
 import { ChevronDown, XCircle } from 'react-native-feather'
 
-export const RightButton = memo(
+interface RightButtonProps {
+  inputHeight?: number
+  onClearPress?: () => void
+  onChevronPress?: () => void
+  isOpened?: boolean
+  showChevron?: boolean
+  showClear?: boolean
+  loading?: boolean
+  buttonsContainerStyle?: StyleProp<ViewStyle>
+  ChevronIconComponent?: React.ReactNode
+  ClearIconComponent?: React.ReactNode
+  RightIconComponent?: React.ReactNode
+  onRightIconComponentPress?: () => void
+}
+
+export const RightButton: React.FC<RightButtonProps> = memo(
   ({
     inputHeight,
     onClearPress,
@@ -26,7 +50,7 @@ export const RightButton = memo(
         useNativeDriver: true,
         easing: Easing.bezier(0.3, 0.58, 0.25, 0.99)
       }).start()
-    }, [isOpened])
+    }, [isOpened, isOpenedAnimationValue])
 
     const chevronSpin = isOpenedAnimationValue.interpolate({
       inputRange: [0, 1],
@@ -38,7 +62,7 @@ export const RightButton = memo(
         style={{
           ...styles.container,
           height: inputHeight,
-          ...buttonsContainerStyle
+          ...(buttonsContainerStyle as object)
         }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>

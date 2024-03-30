@@ -13,7 +13,7 @@ export function useKeyboardHeight() {
       showSubscription.remove()
       hideSubscription.remove()
     }
-  }, [setKeyboardHeight])
+  }, [])
 
   return keyboardHeight
 }
