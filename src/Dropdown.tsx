@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react'
 import type { ListRenderItem } from 'react-native'
 import { StyleSheet, FlatList, View, useColorScheme } from 'react-native'
 import * as Animatable from 'react-native-animatable'
-import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './index.d'
+import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './types'
 import { fadeInDownShort, fadeInUpShort } from './helpers'
 import { theme } from './theme'
 

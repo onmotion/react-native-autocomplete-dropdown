@@ -11,19 +11,11 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config')
 const packagePath = path.resolve('..')
 
 const config = {
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: true,
-      },
-    }),
-  },
-  resolver: {
-    nodeModulesPaths: [packagePath, packagePath + '/example/node_modules'],
-    // rest of metro resolver options...
-  },
-  watchFolders: [packagePath],
+  //   resolver: {
+  //     nodeModulesPaths: [packagePath + '/example/node_modules', packagePath, packagePath + '/..'],
+  //     // rest of metro resolver options...
+  //   },
+  watchFolders: [packagePath, packagePath + '/example'],
 }
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config)

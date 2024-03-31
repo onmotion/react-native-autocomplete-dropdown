@@ -19,7 +19,7 @@
         "tsx",
         "ts"
     ],
-    "jest.autoRun": "off",
+    "jest.runMode": "deferred",
     "prettier.requireConfig": true,
     "prettier.semi": false,
     "prettier.trailingComma": "none",

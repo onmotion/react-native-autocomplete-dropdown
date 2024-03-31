@@ -361,3 +361,7 @@ desktop.ini
 # .idea
 /.idea
 .idea
+
+# generated files by bob
+lib/
+node_modules/

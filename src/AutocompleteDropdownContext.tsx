@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState, useEffect } from 'react'
 import type { SetStateAction, Dispatch, FC, ReactElement, MutableRefObject } from 'react'
 import type { LayoutChangeEvent, ViewProps } from 'react-native'
 import { StyleSheet, View } from 'react-native'
-import type { IAutocompleteDropdownRef } from './index.d'
+import type { IAutocompleteDropdownRef } from './types'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
@@ -44,7 +44,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
   )
   const activeInputContainerRef = useRef<View>(null)
   const controllerRef = useRef<IAutocompleteDropdownRef>(null)
-  const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
+  const positionTrackingIntervalRef = useRef<number>(0)
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
