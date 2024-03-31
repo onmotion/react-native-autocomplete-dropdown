@@ -8,5 +8,6 @@
     ],
     "compilerOptions": {
         "baseUrl": "./",
+        "noEmit": false
     },
 }
