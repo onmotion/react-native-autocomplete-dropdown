@@ -41,7 +41,9 @@ import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './typ
 export * from './types'
 export { AutocompleteDropdownContextProvider }
 
-export const AutocompleteDropdown = memo(
+export const AutocompleteDropdown = memo<
+  React.ForwardRefExoticComponent<Omit<IAutocompleteDropdownProps, 'ref'> & React.RefAttributes<unknown>>
+>(
   forwardRef((props: IAutocompleteDropdownProps, ref) => {
     const {
       dataSet: dataSetProp,
