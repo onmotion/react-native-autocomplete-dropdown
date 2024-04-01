@@ -1,8 +1,24 @@
 import React, { memo, useEffect, useRef } from 'react'
+import type { StyleProp, ViewStyle } from 'react-native'
 import { ActivityIndicator, Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { ChevronDown, XCircle } from 'react-native-feather'
 
-export const RightButton = memo(
+interface RightButtonProps {
+  inputHeight?: number
+  onClearPress?: () => void
+  onChevronPress?: () => void
+  isOpened?: boolean
+  showChevron?: boolean
+  showClear?: boolean
+  loading?: boolean
+  buttonsContainerStyle?: StyleProp<ViewStyle>
+  ChevronIconComponent?: React.ReactNode
+  ClearIconComponent?: React.ReactNode
+  RightIconComponent?: React.ReactNode
+  onRightIconComponentPress?: () => void
+}
+
+export const RightButton: React.FC<RightButtonProps> = memo(
   ({
     inputHeight,
     onClearPress,
@@ -15,7 +31,7 @@ export const RightButton = memo(
     ChevronIconComponent,
     ClearIconComponent,
     RightIconComponent,
-    onRightIconComponentPress
+    onRightIconComponentPress,
   }) => {
     const isOpenedAnimationValue = useRef(new Animated.Value(0)).current
 
@@ -24,13 +40,13 @@ export const RightButton = memo(
         duration: 350,
         toValue: isOpened ? 1 : 0,
         useNativeDriver: true,
-        easing: Easing.bezier(0.3, 0.58, 0.25, 0.99)
+        easing: Easing.bezier(0.3, 0.58, 0.25, 0.99),
       }).start()
-    }, [isOpened])
+    }, [isOpened, isOpenedAnimationValue])
 
     const chevronSpin = isOpenedAnimationValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '180deg']
+      outputRange: ['0deg', '180deg'],
     })
 
     return (
@@ -38,7 +54,7 @@ export const RightButton = memo(
         style={{
           ...styles.container,
           height: inputHeight,
-          ...buttonsContainerStyle
+          ...(buttonsContainerStyle as object),
         }}>
         {!loading && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
@@ -60,7 +76,7 @@ export const RightButton = memo(
         )}
       </View>
     )
-  }
+  },
 )
 
 const styles = StyleSheet.create({
@@ -72,16 +88,16 @@ const styles = StyleSheet.create({
     zIndex: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   clearButton: {
     width: 26,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   chevronButton: {
     width: 26,
     alignItems: 'center',
     height: '100%',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })

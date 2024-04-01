@@ -1,15 +1,21 @@
-import React, { FC, ReactElement, useCallback, useRef, useState, useEffect, MutableRefObject } from 'react'
-import type { SetStateAction, Dispatch } from 'react'
-import { LayoutChangeEvent, View, ViewProps } from 'react-native'
-import * as Animatable from 'react-native-animatable'
-import { fadeInDownShort, fadeInUpShort } from './helpers'
+import React, { useCallback, useRef, useState, useEffect } from 'react'
+import type { SetStateAction, Dispatch, FC, ReactElement, MutableRefObject } from 'react'
+import type { LayoutChangeEvent, ViewProps } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import type { IAutocompleteDropdownRef } from './types'
 
 export interface IAutocompleteDropdownContext {
   content?: ReactElement
   setContent: Dispatch<SetStateAction<ReactElement | undefined>>
   direction?: 'up' | 'down'
   setDirection: Dispatch<SetStateAction<IAutocompleteDropdownContext['direction']>>
-  activeInputRef?: MutableRefObject<View | null>
+  activeInputContainerRef?: MutableRefObject<View | null>
+  controllerRef?: MutableRefObject<IAutocompleteDropdownRef | null>
+}
+
+export interface IAutocompleteDropdownContextProviderProps {
+  headerOffset?: number
+  children: React.ReactNode
 }
 
 export const AutocompleteDropdownContext = React.createContext<IAutocompleteDropdownContext>({
@@ -17,10 +23,14 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   setContent: () => null,
   direction: undefined,
   setDirection: () => null,
-  activeInputRef: undefined
+  activeInputContainerRef: undefined,
+  controllerRef: undefined,
 })
 
-export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0, children }) => {
+export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps> = ({
+  headerOffset = 0,
+  children,
+}) => {
   const [content, setContent] = useState<IAutocompleteDropdownContext['content']>()
   const [direction, setDirection] = useState<IAutocompleteDropdownContext['direction']>(undefined)
   const [show, setShow] = useState(false)
@@ -29,10 +39,12 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
     { x: number; y: number; width: number; height: number } | undefined
   >()
   const [opacity, setOpacity] = useState(0)
-  const [contentStyles, setContentStyles] = useState<
-    { top: number; left: number; width?: number } | undefined
-  >(undefined)
-  const activeInputRef = useRef<View>(null)
+  const [contentStyles, setContentStyles] = useState<{ top: number; left: number; width?: number } | undefined>(
+    undefined,
+  )
+  const activeInputContainerRef = useRef<View>(null)
+  const controllerRef = useRef<IAutocompleteDropdownRef | null>(null)
+  const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
 
   useEffect(() => {
     if (!inputMeasurements?.height) {
@@ -44,29 +56,30 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
       setContentStyles({
         top: inputMeasurements.y - dropdownHeight - 10 - headerOffset,
         left: inputMeasurements.x,
-        width: inputMeasurements.width
+        width: inputMeasurements.width,
       })
       setOpacity(1)
     } else if (direction === 'down') {
       setContentStyles({
-        top: inputMeasurements.y + inputMeasurements.height + 5 - headerOffset,
+        top: inputMeasurements.y + inputMeasurements.height + 5 + headerOffset,
         left: inputMeasurements.x,
-        width: inputMeasurements.width
+        width: inputMeasurements.width,
       })
       setOpacity(1)
     }
   }, [
-    dropdownHeight,
     direction,
-    inputMeasurements?.y,
-    inputMeasurements?.x,
+    dropdownHeight,
+    headerOffset,
     inputMeasurements?.height,
-    inputMeasurements?.width
+    inputMeasurements?.width,
+    inputMeasurements?.x,
+    inputMeasurements?.y,
   ])
 
   useEffect(() => {
     if (content) {
-      activeInputRef?.current?.measure((x, y, width, height, pageX, pageY) => {
+      activeInputContainerRef?.current?.measure((x, y, width, height, pageX, pageY) => {
         setInputMeasurements({ x: pageX, y: pageY, width, height })
         setShow(true)
       })
@@ -80,26 +93,23 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
   }, [content])
 
   useEffect(() => {
-    let positionTrackingInterval
     if (show && !!opacity) {
-      positionTrackingInterval = setInterval(() => {
+      positionTrackingIntervalRef.current = setInterval(() => {
         requestAnimationFrame(() => {
-          activeInputRef?.current &&
-            activeInputRef?.current?.measure((_x, _y, width, height, x, y) => {
+          activeInputContainerRef?.current &&
+            activeInputContainerRef?.current?.measure((_x, _y, width, height, x, y) => {
               setInputMeasurements(prev =>
-                JSON.stringify(prev) === JSON.stringify({ x, y, width, height })
-                  ? prev
-                  : { x, y, width, height }
+                JSON.stringify(prev) === JSON.stringify({ x, y, width, height }) ? prev : { x, y, width, height },
               )
             })
         })
       }, 16)
     } else {
-      positionTrackingInterval && clearInterval(positionTrackingInterval)
+      clearInterval(positionTrackingIntervalRef.current)
     }
 
     return () => {
-      positionTrackingInterval && clearInterval(positionTrackingInterval)
+      clearInterval(positionTrackingIntervalRef.current)
     }
   }, [opacity, show])
 
@@ -109,25 +119,35 @@ export const AutocompleteDropdownContextProvider: FC<any> = ({ headerOffset = 0,
 
   return (
     <AutocompleteDropdownContext.Provider
-      value={{ content, setContent, activeInputRef, direction, setDirection }}>
-      {children}
+      value={{ content, setContent, activeInputContainerRef, direction, setDirection, controllerRef }}>
+      <View
+        style={styles.clickOutsideHandlerArea}
+        onTouchEnd={() => {
+          controllerRef.current?.close()
+          controllerRef.current?.blur()
+        }}>
+        {children}
+      </View>
       {!!content && show && (
         <View
           onLayout={onLayout}
           style={{
-            position: 'absolute',
+            ...styles.wrapper,
             opacity,
-            ...contentStyles
+            ...contentStyles,
           }}>
-          <Animatable.View
-            useNativeDriver
-            animation={direction === 'up' ? fadeInUpShort : fadeInDownShort}
-            easing="ease-out-quad"
-            duration={100}>
-            {content}
-          </Animatable.View>
+          {content}
         </View>
       )}
     </AutocompleteDropdownContext.Provider>
   )
 }
+
+const styles = StyleSheet.create({
+  clickOutsideHandlerArea: {
+    flex: 1,
+  },
+  wrapper: {
+    position: 'absolute',
+  },
+})

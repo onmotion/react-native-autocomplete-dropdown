@@ -1,16 +1,13 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import {
-  AutocompleteDropdown,
-  AutocompleteDropdownRef,
-  TAutocompleteDropdownItem
-} from 'react-native-autocomplete-dropdown'
+import type { IAutocompleteDropdownRef, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample3 = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [suggestionsList, setSuggestionsList] = useState<TAutocompleteDropdownItem[] | null>(null)
+  const [suggestionsList, setSuggestionsList] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const dropdownController = useRef<AutocompleteDropdownRef>()
+  const dropdownController = useRef<IAutocompleteDropdownRef | null>(null)
 
   const searchRef = useRef(null)
 
@@ -23,12 +20,12 @@ export const RemoteDataSetExample3 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const items = (await response.json()) as TAutocompleteDropdownItem[]
+    const items = (await response.json()) as AutocompleteDropdownItem[]
     const suggestions = items
       .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
-        title: item.title
+        title: item.title,
       }))
     setSuggestionsList(suggestions)
     setLoading(false)
@@ -53,7 +50,16 @@ export const RemoteDataSetExample3 = memo(() => {
           dataSet={suggestionsList}
           onChangeText={getSuggestions}
           onSelectItem={item => {
-            item && setSelectedItem(item.id)
+            setSelectedItem(item?.id || null)
+          }}
+          onBlur={() => {
+            console.log('onBlur triggered')
+          }}
+          onFocus={() => {
+            console.log('onFocus triggered')
+          }}
+          onOpenSuggestionsList={() => {
+            console.log('onOpenSuggestionsList triggered')
           }}
           debounce={600}
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.3}
@@ -68,12 +74,12 @@ export const RemoteDataSetExample3 = memo(() => {
             style: {
               borderRadius: 25,
               color: '#383b42',
-              paddingLeft: 18
-            }
+              paddingLeft: 18,
+            },
           }}
           rightButtonsContainerStyle={{
             height: 30,
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
           inputContainerStyle={{
             borderRadius: 25,
@@ -83,19 +89,19 @@ export const RemoteDataSetExample3 = memo(() => {
             shadowColor: '#00000099',
             shadowOffset: {
               width: 0,
-              height: 5
+              height: 5,
             },
             shadowOpacity: 0.3,
             shadowRadius: 8.46,
 
-            elevation: 13
+            elevation: 13,
           }}
           suggestionsListContainerStyle={{
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => {
-            console.log(text)
+            console.log('custom renderItem fn called', item)
             return (
               <Text style={{ color: '#383b42', padding: 15 }}>
                 ({text}) - {item.title}

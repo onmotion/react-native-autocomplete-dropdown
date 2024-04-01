@@ -1,16 +1,13 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import {
-  AutocompleteDropdown,
-  AutocompleteDropdownRef,
-  TAutocompleteDropdownItem
-} from 'react-native-autocomplete-dropdown'
+import type { IAutocompleteDropdownRef, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 export const RemoteDataSetExample2 = memo(() => {
   const [loading, setLoading] = useState(false)
-  const [suggestionsList, setSuggestionsList] = useState<TAutocompleteDropdownItem[] | null>(null)
+  const [suggestionsList, setSuggestionsList] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const dropdownController = useRef<AutocompleteDropdownRef>()
+  const dropdownController = useRef<IAutocompleteDropdownRef | null>(null)
 
   const searchRef = useRef(null)
 
@@ -23,12 +20,12 @@ export const RemoteDataSetExample2 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-    const items = (await response.json()) as TAutocompleteDropdownItem[]
+    const items = (await response.json()) as AutocompleteDropdownItem[]
     const suggestions = items
       .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
         id: item.id,
-        title: item.title
+        title: item.title,
       }))
     setSuggestionsList(suggestions)
     setLoading(false)
@@ -47,15 +44,14 @@ export const RemoteDataSetExample2 = memo(() => {
       <View style={[{ flex: 0, flexDirection: 'row', alignItems: 'center' }]}>
         <AutocompleteDropdown
           ref={searchRef}
-          controller={controller => {
-            dropdownController.current = controller
-          }}
+          controller={dropdownController}
           // initialValue={'1'}
           // direction={Platform.select({ ios: 'down' })}
           dataSet={suggestionsList}
           onChangeText={getSuggestions}
           onSelectItem={item => {
-            item && setSelectedItem(item.id)
+            console.log('onSelectItem', item)
+            item && setSelectedItem(item.id) // prevent reset the value
           }}
           debounce={600}
           suggestionsListMaxHeight={Dimensions.get('window').height * 0.4}
@@ -66,27 +62,28 @@ export const RemoteDataSetExample2 = memo(() => {
           useFilter={false} // set false to prevent rerender twice
           textInputProps={{
             placeholder: 'Type 3+ letters (dolo...)',
+            placeholderTextColor: '#aaa',
             autoCorrect: false,
             autoCapitalize: 'none',
             style: {
               borderRadius: 25,
               backgroundColor: '#383b42',
               color: '#fff',
-              paddingLeft: 18
-            }
+              paddingLeft: 18,
+            },
           }}
           rightButtonsContainerStyle={{
             right: 8,
             height: 30,
 
-            alignSelf: 'center'
+            alignSelf: 'center',
           }}
           inputContainerStyle={{
             backgroundColor: '#383b42',
-            borderRadius: 25
+            borderRadius: 25,
           }}
           suggestionsListContainerStyle={{
-            backgroundColor: '#383b42'
+            backgroundColor: '#383b42',
           }}
           containerStyle={{ flexGrow: 1, flexShrink: 1 }}
           renderItem={(item, text) => <Text style={{ color: '#fff', padding: 15 }}>{item.title}</Text>}
