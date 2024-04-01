@@ -6,7 +6,7 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
 [![npm](https://img.shields.io/npm/v/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
 [![npm](https://img.shields.io/npm/dm/react-native-autocomplete-dropdown.svg)](https://npmjs.com/package/react-native-autocomplete-dropdown)
 
-> This is documentation for version 3.x, if you are looking docs for version 2.x, you can find it [here](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/README%5E2.md)
+> This is documentation for version 4.x, if you are looking docs for version 3.x, you can find it [here](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/README%5E3.md)
 
 <p style="text-align: center;" align="center">
     <img src="./screens/Example.png" width="500px" >
@@ -79,7 +79,7 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
 </AutocompleteDropdownContextProvider>
 ```
 
-If you have a header component, you can pass an offset.  For example with react navigation 
+If you have a header component, you can pass an offset.  For example with react navigation
 
 ```js
 //...
@@ -243,12 +243,15 @@ More examples see at <https://github.com/onmotion/react-native-autocomplete-drop
 
 ## Playground
 
+To play around with the examples, you can run the following commands
+
 ```bash
 cd example
 yarn install
-npx pod-install
-yarn ios
+yarn pods
 
+yarn ios
+yarn android
 ```
 
 ## Options
@@ -266,6 +269,7 @@ yarn ios
 | `clearOnFocus` 	| whether to clear typed text on focus 	                                                                          | bool 	| true 	                                        |
 | `ignoreAccents` 	| ignore diacritics 	                                                                                             | bool 	| true 	                                        |
 | `trimSearchText` | trim the searched text                                                                                         | bool 	| true 	                                        |
+| `editable` | is textInput editable                                                                                         | bool 	| true 	                                        |
 | `debounce` 	| wait **ms** before call `onChangeText` 	                                                                        | number 	| 0 	                                           |
 | `suggestionsListMaxHeight` 	| max height of dropdown 	                                                                                        | number 	| 200 	                                         |
 | `direction` 	| "up" or "down" 	                                                                                                | string 	| down + auto calculate 	                       |
@@ -293,3 +297,5 @@ yarn ios
 | `emptyResultText` 	| replace the default "Nothing found" text on empty result 	                                                      | string 	| "Nothing found" 	                             |
 | `textInputProps` 	| text input props 	                                                                                              | TextInputProps 	| 	                                             |
 | `flatListProps` 	| props for \ component 	                                                                                         | FlatListProps\ 	| 	                                             |
+
+## Contribution
