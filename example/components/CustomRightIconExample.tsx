@@ -7,7 +7,7 @@ import { generateDataSet } from '../helpers'
 
 export const CustomRightIconExample = memo(() => {
   const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
-  const dropdownController = useRef<IAutocompleteDropdownRef>()
+  const dropdownController = useRef<IAutocompleteDropdownRef | null>(null)
 
   const dataSet = useMemo(generateDataSet, [])
 

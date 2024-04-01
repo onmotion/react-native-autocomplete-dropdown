@@ -35,9 +35,10 @@ import { ScrollViewListItem } from './ScrollViewListItem'
 import { AutocompleteDropdownContext, AutocompleteDropdownContextProvider } from './AutocompleteDropdownContext'
 import { useKeyboardHeight } from './useKeyboardHeight'
 import diacriticless from './diacriticless'
-import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './index.d'
 import { theme } from './theme'
+import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './types'
 
+export * from './types'
 export { AutocompleteDropdownContextProvider }
 
 export const AutocompleteDropdown = memo(
@@ -112,8 +113,8 @@ export const AutocompleteDropdown = memo(
     }, [loadingProp])
 
     const calculateDirection = useCallback(async () => {
-      const [, positionY] = await new Promise<[x: number, y: number, width: number, height: number]>(
-        resolve => containerRef.current?.measureInWindow((...rect) => resolve(rect)),
+      const [, positionY] = await new Promise<[x: number, y: number, width: number, height: number]>(resolve =>
+        containerRef.current?.measureInWindow((...rect) => resolve(rect)),
       )
 
       const screenHeight = Dimensions.get('window').height

@@ -510,7 +510,7 @@ export default function removeDiacritics(text: string): string {
     let foundChar = false
 
     for (const key in diacritics) {
-      const index = diacritics[key].indexOf(searchChar)
+      const index = diacritics[key]?.indexOf(searchChar)
       if (index !== -1) {
         result.push(key)
         foundChar = true

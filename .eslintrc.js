@@ -6,7 +6,6 @@ module.exports = {
   env: {
     'react-native/react-native': true,
   },
-  ignorePatterns: ['node_modules'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,

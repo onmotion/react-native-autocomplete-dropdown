@@ -297,3 +297,5 @@ yarn android
 | `emptyResultText` 	| replace the default "Nothing found" text on empty result 	                                                      | string 	| "Nothing found" 	                             |
 | `textInputProps` 	| text input props 	                                                                                              | TextInputProps 	| 	                                             |
 | `flatListProps` 	| props for \ component 	                                                                                         | FlatListProps\ 	| 	                                             |
+
+## Contribution

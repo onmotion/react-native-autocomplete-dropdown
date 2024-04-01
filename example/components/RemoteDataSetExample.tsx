@@ -25,10 +25,10 @@ export const RemoteDataSetExample = memo(() => {
     const items = (await response) as Record<string, string>[]
 
     const suggestions = items
-      .filter(item => item.title.toLowerCase().includes(filterToken))
+      .filter(item => item.title?.toLowerCase().includes(filterToken))
       .map(item => ({
-        id: item.id,
-        title: item.title,
+        id: item.id || '0',
+        title: item.title || '',
       }))
 
     setRemoteDataSet(suggestions)

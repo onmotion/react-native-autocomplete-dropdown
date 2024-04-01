@@ -27,7 +27,7 @@ const App = () => {
   const isDarkMode = themeName === 'dark'
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#000' : Colors.lighter,
+    backgroundColor: isDarkMode ? '#121212' : Colors.lighter,
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { memo, useState } from 'react'
 import { Button, Modal, View } from 'react-native'
-import { AutocompleteDropdownContextProvider } from '../../src'
+import { AutocompleteDropdownContextProvider } from 'react-native-autocomplete-dropdown'
 import { RemoteDataSetExample } from './RemoteDataSetExample'
 
 export const ModalExample = memo(() => {

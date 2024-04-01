@@ -1,7 +1,6 @@
-import type { FC, MutableRefObject } from 'react'
+import type { MutableRefObject } from 'react'
 import type React from 'react'
 import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
-import type { IAutocompleteDropdownContextProviderProps } from './AutocompleteDropdownContext'
 
 export type AutocompleteDropdownItem = {
   id: string
@@ -74,13 +73,4 @@ export interface IAutocompleteDropdownProps {
   emptyResultText?: string
   flatListProps?: FlatListProps<any>
   ref?: React.LegacyRef<TextInput> | undefined
-}
-
-export const AutocompleteDropdown: (props: IAutocompleteDropdownProps) => JSX.Element
-
-export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps>
-
-declare global {
-  function setInterval(callback: () => void, ms?: number | undefined): number
-  function setTimeout(callback: () => void, ms?: number | undefined): number
 }
