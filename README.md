@@ -299,11 +299,3 @@ yarn android
 | `flatListProps` 	| props for \ component 	                                                                                         | FlatListProps\ 	| 	                                             |
 
 ## Contribution
-
-To see the changes in examples immediately during the development, you need to link the library and examples. E.g. <https://classic.yarnpkg.com/lang/en/docs/cli/link/>
-
-```bash
-yarn link
-cd example
-yarn link react-native-autocomplete-dropdown
-```

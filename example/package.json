@@ -1,6 +1,7 @@
 {
     "name": "react-native-autocomplete-dropdown-playground",
     "version": "4.0.0-rc.2",
+    "private": true,
     "license": "MIT",
     "author": "Alexandr Kozhevnikov <onmotion1@gmail.com>",
     "scripts": {
@@ -14,7 +15,6 @@
     "dependencies": {
         "react": "18.2.0",
         "react-native": "0.73.6",
-        "react-native-autocomplete-dropdown": "link:./..",
         "react-native-feather": "^1.1.2",
         "react-native-svg": "^15.1.0"
     },

@@ -74,8 +74,3 @@ export interface IAutocompleteDropdownProps {
   flatListProps?: FlatListProps<any>
   ref?: React.LegacyRef<TextInput> | undefined
 }
-
-declare global {
-  function setInterval(callback: () => void, ms?: number | undefined): number
-  function setTimeout(callback: () => void, ms?: number | undefined): number
-}

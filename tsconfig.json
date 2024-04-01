@@ -1,12 +1,32 @@
 {
-    "extends": "@react-native/typescript-config/tsconfig.json", /* Recommended React Native TSConfig base */
-    "exclude": [
-        "node_modules",
-        "example",
-        "babel.config.js",
-        "lib"
-    ],
     "compilerOptions": {
-        "baseUrl": "./",
-    },
+        "rootDir": ".",
+        "paths": {
+            "react-native-autocomplete-dropdown": [
+                "./src/index"
+            ]
+        },
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "lib": [
+            "esnext"
+        ],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": false,
+        "noImplicitUseStrict": false,
+        "noStrictGenericChecks": false,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "esnext",
+        "verbatimModuleSyntax": true
+    }
 }

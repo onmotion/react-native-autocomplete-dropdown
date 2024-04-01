@@ -1,13 +1,6 @@
 {
-    "extends": "@react-native/typescript-config/tsconfig.json", /* Recommended React Native TSConfig base */
+    "extends": "./tsconfig",
     "exclude": [
-        "node_modules",
-        "example",
-        "babel.config.js",
-        "lib"
-    ],
-    "compilerOptions": {
-        "baseUrl": "./",
-        "noEmit": false
-    },
+        "example"
+    ]
 }

@@ -35,9 +35,10 @@ import { ScrollViewListItem } from './ScrollViewListItem'
 import { AutocompleteDropdownContext, AutocompleteDropdownContextProvider } from './AutocompleteDropdownContext'
 import { useKeyboardHeight } from './useKeyboardHeight'
 import diacriticless from './diacriticless'
-import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './types'
 import { theme } from './theme'
+import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './types'
 
+export * from './types'
 export { AutocompleteDropdownContextProvider }
 
 export const AutocompleteDropdown = memo(

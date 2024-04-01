@@ -7,7 +7,7 @@ export const RemoteDataSetExample3 = memo(() => {
   const [loading, setLoading] = useState(false)
   const [suggestionsList, setSuggestionsList] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
-  const dropdownController = useRef<IAutocompleteDropdownRef>()
+  const dropdownController = useRef<IAutocompleteDropdownRef | null>(null)
 
   const searchRef = useRef(null)
 
