@@ -1,6 +1,6 @@
 {
     "name": "react-native-autocomplete-dropdown",
-    "version": "4.0.0-rc.2",
+    "version": "4.0.0-rc.3",
     "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
     "keywords": [
         "react-native",
@@ -32,21 +32,7 @@
     "types": "lib/typescript/src/index.d.ts",
     "files": [
         "lib",
-        "src",
-        "android",
-        "ios",
-        "cpp",
-        "*.podspec",
-        "!ios/build",
-        "!android/build",
-        "!android/gradle",
-        "!android/gradlew",
-        "!android/gradlew.bat",
-        "!android/local.properties",
-        "!**/__tests__",
-        "!**/__fixtures__",
-        "!**/__mocks__",
-        "!**/.*"
+        "src"
     ],
     "workspaces": [
         "example"
