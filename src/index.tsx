@@ -140,7 +140,9 @@ export const AutocompleteDropdown = memo<
     /** methods */
     const close = useCallback(() => {
       setIsOpened(false)
+      setDirection(props.direction)
       setContent(undefined)
+      activeInputContainerRef.current = null 
     }, [setContent])
 
     const blur = useCallback(() => {
@@ -434,6 +436,9 @@ export const AutocompleteDropdown = memo<
     }, [loading, searchText])
 
     useEffect(() => {
+      if (activeInputContainerRef.current && activeInputContainerRef.current !== containerRef.current) {
+        return;
+      }
       if (isOpened && Array.isArray(dataSet)) {
         if (activeInputContainerRef) {
           activeInputContainerRef.current = containerRef.current
