@@ -299,7 +299,6 @@ export const AutocompleteDropdown = memo<
       }
 
       const newSet = initialDataSet.filter((item: AutocompleteDropdownItem) => {
-        const titleLowercase = (item.title || '').toLowerCase()
         const titleStr = item.title || ''
         const title = caseSensitive ? titleStr : titleStr.toLowerCase()
         const findWhere = ignoreAccents ? diacriticless(title) : title
