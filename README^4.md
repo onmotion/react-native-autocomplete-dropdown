@@ -267,6 +267,7 @@ yarn android
 | `closeOnBlur` 	| whether to close dropdown on blur 	                                                                             | bool 	| false 	                                       |
 | `closeOnSubmit` 	| whether to close dropdown on submit 	                                                                           | bool 	| false 	                                       |
 | `clearOnFocus` 	| whether to clear typed text on focus 	                                                                          | bool 	| true 	                                        |
+| `caseSensitive`   | whether to perform case-sensitive search 	                                                                          | bool  | false
 | `ignoreAccents` 	| ignore diacritics 	                                                                                             | bool 	| true 	                                        |
 | `trimSearchText` | trim the searched text                                                                                         | bool 	| true 	                                        |
 | `editable` | is textInput editable                                                                                         | bool 	| true 	                                        |

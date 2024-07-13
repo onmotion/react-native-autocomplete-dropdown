@@ -49,6 +49,7 @@ export const AutocompleteDropdown = memo<
       dataSet: dataSetProp,
       initialValue: initialValueProp,
       clearOnFocus = true,
+      caseSensitive = false,
       ignoreAccents = true,
       trimSearchText = true,
       editable = true,
@@ -287,7 +288,7 @@ export const AutocompleteDropdown = memo<
         return
       }
 
-      let findWhat = searchText.toLowerCase()
+      let findWhat = caseSensitive ? searchText : searchText.toLowerCase()
 
       if (ignoreAccents) {
         findWhat = diacriticless(findWhat)
@@ -297,9 +298,11 @@ export const AutocompleteDropdown = memo<
         findWhat = findWhat.trim()
       }
 
-      const newSet = initialDataSet.filter(item => {
+      const newSet = initialDataSet.filter((item: AutocompleteDropdownItem) => {
         const titleLowercase = (item.title || '').toLowerCase()
-        const findWhere = ignoreAccents ? diacriticless(titleLowercase) : titleLowercase.toLowerCase()
+        const titleStr = item.title || ''
+        const title = caseSensitive ? titleStr : titleStr.toLowerCase()
+        const findWhere = ignoreAccents ? diacriticless(title) : title
 
         if (matchFromStart) {
           return typeof item.title === 'string' && findWhere.startsWith(findWhat)
@@ -309,7 +312,7 @@ export const AutocompleteDropdown = memo<
       })
 
       setDataSet(newSet)
-    }, [ignoreAccents, matchFromStart, searchText, trimSearchText, useFilter])
+    }, [ignoreAccents, matchFromStart, caseSensitive, searchText, trimSearchText, useFilter])
 
     const renderItem: ListRenderItem<AutocompleteDropdownItem> = useCallback(
       ({ item }) => {
