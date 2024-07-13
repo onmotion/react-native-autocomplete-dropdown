@@ -288,13 +288,7 @@ export const AutocompleteDropdown = memo<
         return
       }
 
-      let findWhat: string
-
-      if (caseSensitive) {
-        findWhat = searchText
-      } else {
-        findWhat = searchText.toLowerCase()
-      }
+      let findWhat = caseSensitive ? searchText : searchText.toLowerCase()
 
       if (ignoreAccents) {
         findWhat = diacriticless(findWhat)
