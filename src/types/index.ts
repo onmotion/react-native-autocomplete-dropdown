@@ -36,6 +36,7 @@ export interface IAutocompleteDropdownProps {
   closeOnBlur?: boolean
   closeOnSubmit?: boolean
   clearOnFocus?: boolean
+  caseSensitive?: boolean
   ignoreAccents?: boolean
   trimSearchText?: boolean
   editable?: boolean
