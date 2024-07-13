@@ -306,13 +306,9 @@ export const AutocompleteDropdown = memo<
 
       const newSet = initialDataSet.filter((item: AutocompleteDropdownItem) => {
         const titleLowercase = (item.title || '').toLowerCase()
-        let findWhere: string
-        
-        if (caseSensitive) {
-          findWhere = ignoreAccents ? diacriticless(item.title || '') : item.title || ''
-        } else {
-          findWhere = ignoreAccents ? diacriticless(titleLowercase) : titleLowercase
-        }
+        const titleStr = item.title || ''
+        const title = caseSensitive ? titleStr : titleStr.toLowerCase()
+        const findWhere = ignoreAccents ? diacriticless(title) : title
 
         if (matchFromStart) {
           return typeof item.title === 'string' && findWhere.startsWith(findWhat)
