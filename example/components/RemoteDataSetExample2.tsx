@@ -1,9 +1,13 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
 import { Button, Dimensions, Text, View } from 'react-native'
-import type { IAutocompleteDropdownRef, AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import type {
+  IAutocompleteDropdownRef,
+  AutocompleteDropdownItem,
+  IAutocompleteDropdownProps,
+} from 'react-native-autocomplete-dropdown'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
-export const RemoteDataSetExample2 = memo(() => {
+export const RemoteDataSetExample2 = memo((props: Omit<IAutocompleteDropdownProps, 'ref' | 'dataSet'>) => {
   const [loading, setLoading] = useState(false)
   const [suggestionsList, setSuggestionsList] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
@@ -93,6 +97,7 @@ export const RemoteDataSetExample2 = memo(() => {
           showChevron={false}
           closeOnBlur={false}
           //  showClear={false}
+          {...props}
         />
         <View style={{ width: 10 }} />
         <Button title="Toggle" onPress={() => dropdownController.current?.toggle()} />

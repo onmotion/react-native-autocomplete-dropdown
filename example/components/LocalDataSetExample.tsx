@@ -1,11 +1,11 @@
 import React, { memo, useState } from 'react'
 import { Text, View } from 'react-native'
-import type { AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from 'react-native-autocomplete-dropdown'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
 const ItemSeparatorComponent = () => <View style={{ height: 1, width: '100%', backgroundColor: '#d8e1e6' }} />
 
-export const LocalDataSetExample = memo(() => {
+export const LocalDataSetExample = memo((props: Omit<IAutocompleteDropdownProps, 'ref' | 'dataSet'>) => {
   const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
 
   return (
@@ -23,6 +23,7 @@ export const LocalDataSetExample = memo(() => {
         ]}
         ItemSeparatorComponent={ItemSeparatorComponent}
         ignoreAccents
+        {...props}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
     </>

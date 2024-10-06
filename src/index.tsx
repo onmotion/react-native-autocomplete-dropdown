@@ -104,9 +104,10 @@ export const AutocompleteDropdown = memo<
       content,
       setContent,
       activeInputContainerRef,
-      controllerRef,
+      activeControllerRef,
       direction = directionProp,
       setDirection,
+      controllerRefs,
     } = useContext(AutocompleteDropdownContext)
     const themeName = useColorScheme() || 'light'
     const styles = useMemo(() => getStyles(themeName), [themeName])
@@ -220,18 +221,32 @@ export const AutocompleteDropdown = memo<
       setSelectedItem(item)
     }, [])
 
+    useEffect(() => {
+      if (activeControllerRef?.current) {
+        controllerRefs?.current.push(activeControllerRef?.current)
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const closeAll = useCallback(() => {
+      controllerRefs?.current.forEach(c => {
+        c?.blur?.()
+        c?.close?.()
+      })
+    }, [controllerRefs])
+
     /** expose controller methods */
     useEffect(() => {
-      const methods = controllerRef ? { close, blur, open, toggle, clear, setInputText, setItem } : null
-      if (controllerRef) {
-        controllerRef.current = methods
+      const methods = activeControllerRef ? { close, blur, open, toggle, clear, setInputText, setItem } : null
+      if (activeControllerRef) {
+        activeControllerRef.current = methods
       }
       if (typeof controller === 'function') {
         controller(methods)
       } else if (controller) {
         controller.current = methods
       }
-    }, [blur, clear, close, controller, controllerRef, open, setInputText, setItem, toggle])
+    }, [blur, clear, close, controller, activeControllerRef, open, setInputText, setItem, toggle])
 
     useEffect(() => {
       if (selectedItem) {
@@ -407,13 +422,14 @@ export const AutocompleteDropdown = memo<
 
     const onPressOut = useCallback(
       (e: GestureResponderEvent) => {
+        closeAll()
         if (editable) {
           inputRef?.current?.focus()
         } else {
           toggle()
         }
       },
-      [editable, toggle],
+      [closeAll, editable, toggle],
     )
 
     useEffect(() => {
