@@ -1,9 +1,9 @@
 import React, { memo, useCallback, useState } from 'react'
 import { Text } from 'react-native'
-import type { AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from 'react-native-autocomplete-dropdown'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
-export const RemoteDataSetExample = memo(() => {
+export const RemoteDataSetExample = memo((props: Omit<IAutocompleteDropdownProps, 'ref' | 'dataSet'>) => {
   const [loading, setLoading] = useState(false)
   const [remoteDataSet, setRemoteDataSet] = useState<AutocompleteDropdownItem[] | null>(null)
   const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
@@ -52,6 +52,7 @@ export const RemoteDataSetExample = memo(() => {
           color: '#8f3c96',
         }}
         EmptyResultComponent={<Text style={{ padding: 10, fontSize: 15 }}>Oops ¯\_(ツ)_/¯</Text>}
+        {...props}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
     </>

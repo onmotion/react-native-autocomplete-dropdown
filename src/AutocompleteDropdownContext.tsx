@@ -10,7 +10,8 @@ export interface IAutocompleteDropdownContext {
   direction?: 'up' | 'down'
   setDirection: Dispatch<SetStateAction<IAutocompleteDropdownContext['direction']>>
   activeInputContainerRef?: MutableRefObject<View | null>
-  controllerRef?: MutableRefObject<IAutocompleteDropdownRef | null>
+  activeControllerRef?: MutableRefObject<IAutocompleteDropdownRef | null>
+  controllerRefs?: MutableRefObject<IAutocompleteDropdownRef[]>
 }
 
 export interface IAutocompleteDropdownContextProviderProps {
@@ -24,7 +25,8 @@ export const AutocompleteDropdownContext = React.createContext<IAutocompleteDrop
   direction: undefined,
   setDirection: () => null,
   activeInputContainerRef: undefined,
-  controllerRef: undefined,
+  activeControllerRef: undefined,
+  controllerRefs: undefined,
 })
 
 export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContextProviderProps> = ({
@@ -43,7 +45,8 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     undefined,
   )
   const activeInputContainerRef = useRef<View>(null)
-  const controllerRef = useRef<IAutocompleteDropdownRef | null>(null)
+  const activeControllerRef = useRef<IAutocompleteDropdownRef | null>(null)
+  const controllerRefs = useRef<IAutocompleteDropdownRef[]>([])
   const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
 
   useEffect(() => {
@@ -119,12 +122,20 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
 
   return (
     <AutocompleteDropdownContext.Provider
-      value={{ content, setContent, activeInputContainerRef, direction, setDirection, controllerRef }}>
+      value={{
+        content,
+        setContent,
+        activeInputContainerRef,
+        direction,
+        setDirection,
+        activeControllerRef,
+        controllerRefs,
+      }}>
       <View
         style={styles.clickOutsideHandlerArea}
         onTouchEnd={() => {
-          controllerRef.current?.close()
-          controllerRef.current?.blur()
+          activeControllerRef.current?.close()
+          activeControllerRef.current?.blur()
         }}>
         {children}
       </View>

@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react'
 import { Dimensions, Text } from 'react-native'
-import type { AutocompleteDropdownItem } from 'react-native-autocomplete-dropdown'
+import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from 'react-native-autocomplete-dropdown'
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown'
 
-export const LocalDataSetExample2 = memo(() => {
+export const LocalDataSetExample2 = memo((props: Omit<IAutocompleteDropdownProps, 'ref' | 'dataSet'>) => {
   const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
 
   return (
@@ -32,6 +32,7 @@ export const LocalDataSetExample2 = memo(() => {
             -= {item.title} =-
           </Text>
         )}
+        {...props}
       />
       <Text style={{ color: '#668', fontSize: 13 }}>Selected item: {JSON.stringify(selectedItem)}</Text>
     </>
