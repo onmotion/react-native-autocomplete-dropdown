@@ -19,9 +19,9 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
     <img src="./screens/ios.gif" width="280px" >
 </p>
 
-> Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.io/@onmotion/react-native-autocomplete-dropdown-v3)
+> Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.dev/@onmotion/github.com-onmotion-react-native-autocomplete-dropdown:example)
 
-<img src="./screens/expo-qr.png" width="150">
+<img src="./screens/expo-qr-v4.png" width="150">
 
 ## Nav
 
@@ -36,7 +36,9 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
         - [Dataset item format](#dataset-item-format)
         - [Example with local Dataset](#example-with-local-dataset)
         - [Example with remote requested Dataset](#example-with-remote-requested-dataset)
+    - [Playground](#playground)
     - [Options](#options)
+    - [Contribution](#contribution)
 
 ## Installation
 
