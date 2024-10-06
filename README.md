@@ -19,9 +19,11 @@ Dropdown Item picker with search and autocomplete (typeahead) functionality for 
     <img src="./screens/ios.gif" width="280px" >
 </p>
 
-> Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.dev/@onmotion/github.com-onmotion-react-native-autocomplete-dropdown:example)
+> Run expo snack demo [@onmotion/react-native-autocomplete-dropdown](https://snack.expo.dev/@onmotion/react-native-autocomplete-dropdown-v4)
 
-<img src="./screens/expo-qr-v4.png" width="150">
+or download the [Expo Go](https://expo.dev/go) app and scan the QR code below
+
+<img src="./screens/expo-example-qr-v4.png" width="150">
 
 ## Nav
 
