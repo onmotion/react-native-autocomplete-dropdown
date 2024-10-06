@@ -230,6 +230,7 @@ export const AutocompleteDropdown = memo<
 
     const closeAll = useCallback(() => {
       controllerRefs?.current.forEach(c => {
+        c?.blur?.()
         c?.close?.()
       })
     }, [controllerRefs])
@@ -391,10 +392,9 @@ export const AutocompleteDropdown = memo<
         if (typeof onFocusProp === 'function') {
           onFocusProp(e)
         }
-        closeAll()
         open()
       },
-      [clearOnFocus, closeAll, onFocusProp, open],
+      [clearOnFocus, onFocusProp, open],
     )
 
     const onBlur = useCallback(
@@ -422,13 +422,14 @@ export const AutocompleteDropdown = memo<
 
     const onPressOut = useCallback(
       (e: GestureResponderEvent) => {
+        closeAll()
         if (editable) {
           inputRef?.current?.focus()
         } else {
           toggle()
         }
       },
-      [editable, toggle],
+      [closeAll, editable, toggle],
     )
 
     useEffect(() => {
