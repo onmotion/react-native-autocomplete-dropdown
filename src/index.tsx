@@ -189,20 +189,22 @@ export const AutocompleteDropdown = memo<
     useEffect(() => {
       const initialDataSet = initialDataSetRef.current
       const initialValue = initialValueRef.current
-      if (!Array.isArray(initialDataSet)) {
-        // nothing to set or already setted
-        return
+      let dataSetItem: AutocompleteDropdownItem | undefined
+
+      if (Array.isArray(initialDataSet)) {
+        if (typeof initialValue === 'string') {
+          dataSetItem = initialDataSet.find(el => el.id === initialValue);
+        } else if (typeof initialValue === 'object' && initialValue?.id) {
+          dataSetItem = initialDataSet.find(el => el.id === initialValue.id);
+        }
       }
 
-      let dataSetItem: AutocompleteDropdownItem | undefined
-      if (typeof initialValue === 'string') {
-        dataSetItem = initialDataSet.find(el => el.id === initialValue)
-      } else if (typeof initialValue === 'object' && initialValue.id) {
-        dataSetItem = initialDataSet.find(el => el.id === initialValue?.id)
+      if (!dataSetItem && typeof initialValue === 'object' && initialValue?.id) {
+        dataSetItem = initialValue;
       }
 
       if (dataSetItem) {
-        setSelectedItem(dataSetItem)
+        setSelectedItem(dataSetItem);
       }
     }, [])
 
