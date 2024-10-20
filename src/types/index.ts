@@ -72,6 +72,6 @@ export interface IAutocompleteDropdownProps {
   ItemSeparatorComponent?: React.ComponentType<any> | null
   EmptyResultComponent?: React.ReactElement
   emptyResultText?: string
-  flatListProps?: FlatListProps<any>
+  flatListProps?: Partial<FlatListProps<AutocompleteDropdownItem>>
   ref?: React.LegacyRef<TextInput> | undefined
 }
