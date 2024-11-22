@@ -33,7 +33,6 @@ import { NothingFound } from './NothingFound'
 import { RightButton } from './RightButton'
 import { ScrollViewListItem } from './ScrollViewListItem'
 import { AutocompleteDropdownContext, AutocompleteDropdownContextProvider } from './AutocompleteDropdownContext'
-import { useKeyboardHeight } from './useKeyboardHeight'
 import diacriticless from './diacriticless'
 import { theme } from './theme'
 import type { IAutocompleteDropdownProps, AutocompleteDropdownItem } from './types'
@@ -99,7 +98,6 @@ export const AutocompleteDropdown = memo<
     const initialValueRef = useRef(initialValueProp)
     const [dataSet, setDataSet] = useState(dataSetProp)
     const matchFromStart = matchFrom === 'start' ? true : false
-    const kbHeight = useKeyboardHeight()
     const {
       content,
       setContent,
@@ -116,17 +114,28 @@ export const AutocompleteDropdown = memo<
       setLoading(loadingProp)
     }, [loadingProp])
 
-    const calculateDirection = useCallback(async () => {
-      const [, positionY] = await new Promise<[x: number, y: number, width: number, height: number]>(resolve =>
-        containerRef.current?.measureInWindow((...rect) => resolve(rect)),
-      )
+    const calculateDirection = useCallback(
+      async ({ waitForKeyboard }: { waitForKeyboard: boolean }) => {
+        const [, positionY] = await new Promise<[x: number, y: number, width: number, height: number]>(resolve =>
+          containerRef.current?.measureInWindow((...rect) => resolve(rect)),
+        )
 
-      const screenHeight = Dimensions.get('window').height
-      setDirection((screenHeight - kbHeight) / 2 > positionY ? 'down' : 'up')
-      return new Promise<void>(resolve => {
-        setTimeout(resolve, 1)
-      })
-    }, [kbHeight, setDirection])
+        return new Promise<void>(resolve => {
+          setTimeout(
+            () => {
+              Keyboard.isVisible()
+              const kbHeight = Keyboard.metrics()?.height || 0
+              console.log({ kbHeight })
+              const screenHeight = Dimensions.get('window').height
+              setDirection((screenHeight - kbHeight) / 2 > positionY ? 'down' : 'up')
+              resolve()
+            },
+            waitForKeyboard ? Platform.select({ ios: 600, android: 150, default: 1 }) : 1, // wait for keyboard to show
+          )
+        })
+      },
+      [setDirection],
+    )
 
     const onClearPress = useCallback(() => {
       setSearchText('')
@@ -149,23 +158,20 @@ export const AutocompleteDropdown = memo<
       inputRef.current?.blur()
     }, [])
 
-    // useEffect(() => {
-    //   if (kbHeight && !direction) {
-    //     calculateDirection()
-    //   }
-    // }, [kbHeight, direction])
+    const open = useCallback(
+      async ({ focused } = { focused: false }) => {
+        if (directionProp) {
+          setDirection(directionProp)
+        } else {
+          await calculateDirection({ waitForKeyboard: focused })
+        }
 
-    const open = useCallback(async () => {
-      if (directionProp) {
-        setDirection(directionProp)
-      } else {
-        await calculateDirection()
-      }
-
-      setTimeout(() => {
-        setIsOpened(true)
-      }, 0)
-    }, [calculateDirection, directionProp, setDirection])
+        setTimeout(() => {
+          setIsOpened(true)
+        }, 0)
+      },
+      [calculateDirection, directionProp, setDirection],
+    )
 
     const toggle = useCallback(() => {
       isOpened ? close() : open()
@@ -392,7 +398,7 @@ export const AutocompleteDropdown = memo<
         if (typeof onFocusProp === 'function') {
           onFocusProp(e)
         }
-        open()
+        open({ focused: true })
       },
       [clearOnFocus, onFocusProp, open],
     )
