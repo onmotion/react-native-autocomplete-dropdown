@@ -38,12 +38,12 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
   const [show, setShow] = useState(false)
   const [dropdownHeight, setDropdownHeight] = useState(0)
   const [inputMeasurements, setInputMeasurements] = useState<
-    { x: number; y: number; width: number; height: number } | undefined
+    { x: number; topY: number; bottomY: number; width: number; height: number } | undefined
   >()
   const [opacity, setOpacity] = useState(0)
-  const [contentStyles, setContentStyles] = useState<{ top: number; left: number; width?: number } | undefined>(
-    undefined,
-  )
+  const [contentStyles, setContentStyles] = useState<
+    { top?: number; left: number; width?: number; bottom?: number } | undefined
+  >(undefined)
   const activeInputContainerRef = useRef<View>(null)
   const wrapperRef = useRef<View>(null)
   const activeControllerRef = useRef<IAutocompleteDropdownRef | null>(null)
@@ -58,37 +58,44 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
 
     if (dropdownHeight && direction === 'up') {
       setContentStyles({
-        top: inputMeasurements.y - dropdownHeight - 10 - headerOffset,
+        bottom: inputMeasurements.bottomY + 5 + headerOffset,
+        top: undefined,
         left: inputMeasurements.x,
         width: inputMeasurements.width,
       })
       setOpacity(1)
     } else if (direction === 'down') {
       setContentStyles({
-        top: inputMeasurements.y + inputMeasurements.height + 5 + headerOffset,
+        top: inputMeasurements.topY + inputMeasurements.height + 5 + headerOffset,
+        bottom: undefined,
         left: inputMeasurements.x,
         width: inputMeasurements.width,
       })
       setOpacity(1)
     }
-  }, [
-    direction,
-    dropdownHeight,
-    headerOffset,
-    inputMeasurements?.height,
-    inputMeasurements?.width,
-    inputMeasurements?.x,
-    inputMeasurements?.y,
-  ])
+  }, [direction, dropdownHeight, headerOffset, inputMeasurements])
+
+  const recalculatePosition = useCallback((showAfterCalculation = false) => {
+    activeInputContainerRef?.current?.measure((x, y, width, height, inputPageX, inputPageY) => {
+      wrapperRef.current?.measure((wrapperX, wrapperY, wrapperW, wrapperH, wrapperPageX, wrapperPageY) => {
+        const currentMeasurement = {
+          width,
+          height,
+          x: inputPageX,
+          topY: inputPageY - wrapperPageY,
+          bottomY: wrapperH - inputPageY + wrapperPageY,
+        }
+        setInputMeasurements(prev =>
+          JSON.stringify(prev) === JSON.stringify(currentMeasurement) ? prev : currentMeasurement,
+        )
+        showAfterCalculation && setShow(true)
+      })
+    })
+  }, [])
 
   useEffect(() => {
     if (content) {
-      activeInputContainerRef?.current?.measure((x, y, width, height, pageX, pageY) => {
-        wrapperRef.current?.measure((wrapperX, wrapperY, wrapperW, wrapperH, wrapperPageX, wrapperPageY) => {
-          setInputMeasurements({ x: pageX, y: pageY - wrapperPageY, width, height })
-          setShow(true)
-        })
-      })
+      recalculatePosition(true)
     } else {
       setInputMeasurements(undefined)
       setDropdownHeight(0)
@@ -96,20 +103,13 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
       setContentStyles(undefined)
       setShow(false)
     }
-  }, [content])
+  }, [content, recalculatePosition])
 
   useEffect(() => {
     if (show && !!opacity) {
       positionTrackingIntervalRef.current = setInterval(() => {
         requestAnimationFrame(() => {
-          activeInputContainerRef?.current?.measure((_x, _y, width, height, inputPageX, inputPageY) => {
-            wrapperRef.current?.measure((wrapperX, wrapperY, wrapperW, wrapperH, wrapperPageX, wrapperPageY) => {
-              const currentMeasurement = { x: inputPageX, y: inputPageY - wrapperPageY, width, height }
-              setInputMeasurements(prev =>
-                JSON.stringify(prev) === JSON.stringify(currentMeasurement) ? prev : currentMeasurement,
-              )
-            })
-          })
+          recalculatePosition()
         })
       }, 16)
     } else {
@@ -119,7 +119,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     return () => {
       clearInterval(positionTrackingIntervalRef.current)
     }
-  }, [opacity, show])
+  }, [recalculatePosition, opacity, show])
 
   const onLayout: ViewProps['onLayout'] = useCallback((e: LayoutChangeEvent) => {
     setDropdownHeight(e.nativeEvent.layout.height)
