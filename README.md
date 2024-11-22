@@ -28,19 +28,19 @@ or download the [Expo Go](https://expo.dev/go) app and scan the QR code below
 ## Nav
 
 - [react-native-autocomplete-dropdown](#react-native-autocomplete-dropdown)
-    - [Demo](#demo)
-    - [Nav](#nav)
-    - [Installation](#installation)
-    - [Post-install Steps](#post-install-steps)
-        - [iOS](#ios)
-        - [Android](#android)
-    - [Usage](#usage)
-        - [Dataset item format](#dataset-item-format)
-        - [Example with local Dataset](#example-with-local-dataset)
-        - [Example with remote requested Dataset](#example-with-remote-requested-dataset)
-    - [Playground](#playground)
-    - [Options](#options)
-    - [Contribution](#contribution)
+        - [Demo](#demo)
+        - [Nav](#nav)
+        - [Installation](#installation)
+        - [Post-install Steps](#post-install-steps)
+                - [iOS](#ios)
+                - [Android](#android)
+        - [Usage](#usage)
+                - [Dataset item format](#dataset-item-format)
+                - [Example with local Dataset](#example-with-local-dataset)
+                - [Example with remote requested Dataset](#example-with-remote-requested-dataset)
+        - [Playground](#playground)
+        - [Options](#options)
+        - [Usage with a Modal](#usage-with-a-modal)
 
 ## Installation
 
@@ -84,6 +84,8 @@ Wrap your root component in `AutocompleteDropdownContextProvider` from `react-na
     <AppRootOrWhatever/>
 </AutocompleteDropdownContextProvider>
 ```
+
+The dropdown position is relative to the `AutocompleteDropdownContextProvider`, so put this in the right place, it should cover all the screen/modal.
 
 If you have a header component, you can pass an offset.  For example with react navigation
 
@@ -305,4 +307,22 @@ yarn android
 | `textInputProps` 	| text input props 	                                                                                              | TextInputProps 	| 	                                             |
 | `flatListProps` 	| props for \ component 	                                                                                         | FlatListProps\ 	| 	                                             |
 
-## Contribution
+## Usage with a Modal
+
+if you want to use the dropdown in a modal, you need to wrap the dropdown in another `AutocompleteDropdownContextProvider` inside the modal component
+
+```js
+    <Modal
+        visible={opened}
+        presentationStyle="formSheet"
+        animationType="slide"
+        onRequestClose={() => setOpened(false)}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
+          <AutocompleteDropdownContextProvider>
+            <View style={{ paddingHorizontal: 20, flex: 1, paddingTop: 20 }}>
+              <AutocompleteDropdown {...props}/>
+            </View>
+          </AutocompleteDropdownContextProvider>
+        </SafeAreaView>
+    </Modal>
+```

@@ -1,6 +1,6 @@
 {
     "name": "react-native-autocomplete-dropdown",
-    "version": "4.0.0",
+    "version": "4.2.0",
     "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
     "keywords": [
         "react-native",
@@ -47,11 +47,6 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "tsc": "tsc --noEmit",
         "typecheck": "tsc --noEmit"
-    },
-    "commitlint": {
-        "extends": [
-            "@commitlint/config-conventional"
-        ]
     },
     "resolutions": {
         "@types/react": "^18.2.44"
