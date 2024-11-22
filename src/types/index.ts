@@ -11,7 +11,7 @@ export interface IAutocompleteDropdownRef {
   clear: () => void
   close: () => void
   blur: () => void
-  open: (params?: { focused: boolean }) => Promise<void>
+  open: () => Promise<void>
   setInputText: (text: string) => void
   toggle: () => void
   setItem: (item: AutocompleteDropdownItem) => void

@@ -128,7 +128,7 @@ export const AutocompleteDropdown = memo<
               setDirection((screenHeight - kbHeight) / 2 > positionY ? 'down' : 'up')
               resolve()
             },
-            waitForKeyboard ? Platform.select({ ios: 600, android: 150, default: 1 }) : 1, // wait for keyboard to show
+            waitForKeyboard ? Platform.select({ ios: 600, android: 250, default: 1 }) : 1, // wait for keyboard to show
           )
         })
       },
@@ -156,20 +156,17 @@ export const AutocompleteDropdown = memo<
       inputRef.current?.blur()
     }, [])
 
-    const open = useCallback(
-      async ({ focused } = { focused: false }) => {
-        if (directionProp) {
-          setDirection(directionProp)
-        } else {
-          await calculateDirection({ waitForKeyboard: focused })
-        }
+    const open = useCallback(async () => {
+      if (directionProp) {
+        setDirection(directionProp)
+      } else {
+        await calculateDirection({ waitForKeyboard: !!inputRef.current?.isFocused() })
+      }
 
-        setTimeout(() => {
-          setIsOpened(true)
-        }, 0)
-      },
-      [calculateDirection, directionProp, setDirection],
-    )
+      setTimeout(() => {
+        setIsOpened(true)
+      }, 0)
+    }, [calculateDirection, directionProp, setDirection])
 
     const toggle = useCallback(() => {
       isOpened ? close() : open()
@@ -396,7 +393,7 @@ export const AutocompleteDropdown = memo<
         if (typeof onFocusProp === 'function') {
           onFocusProp(e)
         }
-        open({ focused: true })
+        open()
       },
       [clearOnFocus, onFocusProp, open],
     )
