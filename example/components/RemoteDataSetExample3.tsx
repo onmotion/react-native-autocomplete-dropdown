@@ -43,6 +43,7 @@ export const RemoteDataSetExample3 = memo(() => {
         <AutocompleteDropdown
           ref={searchRef}
           closeOnBlur={false}
+          // initialValue={{ id: '1', title: 'Initial val' }}
           // direction={Platform.select({ ios: 'down' })}
           controller={controller => {
             dropdownController.current = controller

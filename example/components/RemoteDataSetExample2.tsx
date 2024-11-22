@@ -49,7 +49,7 @@ export const RemoteDataSetExample2 = memo((props: Omit<IAutocompleteDropdownProp
         <AutocompleteDropdown
           ref={searchRef}
           controller={dropdownController}
-          // initialValue={'1'}
+          initialValue={{ id: '1', title: 'Initial val' }}
           // direction={Platform.select({ ios: 'down' })}
           dataSet={suggestionsList}
           onChangeText={getSuggestions}

@@ -28,7 +28,7 @@ export interface IAutocompleteDropdownProps {
   dataSet: AutocompleteDropdownItem[] | null
   inputHeight?: number
   suggestionsListMaxHeight?: number
-  initialValue?: string | { id: string }
+  initialValue?: string | { id: string } | AutocompleteDropdownItem
   loading?: boolean
   useFilter?: boolean
   showClear?: boolean
