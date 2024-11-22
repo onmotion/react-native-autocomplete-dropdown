@@ -43,7 +43,7 @@ export const RemoteDataSetExample = memo((props: Omit<IAutocompleteDropdownProps
         useFilter={false}
         clearOnFocus={false}
         textInputProps={{
-          placeholder: 'Start typing "est"...',
+          placeholder: 'Start typing "lorem"...',
         }}
         onSelectItem={setSelectedItem}
         loading={loading}

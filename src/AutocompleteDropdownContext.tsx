@@ -45,6 +45,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     undefined,
   )
   const activeInputContainerRef = useRef<View>(null)
+  const wrapperRef = useRef<View>(null)
   const activeControllerRef = useRef<IAutocompleteDropdownRef | null>(null)
   const controllerRefs = useRef<IAutocompleteDropdownRef[]>([])
   const positionTrackingIntervalRef = useRef<NodeJS.Timeout>()
@@ -83,8 +84,10 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
   useEffect(() => {
     if (content) {
       activeInputContainerRef?.current?.measure((x, y, width, height, pageX, pageY) => {
-        setInputMeasurements({ x: pageX, y: pageY, width, height })
-        setShow(true)
+        wrapperRef.current?.measure((wrapperX, wrapperY, wrapperW, wrapperH, wrapperPageX, wrapperPageY) => {
+          setInputMeasurements({ x: pageX, y: pageY - wrapperPageY, width, height })
+          setShow(true)
+        })
       })
     } else {
       setInputMeasurements(undefined)
@@ -99,12 +102,14 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
     if (show && !!opacity) {
       positionTrackingIntervalRef.current = setInterval(() => {
         requestAnimationFrame(() => {
-          activeInputContainerRef?.current &&
-            activeInputContainerRef?.current?.measure((_x, _y, width, height, x, y) => {
+          activeInputContainerRef?.current?.measure((_x, _y, width, height, inputPageX, inputPageY) => {
+            wrapperRef.current?.measure((wrapperX, wrapperY, wrapperW, wrapperH, wrapperPageX, wrapperPageY) => {
+              const currentMeasurement = { x: inputPageX, y: inputPageY - wrapperPageY, width, height }
               setInputMeasurements(prev =>
-                JSON.stringify(prev) === JSON.stringify({ x, y, width, height }) ? prev : { x, y, width, height },
+                JSON.stringify(prev) === JSON.stringify(currentMeasurement) ? prev : currentMeasurement,
               )
             })
+          })
         })
       }, 16)
     } else {
@@ -132,6 +137,7 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
         controllerRefs,
       }}>
       <View
+        ref={wrapperRef}
         style={styles.clickOutsideHandlerArea}
         onTouchEnd={() => {
           activeControllerRef.current?.close()
