@@ -123,7 +123,7 @@ export const AutocompleteDropdown = memo<
         return new Promise<void>(resolve => {
           setTimeout(
             () => {
-              const kbHeight = Keyboard.metrics()?.height || 0
+              const kbHeight = Keyboard.metrics?.()?.height || 0
               const screenHeight = Dimensions.get('window').height
               setDirection((screenHeight - kbHeight) / 2 > positionY ? 'down' : 'up')
               resolve()
