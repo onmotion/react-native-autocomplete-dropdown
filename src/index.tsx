@@ -55,7 +55,6 @@ export const AutocompleteDropdown = memo<
       matchFrom,
       inputHeight = moderateScale(40, 0.2),
       suggestionsListMaxHeight = moderateScale(200, 0.2),
-      // bottomOffset = 0,
       direction: directionProp,
       controller,
       onSelectItem: onSelectItemProp,
@@ -95,7 +94,6 @@ export const AutocompleteDropdown = memo<
     const [selectedItem, setSelectedItem] = useState<AutocompleteDropdownItem | null>(null)
     const [isOpened, setIsOpened] = useState(false)
     const initialDataSetRef = useRef<AutocompleteDropdownItem[] | null>(dataSetProp)
-    const initialValueRef = useRef(initialValueProp)
     const [dataSet, setDataSet] = useState(dataSetProp)
     const matchFromStart = matchFrom === 'start' ? true : false
     const {
@@ -188,24 +186,10 @@ export const AutocompleteDropdown = memo<
 
     /** Set initial value */
     useEffect(() => {
-      const initialDataSet = initialDataSetRef.current
-      const initialValue = initialValueRef.current
-
-      let initialValueItem: AutocompleteDropdownItem | undefined
-      if (typeof initialValue === 'string') {
-        initialValueItem = initialDataSet?.find(el => el.id === initialValue)
-      } else if (typeof initialValue === 'object' && initialValue.id) {
-        initialValueItem = initialDataSet?.find(el => el.id === initialValue?.id)
-        if (!initialValueItem) {
-          // set the item as it is if it's not in the list
-          initialValueItem = initialValue
-        }
+      if (initialValueProp && typeof initialValueProp === 'object' && selectedItem?.id !== initialValueProp.id) {
+        setSelectedItem(initialValueProp);
       }
-
-      if (initialValueItem) {
-        setSelectedItem(initialValueItem)
-      }
-    }, [])
+    }, [initialValueProp]);
 
     useEffect(() => {
       return () => {
@@ -496,7 +480,7 @@ export const AutocompleteDropdown = memo<
         style={[styles.container, containerStyle]}>
         <View
           ref={containerRef}
-          onLayout={_ => {}} // it's necessary use onLayout here for Androd (bug?)
+          onLayout={_ => { }} // it's necessary use onLayout here for Androd (bug?)
           style={[styles.inputContainerStyle, inputContainerStyle]}>
           {LeftComponent}
           <Pressable
