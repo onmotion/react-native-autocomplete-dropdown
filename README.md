@@ -264,48 +264,49 @@ yarn android
 
 ## Options
 
-| **Option** 	| **Description** 	                                                                                               | **Type** 	| **Default** 	                                 |
-|---	|-----------------------------------------------------------------------------------------------------------------|---	|-----------------------------------------------|
-| `dataSet` 	| set of list items 	                                                                                             | array 	| null 	                                        |
-| `initialValue` 	| string (**id**) or object that contain **id** 	                                                                 | string \| object 	| null 	                                        |
-| `loading` 	| loading state 	                                                                                                 | bool 	| false 	                                       |
-| `useFilter` 	| whether use local filter by dataSet (useful set to false for remote filtering to prevent rerender twice) 	      | bool 	| true 	                                        |
-| `showClear` 	| show clear button 	                                                                                             | bool 	| true 	                                        |
-| `showChevron` 	| show chevron (open/close) button 	                                                                              | bool 	| true 	                                        |
-| `closeOnBlur` 	| whether to close dropdown on blur 	                                                                             | bool 	| false 	                                       |
-| `closeOnSubmit` 	| whether to close dropdown on submit 	                                                                           | bool 	| false 	                                       |
-| `clearOnFocus` 	| whether to clear typed text on focus 	                                                                          | bool 	| true 	                                        |
-| `caseSensitive`   | whether to perform case-sensitive search 	                                                                          | bool  | false
-| `ignoreAccents` 	| ignore diacritics 	                                                                                             | bool 	| true 	                                        |
-| `trimSearchText` | trim the searched text                                                                                         | bool 	| true 	                                        |
-| `editable` | is textInput editable                                                                                         | bool 	| true 	                                        |
-| `debounce` 	| wait **ms** before call `onChangeText` 	                                                                        | number 	| 0 	                                           |
-| `suggestionsListMaxHeight` 	| max height of dropdown 	                                                                                        | number 	| 200 	                                         |
-| `direction` 	| "up" or "down" 	                                                                                                | string 	| down + auto calculate 	                       |
-| `matchFrom` 	| whether match suggestions from start of titles or anywhere in the title. Possible values are "any" or "start" 	 | string 	| any 	                                         |
-| `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	                                                                | number 	| 0 	                                           |
-| `onChangeText` 	| event textInput onChangeText 	                                                                                  | function 	| 	                                             |
-| `onSelectItem` 	| event onSelectItem 	                                                                                            | function 	| 	                                             |
-| `onOpenSuggestionsList` 	| event onOpenSuggestionsList 	                                                                                   | function 	| 	                                             |
-| `onChevronPress` 	| event onChevronPress 	                                                                                          | function 	| 	                                             |
-| `onClear` 	| event on clear button press 	                                                                                   | function 	| 	                                             |
-| `onSubmit` 	| event on submit KB button press 	                                                                               | function 	| 	                                             |
-| `onBlur` 	| event fired on text input blur 	                                                                                | function 	| 	                                             |
-| `onFocus` 	| event on focus text input 	                                                                                     | function 	| 	                                             |
-| `renderItem` 	| JSX for render item `(item, searchText) => JSX \| null` if return null then the element will not be displayed 	 | function 	| item.title 	                                  |
-| `controller` 	| return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem** 	      | function 	| 	                                             |
-| `containerStyle` 	| 	                                                                                                               | ViewStyle 	| 	                                             |
-| `rightButtonsContainerStyle` 	| 	                                                                                                               | ViewStyle 	| 	                                             |
-| `suggestionsListContainerStyle` 	| 	                                                                                                               | ViewStyle 	| 	                                             |
-| `suggestionsListTextStyle` 	| 	                                                                                                               | TextStyle 	| styles of suggestions list text items 	       |
-| `ChevronIconComponent` 	| 	                                                                                                               | React.Component 	| Feather chevron icon 	                        |
-| `ClearIconComponent` 	| 	                                                                                                               | React.Component 	| Feather x icon 	                              |
-| ~~ScrollViewComponent~~ 	| removed in 2.0.0 based on FlatList 	                                                                            | React.Component name 	| ScrollView that provide suggestions content 	 |
-| `EmptyResultComponent` 	| replace the default `` Component on empty result 	                                                              | React.Component 	| 	                                             |
-| `InputComponent` 	| input element component 	                                                                                       | React.ComponentType 	| TextInput 	                                   |
-| `emptyResultText` 	| replace the default "Nothing found" text on empty result 	                                                      | string 	| "Nothing found" 	                             |
-| `textInputProps` 	| text input props 	                                                                                              | TextInputProps 	| 	                                             |
-| `flatListProps` 	| props for \ component 	                                                                                         | FlatListProps\ 	| 	                                             |
+| Option                         | Description                                                                                                      | Type                | Default                                  |
+|--------------------------------|------------------------------------------------------------------------------------------------------------------|---------------------|------------------------------------------|
+| `dataSet`                      | Set of list items                                                                                                | array               | null                                     |
+| `initialValue`                 | String (**id**) or object that contains **id**                                                                   | string \| object    | null                                     |
+| `loading`                      | Loading state                                                                                                    | bool                | false                                    |
+| `enableLoadingIndicator`       | Whether to show activity indicator on loading                                                                    | bool                | true                                     |
+| `useFilter`                    | Whether to use local filter by dataSet (useful set to false for remote filtering to prevent rerender twice)      | bool                | true                                     |
+| `showClear`                    | Show clear button                                                                                                | bool                | true                                     |
+| `showChevron`                  | Show chevron (open/close) button                                                                                 | bool                | true                                     |
+| `closeOnBlur`                  | Whether to close dropdown on blur                                                                                | bool                | false                                    |
+| `closeOnSubmit`                | Whether to close dropdown on submit                                                                              | bool                | false                                    |
+| `clearOnFocus`                 | Whether to clear typed text on focus                                                                             | bool                | true                                     |
+| `caseSensitive`                | Whether to perform case-sensitive search                                                                         | bool                | false                                    |
+| `ignoreAccents`                | Ignore diacritics                                                                                                | bool                | true                                     |
+| `trimSearchText`               | Trim the searched text                                                                                           | bool                | true                                     |
+| `editable`                     | Is textInput editable                                                                                            | bool                | true                                     |
+| `debounce`                     | Wait **ms** before call `onChangeText`                                                                           | number              | 0                                        |
+| `suggestionsListMaxHeight`     | Max height of dropdown                                                                                           | number              | 200                                      |
+| `direction`                    | "up" or "down"                                                                                                   | string              | down + auto calculate                    |
+| `matchFrom`                    | Whether match suggestions from start of titles or anywhere in the title. Possible values are "any" or "start"    | string              | any                                      |
+| `bottomOffset`                 | For calculate dropdown direction (e.g., tabbar)                                                                  | number              | 0                                        |
+| `onChangeText`                 | Event textInput onChangeText                                                                                     | function            |                                          |
+| `onSelectItem`                 | Event onSelectItem                                                                                               | function            |                                          |
+| `onOpenSuggestionsList`        | Event onOpenSuggestionsList                                                                                      | function            |                                          |
+| `onChevronPress`               | Event onChevronPress                                                                                             | function            |                                          |
+| `onClear`                      | Event on clear button press                                                                                      | function            |                                          |
+| `onSubmit`                     | Event on submit KB button press                                                                                  | function            |                                          |
+| `onBlur`                       | Event fired on text input blur                                                                                   | function            |                                          |
+| `onFocus`                      | Event on focus text input                                                                                        | function            |                                          |
+| `renderItem`                   | JSX for render item `(item, searchText) => JSX \| null` if return null then the element will not be displayed    | function            | item.title                               |
+| `controller`                   | Return reference to module controller with methods **close, open, toggle, clear, setInputText, setItem**         | function            |                                          |
+| `containerStyle`               |                                                                                                                  | ViewStyle           |                                          |
+| `rightButtonsContainerStyle`   |                                                                                                                  | ViewStyle           |                                          |
+| `suggestionsListContainerStyle`|                                                                                                                  | ViewStyle           |                                          |
+| `suggestionsListTextStyle`     |                                                                                                                  | TextStyle           | styles of suggestions list text items    |
+| `ChevronIconComponent`         |                                                                                                                  | React.Component     | Feather chevron icon                     |
+| `ClearIconComponent`           |                                                                                                                  | React.Component     | Feather x icon                           |
+| `EmptyResultComponent`         | Replace the default `Component` on empty result                                                                  | React.Component     |                                          |
+| `InputComponent`               | Input element component                                                                                          | React.ComponentType | TextInput                                |
+| `emptyResultText`              | Replace the default "Nothing found" text on empty result                                                         | string              | "Nothing found"                          |
+| `textInputProps`               | Text input props                                                                                                 | TextInputProps      |                                          |
+| `flatListProps`                | Props for `FlatList` component                                                                                   | FlatListProps       |                                          |
+
 
 ## Usage with a Modal
 

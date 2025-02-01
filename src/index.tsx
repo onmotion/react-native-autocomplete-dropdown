@@ -52,6 +52,7 @@ export const AutocompleteDropdown = memo<
       ignoreAccents = true,
       trimSearchText = true,
       editable = true,
+      enableLoadingIndicator = true,
       matchFrom,
       inputHeight = moderateScale(40, 0.2),
       suggestionsListMaxHeight = moderateScale(200, 0.2),
@@ -524,6 +525,7 @@ export const AutocompleteDropdown = memo<
             onChevronPress={onChevronPress}
             showChevron={showChevron ?? true}
             showClear={showClear ?? (!!searchText || !!selectedItem)}
+            enableLoadingIndicator={enableLoadingIndicator}
             loading={loading}
             buttonsContainerStyle={rightButtonsContainerStyle}
             ChevronIconComponent={ChevronIconComponent}
