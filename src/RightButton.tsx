@@ -58,7 +58,7 @@ export const RightButton: React.FC<RightButtonProps> = memo(
           height: inputHeight,
           ...(buttonsContainerStyle as object),
         }}>
-        {!loading && showClear && (
+        {(!enableLoadingIndicator || !loading) && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
             {ClearIconComponent ?? <XCircle width={18} stroke="#aeb4c6" />}
           </TouchableOpacity>
