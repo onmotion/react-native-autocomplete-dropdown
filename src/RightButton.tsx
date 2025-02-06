@@ -11,6 +11,7 @@ interface RightButtonProps {
   showChevron?: boolean
   showClear?: boolean
   loading?: boolean
+  enableLoadingIndicator?: boolean
   buttonsContainerStyle?: StyleProp<ViewStyle>
   ChevronIconComponent?: React.ReactNode
   ClearIconComponent?: React.ReactNode
@@ -27,6 +28,7 @@ export const RightButton: React.FC<RightButtonProps> = memo(
     showChevron,
     showClear,
     loading,
+    enableLoadingIndicator,
     buttonsContainerStyle,
     ChevronIconComponent,
     ClearIconComponent,
@@ -56,12 +58,12 @@ export const RightButton: React.FC<RightButtonProps> = memo(
           height: inputHeight,
           ...(buttonsContainerStyle as object),
         }}>
-        {!loading && showClear && (
+        {(!enableLoadingIndicator || !loading) && showClear && (
           <TouchableOpacity onPress={onClearPress} style={styles.clearButton}>
             {ClearIconComponent ?? <XCircle width={18} stroke="#aeb4c6" />}
           </TouchableOpacity>
         )}
-        {loading && <ActivityIndicator color="#999" />}
+        {enableLoadingIndicator && loading && <ActivityIndicator color="#999" />}
         {RightIconComponent && (
           <TouchableOpacity onPress={onRightIconComponentPress} style={styles.chevronButton}>
             {RightIconComponent}
