@@ -47,6 +47,7 @@ export interface IAutocompleteDropdownProps {
   position?: 'absolute' | 'relative'
   bottomOffset?: number
   textInputProps?: TextInputProps
+  theme?: 'light' | 'dark'
   onChangeText?: (text: string) => void
   onSelectItem?: (item: AutocompleteDropdownItem | null) => void
   renderItem?: (item: AutocompleteDropdownItem, searchText: string) => React.ReactElement | null
