@@ -461,21 +461,20 @@ export const AutocompleteDropdown = memo<
 
         setContent(
           <Dropdown
-            {...{
-              ...props,
-              direction,
-              inputHeight,
-              dataSet,
-              suggestionsListMaxHeight,
-              renderItem,
-              ListEmptyComponent,
-            }}
+            direction={direction}
+            inputHeight={inputHeight}
+            dataSet={dataSet}
+            suggestionsListMaxHeight={suggestionsListMaxHeight}
+            renderItem={renderItem}
+            ListEmptyComponent={ListEmptyComponent}
+            suggestionsListContainerStyle={props.suggestionsListContainerStyle}
+            flatListProps={props.flatListProps}
+            ItemSeparatorComponent={props.ItemSeparatorComponent}
           />,
         )
       } else {
         setContent(undefined)
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       ListEmptyComponent,
       activeInputContainerRef,
