@@ -475,6 +475,7 @@ export const AutocompleteDropdown = memo<
       } else {
         setContent(undefined)
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
       ListEmptyComponent,
       activeInputContainerRef,
@@ -482,7 +483,9 @@ export const AutocompleteDropdown = memo<
       direction,
       inputHeight,
       isOpened,
-      props,
+      props.suggestionsListContainerStyle,
+      props.flatListProps,
+      props.ItemSeparatorComponent,
       renderItem,
       setContent,
       suggestionsListMaxHeight,
