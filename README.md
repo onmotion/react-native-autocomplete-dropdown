@@ -77,7 +77,7 @@ No additional steps are necessary
 
 ## Usage
 
-Wrap your root component in `AutocompleteDropdownContextProvider` from `react-native-autocomplete-dropdown` as you can see in [example](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/example/App.js)
+Wrap your root component in `AutocompleteDropdownContextProvider` from `react-native-autocomplete-dropdown` as you can see in [example](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/example/App.tsx)
 
 ```js
 <AutocompleteDropdownContextProvider>
