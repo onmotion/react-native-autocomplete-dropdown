@@ -1,5 +1,5 @@
 import type React from 'react'
-import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
+import type { FlatListProps, StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from 'react-native'
 
 export type AutocompleteDropdownItem = {
   id: string
@@ -69,7 +69,7 @@ export interface IAutocompleteDropdownProps {
   LeftComponent?: React.ReactElement
   ClearIconComponent?: React.ReactElement
   InputComponent?: React.ComponentType
-  ItemSeparatorComponent?: React.ComponentType<any> | null
+  ItemSeparatorComponent?: React.ComponentType<unknown> | null
   EmptyResultComponent?: React.ReactElement
   emptyResultText?: string
   flatListProps?: Partial<FlatListProps<AutocompleteDropdownItem>>
