@@ -1,4 +1,3 @@
-import type { MutableRefObject } from 'react'
 import type React from 'react'
 import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
 
@@ -58,7 +57,7 @@ export interface IAutocompleteDropdownProps {
   onBlur?: TextInputProps['onBlur']
   onFocus?: TextInputProps['onFocus']
   controller?:
-    | MutableRefObject<IAutocompleteDropdownRef | null>
+    | React.MutableRefObject<IAutocompleteDropdownRef | null>
     | ((controller: IAutocompleteDropdownRef | null) => void)
   containerStyle?: StyleProp<ViewStyle>
   inputContainerStyle?: StyleProp<ViewStyle>
