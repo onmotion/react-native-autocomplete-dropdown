@@ -461,15 +461,15 @@ export const AutocompleteDropdown = memo<
 
         setContent(
           <Dropdown
-            {...{
-              ...props,
-              direction,
-              inputHeight,
-              dataSet,
-              suggestionsListMaxHeight,
-              renderItem,
-              ListEmptyComponent,
-            }}
+            dataSet={dataSet}
+            direction={direction}
+            flatListProps={props.flatListProps}
+            inputHeight={inputHeight}
+            suggestionsListContainerStyle={props.suggestionsListContainerStyle}
+            suggestionsListMaxHeight={suggestionsListMaxHeight}
+            renderItem={renderItem}
+            ItemSeparatorComponent={props.ItemSeparatorComponent}
+            ListEmptyComponent={ListEmptyComponent}
           />,
         )
       } else {
@@ -482,7 +482,9 @@ export const AutocompleteDropdown = memo<
       direction,
       inputHeight,
       isOpened,
-      props,
+      props.suggestionsListContainerStyle,
+      props.flatListProps,
+      props.ItemSeparatorComponent,
       renderItem,
       setContent,
       suggestionsListMaxHeight,

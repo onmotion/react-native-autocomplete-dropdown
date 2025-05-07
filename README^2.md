@@ -208,7 +208,7 @@ export const RemoteDataSetExample2 = memo(() => {
 
 ```
 
-More examples see at <https://github.com/onmotion/react-native-autocomplete-dropdown/tree/main/example>
+More examples see at <https://github.com/onmotion/react-native-autocomplete-dropdown/tree/2.1.1/example>
 
 Run
 

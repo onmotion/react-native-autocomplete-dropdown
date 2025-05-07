@@ -77,7 +77,7 @@ No additional steps are necessary
 
 ## Usage
 
-Wrap your root component in `AutocompleteDropdownContextProvider` from `react-native-autocomplete-dropdown` as you can see in [example](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/main/example/App.js)
+Wrap your root component in `AutocompleteDropdownContextProvider` from `react-native-autocomplete-dropdown` as you can see in [example](https://github.com/onmotion/react-native-autocomplete-dropdown/blob/3.1.5/example/App.tsx)
 
 ```js
 <AutocompleteDropdownContextProvider>
@@ -245,7 +245,7 @@ export const RemoteDataSetExample2 = memo(() => {
 
 ```
 
-More examples see at <https://github.com/onmotion/react-native-autocomplete-dropdown/tree/main/example>
+More examples see at <https://github.com/onmotion/react-native-autocomplete-dropdown/tree/3.1.5/example>
 
 ## Playground
 
