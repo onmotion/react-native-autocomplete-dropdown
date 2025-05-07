@@ -277,6 +277,7 @@ yarn ios
 | `direction` 	| "up" or "down" 	                                                                                                | string 	| down + auto calculate 	                       |
 | `matchFrom` 	| whether match suggestions from start of titles or anywhere in the title. Possible values are "any" or "start" 	 | string 	| any 	                                         |
 | `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	                                                                | number 	| 0 	                                           |
+| `theme`           | Color scheme. Possible values are "light" or "dark"  | string            |  OS's color scheme                                        |
 | `onChangeText` 	| event textInput onChangeText 	                                                                                  | function 	| 	                                             |
 | `onSelectItem` 	| event onSelectItem 	                                                                                            | function 	| 	                                             |
 | `onOpenSuggestionsList` 	| event onOpenSuggestionsList 	                                                                                   | function 	| 	                                             |

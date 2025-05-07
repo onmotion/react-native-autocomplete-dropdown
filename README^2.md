@@ -239,6 +239,7 @@ npm run ios
 | `direction` 	| "up" or "down" 	| string 	| down + auto calculate 	|
 | `position` 	| "relative" or "absolute" 	| string 	| relative 	|
 | `bottomOffset` 	| for calculate dropdown direction (e.g. tabbar) 	| number 	| 0 	|
+| `theme`           | Color scheme. Possible values are "light" or "dark"  | string            |  OS's color scheme                                        |
 | `onChangeText` 	| event textInput onChangeText 	| function 	|  	|
 | `onSelectItem` 	| event onSelectItem 	| function 	|  	|
 | `onOpenSuggestionsList` 	| event onOpenSuggestionsList 	| function 	|  	|
