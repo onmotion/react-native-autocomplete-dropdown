@@ -16,12 +16,20 @@ export const RemoteDataSetExample = memo((props: Omit<IAutocompleteDropdownProps
       return
     }
     setLoading(true)
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts').then(
-      data =>
-        new Promise(res => {
-          setTimeout(() => res(data.json()), 2000) // imitate of a long response
-        }),
-    )
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(
+        data =>
+          new Promise(res => {
+            setTimeout(() => res(data.json()), 2000) // imitate of a long response
+          }),
+      )
+      .catch(error => {
+        console.error('Error fetching data:', error)
+        throw error
+      })
+      .finally(() => {
+        setLoading(false)
+      })
     const items = (await response) as Record<string, string>[]
 
     const suggestions = items

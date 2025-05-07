@@ -20,6 +20,13 @@ export const RemoteDataSetExample3 = memo(() => {
     }
     setLoading(true)
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+      .catch(error => {
+        console.error('Error fetching data:', error)
+        throw error
+      })
+      .finally(() => {
+        setLoading(false)
+      })
     const items = (await response.json()) as AutocompleteDropdownItem[]
     const suggestions = items
       .filter(item => item.title?.toLowerCase().includes(filterToken))

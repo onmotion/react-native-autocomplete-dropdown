@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useRef, useState } from 'react'
+import type { TextInput } from 'react-native'
 import { Button, Dimensions, Text, View } from 'react-native'
 import type {
   IAutocompleteDropdownRef,
@@ -13,7 +14,7 @@ export const RemoteDataSetExample2 = memo((props: Omit<IAutocompleteDropdownProp
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
   const dropdownController = useRef<IAutocompleteDropdownRef | null>(null)
 
-  const searchRef = useRef(null)
+  const searchRef = useRef<TextInput>(null)
 
   const getSuggestions = useCallback(async (q: string) => {
     const filterToken = q.toLowerCase()
@@ -23,7 +24,15 @@ export const RemoteDataSetExample2 = memo((props: Omit<IAutocompleteDropdownProp
       return
     }
     setLoading(true)
+    console.log('fetching data')
     const response = await fetch('https://jsonplaceholder.typicode.com/posts')
+      .catch(error => {
+        console.error('Error fetching data:', error)
+        throw error
+      })
+      .finally(() => {
+        setLoading(false)
+      })
     const items = (await response.json()) as AutocompleteDropdownItem[]
     const suggestions = items
       .filter(item => item.title?.toLowerCase().includes(filterToken))
@@ -40,7 +49,7 @@ export const RemoteDataSetExample2 = memo((props: Omit<IAutocompleteDropdownProp
   }, [])
 
   const onOpenSuggestionsList = useCallback((isOpened: boolean) => {
-    console.log({ isOpened })
+    console.log('onOpenSuggestionsList cb', { isOpened })
   }, [])
 
   return (
