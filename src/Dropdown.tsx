@@ -6,7 +6,7 @@ import { fadeInDownShort, fadeInUpShort } from './helpers'
 import { theme } from './theme'
 import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './types'
 interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 'ref'> {
-  ListEmptyComponent: JSX.Element
+  ListEmptyComponent: React.ReactElement
   renderItem: ListRenderItem<AutocompleteDropdownItem>
 }
 

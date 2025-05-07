@@ -227,8 +227,7 @@ export const AutocompleteDropdown = memo<
       if (activeControllerRef?.current) {
         controllerRefs?.current.push(activeControllerRef?.current)
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [activeControllerRef, controllerRefs])
 
     const closeAll = useCallback(() => {
       controllerRefs?.current.forEach(c => {
@@ -266,15 +265,13 @@ export const AutocompleteDropdown = memo<
       if (typeof onSelectItemProp === 'function') {
         onSelectItemProp(selectedItem)
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedItem])
+    }, [selectedItem, onSelectItemProp])
 
     useEffect(() => {
       if (typeof onOpenSuggestionsListProp === 'function') {
         onOpenSuggestionsListProp(isOpened)
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isOpened])
+    }, [isOpened, onOpenSuggestionsListProp])
 
     useEffect(() => {
       // renew state on close
@@ -365,6 +362,10 @@ export const AutocompleteDropdown = memo<
         }, debounceDelay),
       [debounceDelay, onTextChange],
     )
+
+    useEffect(() => {
+      return () => debouncedEvent.cancel()
+    }, [debouncedEvent])
 
     const onChangeText = useCallback(
       (text: string) => {
