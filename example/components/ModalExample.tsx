@@ -17,8 +17,8 @@ export const ModalExample = memo(() => {
           <SafeAreaView style={{ flex: 1 }}>
             <KeyboardAvoidingView
               style={{ flex: 1 }}
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-              keyboardVerticalOffset={Platform.select({ ios: 75, default: 0 })}>
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              keyboardVerticalOffset={Platform.select({ ios: 75, default: 60 })}>
               <ScrollView
                 nestedScrollEnabled
                 keyboardDismissMode="on-drag"

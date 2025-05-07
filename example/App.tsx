@@ -38,7 +38,7 @@ const App = () => {
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <KeyboardAvoidingView
           style={styles.scrollContainer}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           enabled>
           <ScrollView
             nestedScrollEnabled
