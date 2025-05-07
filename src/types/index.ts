@@ -1,5 +1,5 @@
 import type React from 'react'
-import type { FlatListProps, StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from 'react-native'
+import type { StyleProp, TextInputProps, TextStyle, ViewStyle, FlatListProps, TextInput } from 'react-native'
 
 export type AutocompleteDropdownItem = {
   id: string
@@ -57,7 +57,7 @@ export interface IAutocompleteDropdownProps {
   onBlur?: TextInputProps['onBlur']
   onFocus?: TextInputProps['onFocus']
   controller?:
-    | React.MutableRefObject<IAutocompleteDropdownRef | null>
+    | React.RefObject<IAutocompleteDropdownRef | null>
     | ((controller: IAutocompleteDropdownRef | null) => void)
   containerStyle?: StyleProp<ViewStyle>
   inputContainerStyle?: StyleProp<ViewStyle>
@@ -69,9 +69,9 @@ export interface IAutocompleteDropdownProps {
   LeftComponent?: React.ReactElement
   ClearIconComponent?: React.ReactElement
   InputComponent?: React.ComponentType
-  ItemSeparatorComponent?: React.ComponentType<unknown> | null
+  ItemSeparatorComponent?: React.ComponentType<any> | null
   EmptyResultComponent?: React.ReactElement
   emptyResultText?: string
   flatListProps?: Partial<FlatListProps<AutocompleteDropdownItem>>
-  ref?: React.LegacyRef<TextInput> | undefined
+  ref?: React.Ref<TextInput>
 }
