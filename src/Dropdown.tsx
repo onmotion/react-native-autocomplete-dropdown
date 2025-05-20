@@ -1,10 +1,10 @@
 import React, { memo, useMemo } from 'react'
 import type { ListRenderItem } from 'react-native'
 import { StyleSheet, FlatList, View, useColorScheme } from 'react-native'
-import * as Animatable from 'react-native-animatable'
-import { fadeInDownShort, fadeInUpShort } from './helpers'
+import Animated from 'react-native-reanimated'
 import { theme as defaultTheme } from './theme'
 import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './types'
+import { FadeInDown, FadeInUp, FadeOutDown, FadeOutUp } from './helpers'
 interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 'ref'> {
   ListEmptyComponent: React.ReactElement
   renderItem: ListRenderItem<AutocompleteDropdownItem>
@@ -30,12 +30,9 @@ export const Dropdown = memo((props: DropdownProps) => {
   }, [styles.itemSeparator])
 
   return (
-    <Animatable.View
-      useNativeDriver
-      animation={direction === 'up' ? fadeInUpShort : fadeInDownShort}
-      easing="ease-out-quad"
-      delay={direction === 'up' ? 150 : 0}
-      duration={150}
+    <Animated.View
+      entering={direction === 'up' ? FadeInUp : FadeInDown}
+      exiting={direction === 'up' ? FadeOutUp : FadeOutDown}
       style={{
         ...styles.listContainer,
         ...(rest.suggestionsListContainerStyle as object),
@@ -52,7 +49,7 @@ export const Dropdown = memo((props: DropdownProps) => {
         ItemSeparatorComponent={ItemSeparatorComponent ?? defaultItemSeparator}
         {...rest.flatListProps}
       />
-    </Animatable.View>
+    </Animated.View>
   )
 })
 
