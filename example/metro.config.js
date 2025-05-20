@@ -2,6 +2,7 @@ const path = require('path')
 const escape = require('escape-string-regexp')
 const { getDefaultConfig } = require('@react-native/metro-config')
 const exclusionList = require('metro-config/src/defaults/exclusionList')
+const { wrapWithReanimatedMetroConfig } = require('react-native-reanimated/metro-config')
 const pak = require('../package.json')
 
 const root = path.resolve(__dirname, '..')
@@ -38,4 +39,4 @@ const config = {
   },
 }
 
-module.exports = config
+module.exports = wrapWithReanimatedMetroConfig(config)
