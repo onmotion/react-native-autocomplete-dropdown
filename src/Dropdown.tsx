@@ -3,7 +3,7 @@ import type { ListRenderItem } from 'react-native'
 import { StyleSheet, FlatList, View, useColorScheme } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import { fadeInDownShort, fadeInUpShort } from './helpers'
-import { theme } from './theme'
+import { theme as defaultTheme } from './theme'
 import type { AutocompleteDropdownItem, IAutocompleteDropdownProps } from './types'
 interface DropdownProps extends Omit<IAutocompleteDropdownProps, 'renderItem' | 'ref'> {
   ListEmptyComponent: React.ReactElement
@@ -21,7 +21,8 @@ export const Dropdown = memo((props: DropdownProps) => {
     theme,
     ...rest
   } = props
-  const themeName = theme || useColorScheme()
+  const systemTheme = useColorScheme()
+  const themeName = theme || systemTheme
   const styles = useMemo(() => getStyles(themeName || 'light'), [themeName])
 
   const defaultItemSeparator = useMemo(() => {
@@ -59,11 +60,11 @@ const getStyles = (themeName: 'light' | 'dark' = 'light') =>
   StyleSheet.create({
     container: {},
     listContainer: {
-      backgroundColor: theme[themeName].suggestionsListBackgroundColor,
+      backgroundColor: defaultTheme[themeName].suggestionsListBackgroundColor,
       width: '100%',
       zIndex: 9,
       borderRadius: 5,
-      shadowColor: theme[themeName || 'light'].shadowColor,
+      shadowColor: defaultTheme[themeName || 'light'].shadowColor,
       shadowOffset: {
         width: 0,
         height: 12,
@@ -76,6 +77,6 @@ const getStyles = (themeName: 'light' | 'dark' = 'light') =>
     itemSeparator: {
       height: 1,
       width: '100%',
-      backgroundColor: theme[themeName || 'light'].itemSeparatorColor,
+      backgroundColor: defaultTheme[themeName || 'light'].itemSeparatorColor,
     },
   })
