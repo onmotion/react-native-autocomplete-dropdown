@@ -146,6 +146,10 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     inputRef.current?.blur()
   }, [])
 
+  const focus = useCallback(() => {
+    inputRef.current?.focus()
+  }, [])
+
   const open = useCallback(async () => {
     if (directionProp) {
       setDirection(directionProp)
@@ -228,7 +232,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
 
   /** expose controller methods */
   useEffect(() => {
-    const methods = activeControllerRef ? { close, blur, open, toggle, clear, setInputText, setItem } : null
+    const methods = activeControllerRef ? { close, blur, focus, open, toggle, clear, setInputText, setItem } : null
     if (activeControllerRef) {
       activeControllerRef.current = methods
     }
@@ -237,7 +241,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     } else if (controller) {
       controller.current = methods
     }
-  }, [blur, clear, close, controller, activeControllerRef, open, setInputText, setItem, toggle])
+  }, [blur, focus, clear, close, controller, activeControllerRef, open, setInputText, setItem, toggle])
 
   useEffect(() => {
     if (selectedItem) {
