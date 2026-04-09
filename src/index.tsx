@@ -96,7 +96,8 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     setDirection,
     controllerRefs,
   } = useContext(AutocompleteDropdownContext)
-  const themeName = props.theme || useColorScheme() || 'light'
+  const systemTheme = useColorScheme()
+  const themeName = props.theme || systemTheme || 'light'
   const styles = useMemo(() => getStyles(themeName), [themeName])
 
   useEffect(() => {

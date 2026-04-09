@@ -1,6 +1,6 @@
 {
     "name": "react-native-autocomplete-dropdown",
-    "version": "5.0.0",
+    "version": "5.1.0",
     "description": "Dropdown Item picker with search and autocomplete (typeahead) functionality for react native",
     "keywords": [
         "react-native",
@@ -66,6 +66,7 @@
         "@react-native/eslint-config": "0.79.2",
         "@react-native/metro-config": "0.79.2",
         "@react-native/typescript-config": "0.79.2",
+        "@release-it/conventional-changelog": "6",
         "@types/jest": "^29.5.13",
         "@types/lodash.debounce": "^4.0.8",
         "@types/react-test-renderer": "^19.0.0",
