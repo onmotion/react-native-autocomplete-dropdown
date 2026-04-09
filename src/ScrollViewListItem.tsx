@@ -12,12 +12,13 @@ interface ScrollViewListItemProps {
   onPress?: () => void
   ignoreAccents?: boolean
   numberOfLines?: number
+  theme?: 'light' | 'dark'
 }
 
 export const ScrollViewListItem: FC<ScrollViewListItemProps> = memo(
-  ({ highlight, title, style, onPress, ignoreAccents, numberOfLines = 2 }) => {
-    const themeName = useColorScheme()
-    const styles = useMemo(() => getStyles(themeName || 'light'), [themeName])
+  ({ highlight, title, style, onPress, ignoreAccents, numberOfLines = 2, theme }) => {
+    const listTheme = theme ?? useColorScheme() ?? 'light'
+    const styles = useMemo(() => getStyles(listTheme), [listTheme])
 
     const titleParts = useMemo(() => {
       let titleHighlighted = ''

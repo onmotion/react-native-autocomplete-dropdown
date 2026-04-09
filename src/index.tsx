@@ -96,7 +96,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     setDirection,
     controllerRefs,
   } = useContext(AutocompleteDropdownContext)
-  const themeName = useColorScheme() || 'light'
+  const themeName = props.theme || useColorScheme() || 'light'
   const styles = useMemo(() => getStyles(themeName), [themeName])
 
   useEffect(() => {
@@ -336,12 +336,13 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
           title={item.title || ''}
           highlight={searchText}
           style={suggestionsListTextStyle}
+          theme={themeName}
           onPress={() => _onSelectItem(item)}
           ignoreAccents={ignoreAccents}
         />
       )
     },
-    [_onSelectItem, customRenderItem, ignoreAccents, searchText, suggestionsListTextStyle],
+    [_onSelectItem, customRenderItem, ignoreAccents, searchText, suggestionsListTextStyle, themeName],
   )
 
   const ListEmptyComponent = useMemo(() => {
@@ -463,6 +464,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
           renderItem={renderItem}
           ItemSeparatorComponent={props.ItemSeparatorComponent}
           ListEmptyComponent={ListEmptyComponent}
+          theme={themeName}
         />,
       )
     } else {
@@ -481,6 +483,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     renderItem,
     setContent,
     suggestionsListMaxHeight,
+    themeName,
   ])
 
   return (
