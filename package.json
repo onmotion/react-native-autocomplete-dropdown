@@ -52,6 +52,7 @@
         "lodash.debounce": "^4.0.8",
         "react-native-animatable": "^1.4.0",
         "react-native-feather": "^1.1.2",
+        "react-native-reanimated": "^3.17.5",
         "react-native-size-matters": "^0.4.2"
     },
     "devDependencies": {
