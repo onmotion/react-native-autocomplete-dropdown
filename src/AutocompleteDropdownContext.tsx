@@ -138,13 +138,13 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
       }}>
       <View
         ref={wrapperRef}
-        style={styles.clickOutsideHandlerArea}
+        style={StyleSheet.absoluteFill}
         onTouchEnd={() => {
           activeControllerRef.current?.close()
           activeControllerRef.current?.blur()
         }}>
-        {children}
       </View>
+      {children}
       {!!content && show && (
         <View
           onLayout={onLayout}
@@ -161,9 +161,6 @@ export const AutocompleteDropdownContextProvider: FC<IAutocompleteDropdownContex
 }
 
 const styles = StyleSheet.create({
-  clickOutsideHandlerArea: {
-    flex: 1,
-  },
   wrapper: {
     position: 'absolute',
   },
