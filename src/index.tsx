@@ -61,6 +61,7 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
     onSubmit: onSubmitProp,
     closeOnSubmit,
     loading: loadingProp,
+    closeOnBlur = false,
     LeftComponent,
     textInputProps,
     showChevron,
@@ -396,11 +397,13 @@ export const AutocompleteDropdown = memo((props: IAutocompleteDropdownProps) => 
 
   const onBlur = useCallback(
     (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
-      if (typeof onBlurProp === 'function') {
-        onBlurProp(e)
+      if (closeOnBlur) {
+        close()
       }
+
+      onBlurProp?.(e)
     },
-    [onBlurProp],
+    [close, closeOnBlur, onBlurProp],
   )
 
   const onSubmit = useCallback(
